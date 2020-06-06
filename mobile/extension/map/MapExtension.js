@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View , StyleSheet} from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
+import MapView,  { PROVIDER_GOOGLE } from 'react-native-maps'
+import Heatmap from 'react-native-maps'
 
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
 
-import CustomButton from '../components/CustomButton';
+import CustomButton from '../../components/CustomButton';
 
-import Colors from '../constants/colors';
+import Colors from '../../constants/colors';
 
 const MapExtension = props => {
 
@@ -23,6 +24,21 @@ const MapExtension = props => {
         latitudeDelta: 0.0522,
         longitudeDelta: 0.0521,
     });
+    
+    const Colors = {
+        red: '#ff0000', // Dark grey
+        green: '#00ff00' // Light grey
+    }
+    
+    const StartPoints = {
+        inicio: 0.1,
+        fim: 1
+    }
+
+    const HeatMapGradient = {
+        colors: Colors,
+        startPoints: StartPoints
+    }
 
      // Get geolocation when component is used
      useEffect(() => {
@@ -62,7 +78,7 @@ const MapExtension = props => {
 
     return (
         <View style={styles.map}>
-            <MapView 
+            <MapView
             provider={PROVIDER_GOOGLE}
             style={styles.map}
             initialRegion={region}
@@ -70,8 +86,20 @@ const MapExtension = props => {
             showsUserLocation= {true}
             showsMyLocationButton={true}
             showsCompass= {true}
-            rotateEnabled={true}
-            />
+            rotateEnabled={true}>
+            <Heatmap 
+                points = {{      
+                    latitude: 38.726608,
+                    longitude: -9.1405415,
+                    weight: 20
+                }}
+                opacity = {1}
+                gradient = {HeatMapGradient}
+              />
+            </MapView>
+
+            
+          
             <CustomButton
                 backgroundColor={Colors.secondary}
                 textColor={Colors.primary}

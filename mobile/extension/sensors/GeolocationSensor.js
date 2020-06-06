@@ -15,41 +15,40 @@ const GeolocationSensor = props => {
     // State to store error message (not used)
     const [errorMessage, setErrorMessage] = useState('');
 
+
     // Get geolocation when component is used
     useEffect(() => {
-        console.log('useeffec');
-        (async () => {
-            // Only gets location once
-            if (location === null)
-                // Get location
-                await getLocationAsync();
-            // Only sends answer if there is data to send
-            if (geocode !== null && location !== null)
-                // Send location data(geocode + lat + long) to form component
-                props.onChange(props.pageIndex, props.index, { ...geocode[0], ...location });
-        })();
+
+        let cancel = false;
+
+        const getLocationAsync = async () => {
+            // Gets permissions
+            let { status } = await Permissions.askAsync(Permissions.LOCATION);
+            if (status !== 'granted') {
+                setErrorMessage('Permission to access location was denied');
+            }
+    
+            // Gets coordinates
+            let location_ = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest });
+            const { latitude, longitude } = location_.coords;
+            await getGeocodeAsync({ latitude, longitude });
+            if (cancel === false) setLocation({ latitude, longitude });
+        };
+
+        const getGeocodeAsync = async (location) => {
+            let geocode_ = await Location.reverseGeocodeAsync(location);
+            if (cancel === false) setGeocode(geocode_);
+        };
+
+        // Get location
+        if (location === null && geocode === null  ) getLocationAsync();
+
+        // Send location data(geocode + lat + long) to form component
+        if (geocode !== null && location !== null) props.onChange(props.pageIndex, props.index, { ...geocode[0], ...location });
+
+        return () => {cancel = true;}
+
     }, [location, geocode]);
-
-    // Get geolocation
-    getLocationAsync = async () => {
-        // Gets permissions
-        let { status } = await Permissions.askAsync(Permissions.LOCATION);
-        if (status !== 'granted') {
-            setErrorMessage('Permission to access location was denied');
-        }
-
-        // Gets coordinates
-        let location = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest });
-        const { latitude, longitude } = location.coords;
-        await getGeocodeAsync({ latitude, longitude });
-        setLocation({ latitude, longitude });
-    };
-
-    // Get geocode
-    getGeocodeAsync = async (location) => {
-        let geocode = await Location.reverseGeocodeAsync(location);
-        setGeocode(geocode);
-    };
 
     // Render dummy view
     return (

@@ -1,19 +1,36 @@
 {
     "pages": [
-     {
-      "name": "page1",
-      "elements": [
-          {
-           "type": "text",
-           "name": "question1"
-          },
-    	{
-        "type": "ext:sensor",
-        "subtype": "geolocation",
-        "name": "Geolocation Sensor"
-        
-    }
-      ]
-     }
+        {
+            "name": "page1",
+            "elements": [
+                {
+                    "type": "text",
+                    "name": "question1"
+                },
+                {
+                    "type": "imagepicker",
+                    "name": "imagepicker title",
+                    "choices": [
+                        {
+                            "value": "Flavoparmelia Caperata",
+                            "imageLink": "http://192.168.1.69:3000/public/Flavoparmelia_caperata_out_2009_arrabida_secil.JPG"
+                        },
+                        {
+                            "value": "Ramalina Fastigiata",
+                            "imageLink": "http://192.168.1.69:3000/public/Ramalina_fastigiata_out_2009_arrabida_secil.JPG"
+                        },
+                        {
+                            "value": "Xanthoria Parietina",
+                            "imageLink": "http://192.168.1.69:3000/public/Xanthoria_parietina_out_2009_arrabida_secil.JPG"
+                        }
+                    ]
+                },
+                {
+                    "type": "ext:sensor",
+                    "subtype": "geolocation",
+                    "name": "Geolocation Sensor"
+                }
+            ]
+        }
     ]
-   }
+}

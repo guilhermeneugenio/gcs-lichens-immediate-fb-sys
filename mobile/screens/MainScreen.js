@@ -6,16 +6,19 @@ import {
     Alert,
     TouchableOpacity, 
     Dimensions,
-    StyleSheet
+    StyleSheet,
+    TouchableWithoutFeedback,
+    Keyboard
+
 } from 'react-native';
 
-import config from '../../extension/config';
-import globalStyles from '../../constants/globalStyles';
-import Colors from '../../constants/colors';
+import config from '../extension/config';
+import globalStyles from '../constants/globalStyles';
+import Colors from '../constants/colors';
 
-import CustomButton from '../CustomButton';
-import UserScreen from './UserScreen';
-import OAuthButtons from '../../extension/OAuthButtons';
+import CustomButton from '../components/CustomButton';
+import MenuScreen from './MenuScreen';
+import OAuthButtons from '../extension/OAuthButtons';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -94,19 +97,21 @@ const MainScreen = props => {
                     <Text style={styles.text}>Not registered yet? </Text>
                     <TouchableOpacity onPress={() => props.navigation.navigate({routeName: 'Register'})}>
                         <Text style={[styles.text, styles.textUnderline]}>Click here!</Text>
-                        </TouchableOpacity>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
     );
 
     if (isLogged)
-        content = <UserScreen navigation={props.navigation} onLogout={changeLoggedState} email={email} />;
+        content = <MenuScreen navigation={props.navigation} onLogout={changeLoggedState} email={email} />;
 
     return (
-        <View style={globalStyles.screen} >
-            {content}        
-        </View>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <View style={globalStyles.screen} >
+                {content}        
+            </View>
+        </TouchableWithoutFeedback>
     );
 };
 

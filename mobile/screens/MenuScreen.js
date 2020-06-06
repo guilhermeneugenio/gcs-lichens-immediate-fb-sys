@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 
 import { View } from 'react-native';
 
-import Colors from '../../constants/colors';
-import config from '../../extension/config';
+import Colors from '../constants/colors';
+import config from '../extension/config';
 
-import CustomButton from '../CustomButton';
+import CustomButton from '../components/CustomButton';
 
-const UserScreen = props => {
+const MenuScreen
+ = props => {
     
     const logout = async () => {
         const res = await fetch(`${config.serverURL}/api/users/logout`,{
@@ -26,8 +27,14 @@ const UserScreen = props => {
     return (
         <View>
             <CustomButton
-                title='Form'
-                onPress={() => props.navigation.navigate({routeName: 'Form', params: {email: props.email}})}
+                title='Profile'
+                onPress={() => props.navigation.navigate({routeName: 'Profile'})}
+                backgroundColor={Colors.primary}
+                textColor={Colors.secondary}
+                />
+            <CustomButton
+                title='Survey'
+                onPress={() => props.navigation.navigate({routeName: 'Survey', params: {email: props.email}})}
                 backgroundColor={Colors.primary}
                 textColor={Colors.secondary}
                 />
@@ -47,4 +54,5 @@ const UserScreen = props => {
     );
 };
 
-export default UserScreen;
+export default MenuScreen
+;

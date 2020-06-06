@@ -12,6 +12,8 @@ const app = express();
 var usersRouter = require('./routes/users');
 var surveysRouter = require('./routes/surveys');
 
+app.use('/public', express.static(__dirname + '/extension/public'));
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());

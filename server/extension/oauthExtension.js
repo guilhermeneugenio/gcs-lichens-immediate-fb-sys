@@ -3,11 +3,14 @@ const {OAuth2Client} = require('google-auth-library');
 var axios = require('axios');
 
 var db = require('../modules/db');
+var cache = require('../modules/cache');
+var config = require('../extension/config');
 
 // Oauth register handler
-const registerHandler = async (accessData) => {
+const registerHandler = async (req, res) => {
+    const accessData = req.body;
     // Check if user logged in 3rd party
-    return oauthHandler(accessData)
+    oauthHandler(accessData)
     .then(async id => {
         if (id !== false) {
             // Find user in the db
@@ -16,7 +19,7 @@ const registerHandler = async (accessData) => {
 
             // If user already exists
             if (repeatedUsers.length > 0) {
-                return 302;
+                res.status(302).send();
             } else {
                 const newUser = {
                     name: accessData.name,
@@ -27,24 +30,27 @@ const registerHandler = async (accessData) => {
                 };
                 // Insert in the DB if it's a new user
                 await users.insertOne(newUser);
-                return 201;
+                res.status(201).send();
             }
-        } else return 404;
+        } else res.status(404).send();
     });
 };
 
 // Oauth login handler
-const loginHandler = async (accessData) => {
-    return oauthHandler(accessData)
+const loginHandler = async (req, res) => {
+    const accessData = req.body;
+    oauthHandler(accessData)
     .then(async id => {
         if (id !== false) {
             // Find user in the db
             const users = await db.loadCollection('users');
             const repeatedUsers = await users.find({oauthId: accessData.user, email: accessData.email}).toArray();
             // If the user was found
-            if (repeatedUsers.length === 1)
-                return {status: 200, type: repeatedUsers[0].type};
-            else return {status: 404, type: ''};
+            if (repeatedUsers.length === 1) {
+                cache.set(String(req.body.email), config.userTimeout);
+                res.status(200).send({type: repeatedUsers[0].type});
+            }
+            else res.status(404).send({type: ''});
         }
     });
 };

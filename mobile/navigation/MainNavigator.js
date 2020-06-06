@@ -1,10 +1,11 @@
 import { createStackNavigator, TransitionSpecs } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 
-import MainScreen from '../components/screens/MainScreen';
-import FormScreen from '../components/screens/FormScreen';
-import ResultsScreen from '../components/screens/ResultsScreen';
-import RegisterScreen from '../components/screens/RegisterScreen';
+import MainScreen from '../screens/MainScreen';
+import SurveyScreen from '../screens/SurveyScreen';
+import ResultsScreen from '../screens/ResultsScreen';
+import RegisterScreen from '../screens/RegisterScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 import Colors from '../constants/colors';
 
@@ -21,14 +22,17 @@ const MainNavigator = createStackNavigator({
     Main: {
         screen: MainScreen
     },
-    Form: {
-        screen: FormScreen
+    Survey: {
+        screen: SurveyScreen
     },
     Results: {
         screen: ResultsScreen
     },
     Register: {
         screen: RegisterScreen
+    },
+    Profile: {
+        screen: ProfileScreen
     }
 }, {
     defaultNavigationOptions: defaultStackNavOptions
