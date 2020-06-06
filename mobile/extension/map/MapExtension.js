@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View , StyleSheet} from 'react-native';
-import MapView,  { PROVIDER_GOOGLE } from 'react-native-maps'
-import Heatmap from 'react-native-maps'
+import MapView,  {Heatmap, PROVIDER_GOOGLE } from 'react-native-maps'
 
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
 
 import CustomButton from '../../components/CustomButton';
-
+import HeatMap from './HeatMap';
 import Colors from '../../constants/colors';
 
 const MapExtension = props => {
@@ -25,20 +24,7 @@ const MapExtension = props => {
         longitudeDelta: 0.0521,
     });
     
-    const Colors = {
-        red: '#ff0000', // Dark grey
-        green: '#00ff00' // Light grey
-    }
-    
-    const StartPoints = {
-        inicio: 0.1,
-        fim: 1
-    }
 
-    const HeatMapGradient = {
-        colors: Colors,
-        startPoints: StartPoints
-    }
 
      // Get geolocation when component is used
      useEffect(() => {
@@ -46,6 +32,7 @@ const MapExtension = props => {
             const permissions = await Permissions.askAsync(Permissions.LOCATION);
             setLocationPermission(permissions.permissions.location.status);
         })();
+      
     }, []);
     
     // Get geolocation
@@ -83,19 +70,13 @@ const MapExtension = props => {
             style={styles.map}
             initialRegion={region}
             onRegionChangeComplete={RegionChangeHandler}
-            showsUserLocation= {true}
+        
             showsMyLocationButton={true}
             showsCompass= {true}
             rotateEnabled={true}>
-            <Heatmap 
-                points = {{      
-                    latitude: 38.726608,
-                    longitude: -9.1405415,
-                    weight: 20
-                }}
-                opacity = {1}
-                gradient = {HeatMapGradient}
-              />
+
+            <HeatMap></HeatMap>
+            
             </MapView>
 
             
