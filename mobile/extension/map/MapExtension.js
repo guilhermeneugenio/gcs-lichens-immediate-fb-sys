@@ -23,8 +23,6 @@ const MapExtension = props => {
         latitudeDelta: 0.0522,
         longitudeDelta: 0.0521,
     });
-    
-
 
      // Get geolocation when component is used
      useEffect(() => {
@@ -35,28 +33,6 @@ const MapExtension = props => {
       
     }, []);
     
-    // Get geolocation
-      getLocationAsync = async () => {
-        // Gets permissions
-        
-        if (locationPermission !== 'granted') {    
-             
-            setErrorMessage('Permission to access location was denied');
-            console.log(errorMessage);
-        }
-        else {
-            // Gets coordinates   
-            await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Highest })
-            .then((data) => {
-                setRegion({
-                    latitude: data.coords.latitude,
-                    longitude: data.coords.longitude,
-                    latitudeDelta: 0.0018,
-                    longitudeDelta: 0.0018,
-                });
-            });      
-        }
-    };
 
     const RegionChangeHandler = props => {
         setRegion(props);
@@ -70,23 +46,12 @@ const MapExtension = props => {
             style={styles.map}
             initialRegion={region}
             onRegionChangeComplete={RegionChangeHandler}
-        
+            showsUserLocation={true}
             showsMyLocationButton={true}
             showsCompass= {true}
             rotateEnabled={true}>
-
             <HeatMap></HeatMap>
-            
             </MapView>
-
-            
-          
-            <CustomButton
-                backgroundColor={Colors.secondary}
-                textColor={Colors.primary}
-                onPress={getLocationAsync}
-                style={{position: 'absolute', bottom: 50, marginLeft:100} }
-            />
         </View>
     );
 };
