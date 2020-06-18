@@ -4,10 +4,6 @@
             "name": "page1",
             "elements": [
                 {
-                    "type": "text",
-                    "name": "question1"
-                },
-                {
                     "type": "imagepicker",
                     "name": "imagepicker title",
                     "choices": [
@@ -22,6 +18,34 @@
                         {
                             "value": "Xanthoria Parietina",
                             "imageLink": "http://192.168.1.69:3000/public/Xanthoria_parietina_out_2009_arrabida_secil.JPG"
+                        },
+                        {
+                            "value": "Chrysothrix Candelaris",
+                            "imageLink": "http://192.168.1.69:3000/public/Chrysothrix_candelaris_jan2013_ParquePaz.JPG"
+                        },
+                        {
+                            "value": "Diploicia Canescens",
+                            "imageLink": "http://192.168.1.69:3000/public/Diploicia_canescens_ParquePaz_jun2020.JPG"
+                        },
+                        {
+                            "value": "Evernia Prunastri",
+                            "imageLink": "http://192.168.1.69:3000/public/Evernia_prunastri_nov2004_Alcochete.JPG"
+                        },
+                        {
+                            "value": "Lecanora Allophana",
+                            "imageLink": "http://192.168.1.69:3000/public/Lecanora_allophana_ParquePaz_jun2020.JPG"
+                        },
+                        {
+                            "value": "Parmotrema Hypoleucinum",
+                            "imageLink": "http://192.168.1.69:3000/public/Parmotrema_hypoleucinum_nov2004_Alcochete.JPG"
+                        },
+                        {
+                            "value": "Physcia Adscendens",
+                            "imageLink": "http://192.168.1.69:3000/public/Physcia_adscendens_jun_2009_malhada_meias.JPG"
+                        },
+                        {
+                            "value": "Usnea Rubicunda",
+                            "imageLink": "http://192.168.1.69:3000/public/Usnea_rubicunda_nov2004_Alcochete.JPG"
                         }
                     ]
                 },
@@ -29,6 +53,10 @@
                     "type": "ext:sensor",
                     "subtype": "geolocation",
                     "name": "Geolocation Sensor"
+                },
+                {
+                    "type": "camera",
+                    "name": "Camera Title"
                 }
             ]
         }

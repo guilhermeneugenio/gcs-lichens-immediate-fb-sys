@@ -128,5 +128,11 @@ router.post('/remove', async (req, res) => {
     });
 });
 
+
+
+router.get('/teste', async (req, res) => {
+  res.status(200).send(100);
+});
+
 // Export router
 module.exports = router;
