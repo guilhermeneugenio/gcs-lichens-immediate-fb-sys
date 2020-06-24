@@ -20,8 +20,23 @@ const storeAnswer = (req) => {
     });
 };
 
+const storePhoto = (req) => {
+    cache.get(req.body.email)
+    .then(async result => {
+        // If user not in cache
+        if (typeof result === 'undefined') res.status(404).send();
+        else {
+            const newPhoto = {
+                base64: req.body.image_data,
+                timestamp: new Date(),
+            };
+            const surveys = await db.loadCollection('answers');
+            await surveys.insertOne(newPhoto);
+        }
+    });
+};
+
 const storeForm = (req) => {
-    
     cache.get(req.body.email)
     .then(async result => {
         // If user not in cache
@@ -32,11 +47,10 @@ const storeForm = (req) => {
             if (json.length > 0){}
                 await surveys.deleteOne({name: json[0].name});
             await surveys.insertOne(JSON.parse(req.body.json));    
-            
-
         }
     });
 };
 
 exports.storeAnswer = storeAnswer;
+exports.storePhoto = storePhoto;
 exports.storeForm = storeForm;

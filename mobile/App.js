@@ -4,6 +4,8 @@ import MainNavigator from './navigation/MainNavigator';
 import { enableScreens } from 'react-native-screens';
 import activationConfig from './config/activationConfig';
 
+
+
 // Under the hood react-navigation uses native optimized components
 enableScreens();
 

@@ -34,6 +34,12 @@ const processAnswer = (req, res) => {
     res.status(200).send({immediateFeedback: 'Thank You!'});
 };
 
+const processPhoto = (req, res) => {
+    dbStorage.storePhoto(req);
+    res.status(200).send();
+};
+
+
 const returnFeedback = (req, res) => {
 
     // Fetch Methods to send bellow
@@ -50,4 +56,5 @@ const returnFeedback = (req, res) => {
 exports.getForm = getForm;
 exports.submitForm = submitForm;
 exports.processAnswer = processAnswer;
+exports.processPhoto = processPhoto;
 exports.returnFeedback = returnFeedback;

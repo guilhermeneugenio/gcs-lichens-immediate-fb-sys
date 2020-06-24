@@ -39,15 +39,23 @@ const FormScreenExtension = props => {
             else
                 Alert.alert('ERROR', 'Form unavailable.');
         })();
-        
-        
-        
     }, []);
     
     
-  
-
     const onSubmit = async (data) => {
+
+        let index = null;
+        let photo = new FormData();
+        data.map((d, i) => {
+            if (d.type === 'camera') {
+               
+                photo.append("image_data", d.value);
+                photo.append("email", props.navigation.state.params.email);
+                index = i;
+                d.value = '';
+            }
+        });
+
         const res = await fetch(`${config.serverURL}/api/surveys/answer`,{
             method: 'POST',
             headers: {
@@ -59,8 +67,23 @@ const FormScreenExtension = props => {
             })
         });
 
+        
+        if(index !== null){
+            const resPhoto = await fetch(`${config.serverURL}/api/surveys/answerPhoto`,{
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'multipart/form-data',
+                },
+                body: photo
+            });
+        };
+
+
+
         // Notifications Handler: receives info from the config file
-        FeedbackHandler(config.serverURL, config.notificationsInterval, config.notificationsTimeout);
+
+        //FeedbackHandler(config.serverURL, config.notificationsInterval, config.notificationsTimeout);
 
         const feedback = await res.json();
 
