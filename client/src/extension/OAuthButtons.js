@@ -16,7 +16,7 @@ const OAuthButtons = props => {
     
     // Send user params to server to login/register
     const oauthServerConnection = (params) => {
-        axios.post(`${config.serverURL}/api/users/oauth/${props.method}`, params)
+        axios.post(`${config.serverURL}/api/oauth/${props.method}`, params)
         .then(res => {
             console.log(res);
             // If login set session state parameters
@@ -44,19 +44,17 @@ const OAuthButtons = props => {
         // If google login window closed by user
         if ('error' in response)
             if(response.error === 'popup_closed_by_user')
-                return;
-
+                return;   
         // Get user info from google response
         const params = {
             'platform': 'google',
             'id': config.credentials.google.clientId,
             'token': response.tokenId,
-            'user': response.Ca,
-            'name': response.Rt.Ad,
-            'email': response.Rt.Au,
+            'user': response.profileObj.givenName,
+            'name': response.profileObj.name,
+            'email': response.profileObj.email,
             'type': 'pending'
         };
-
         // Login or register user with server
         oauthServerConnection(params);
     };

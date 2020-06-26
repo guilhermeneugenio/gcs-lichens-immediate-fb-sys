@@ -27,7 +27,10 @@ app.get('/:uid', (req, res) => {
     .then(result => {
         if (typeof result === 'undefined') res.status(404).send();
         else res.status(200).send();
-    });
+    })
+    .catch(err =>{
+        res.status(404).send(err)
+    })
 });
 
 //Choose port

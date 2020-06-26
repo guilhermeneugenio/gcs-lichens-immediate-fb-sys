@@ -12,9 +12,19 @@ const Header = props => {
 
     // If user is logged
     if (props.isLogged) {
-        content = (
-            <Link to="/logout" style={styles.link}>Logout</Link>
-        );
+        if(props.userType === "researcher"){
+            content = (
+                <React.Fragment>
+                    <Link to="/uploadjson" style={styles.link}>Upload JSON</Link> | <Link to="/logout" style={styles.link}>Logout</Link>
+                </React.Fragment>
+            );            
+        }
+        else
+            content = (
+                <Link to="/logout" style={styles.link}>Logout</Link>
+            );
+    
+
     }
      
     return (

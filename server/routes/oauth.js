@@ -11,6 +11,7 @@ router.post('/login', async (req, res) => {
 
 // Register user with oauth
 router.post('/register', async (req, res) => {
+  console.log("heyyyy");
     oauthExtension.registerHandler(req, res);
   });
 

@@ -23,6 +23,15 @@ router.post('/answerPhoto', upload.single(), async (req, res) => {
     surveyExtension.processPhoto(req, res);
 });
 
+router.post('/rawData', async (req, res) => {
+    surveyExtension.getData(req, res);
+});
+
+router.post('/removeData', async (req, res) => {
+    surveyExtension.removeData(req, res);
+});
+
+
 
 router.post('/feedback', async (req, res) => {
     surveyExtension.returnFeedback(req, res);
