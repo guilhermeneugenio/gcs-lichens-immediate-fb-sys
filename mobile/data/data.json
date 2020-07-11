@@ -7,6 +7,11 @@
                     "type": "camera",
                     "name": "Camera Title"
                 }
+                {
+                    "type": "ext:sensor",
+                    "subtype": "geolocation",
+                    "name": "Geolocation Sensor"
+                }
             ]
         }
     ]

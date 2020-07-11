@@ -9,7 +9,7 @@ const config = {
             appId: "534270243959641"
         }
     },
-    serverURL: 'http://192.168.0.101:3000',
+    serverURL: 'http://192.168.1.253:3000',
     // In ms
     notificationsInterval: 5000,
     // Number of calls

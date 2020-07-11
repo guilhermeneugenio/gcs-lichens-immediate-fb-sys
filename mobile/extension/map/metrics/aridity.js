@@ -4,16 +4,7 @@ export const Aridity_Gradient = {
     colorMapSize: 100
 }
 
-export async function Aridity_Points (arg) {
-
-    const res = await fetch(`http://192.168.1.7:3000/api/users/teste`,{
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    });
-
-    console.log(res);
+export function Aridity_Points (arg) {
 
     return(
         [

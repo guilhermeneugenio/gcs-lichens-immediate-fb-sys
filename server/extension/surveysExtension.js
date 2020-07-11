@@ -9,10 +9,14 @@ const getForm = (req, res) => {
     cache.get(req.body.email)
     .then(async result => {
         // If user not in cache
-        if (typeof result === 'undefined') res.status(404).send();
-        else res.status(200).send(await db.getDocument('surveys'));
+        if (typeof result === 'undefined') res.status(404).send();     
+        else {
+            const json = await db.getDocument('surveys')
+            res.status(200).send(json[0]);
+        } 
     });
 };
+
 
 const getData = (req, res) => {
     // Check cache

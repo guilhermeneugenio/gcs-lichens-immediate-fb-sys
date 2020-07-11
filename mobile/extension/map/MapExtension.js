@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View , StyleSheet} from 'react-native';
-import MapView,  {Heatmap, PROVIDER_GOOGLE } from 'react-native-maps'
+import MapView,  { PROVIDER_GOOGLE } from 'react-native-maps'
 
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
