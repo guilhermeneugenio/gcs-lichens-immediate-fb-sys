@@ -22,8 +22,7 @@ var loadCollection = async (collection) => {
 var insertDocument = async (collectionName, newDocument) => {
     const collection = await loadCollection(collectionName);
     const dID = await collection.insertOne(newDocument);
-
-    return dID.ops[0]._id;
+    return dID.ops[0];
 };
 
 var getDocument = async (collectionName, search) => {
@@ -33,7 +32,7 @@ var getDocument = async (collectionName, search) => {
 
 var updateDocument = async (collectionName, search, newDocument) => {
     const collection = await loadCollection(collectionName);
-    await collection.updateOne(search, {$set: newDocument});
+    await collection.updateOne(search, {$set: newDocument}, {upsert: true});
 };
 
 var deleteDocument = async (collectionName, search) => {

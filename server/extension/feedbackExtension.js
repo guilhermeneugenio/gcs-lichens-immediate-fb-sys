@@ -5,10 +5,10 @@ const immediateFeedback = () => {
     console.log('immediateFeedback');
 };
 
-const diffFeedback = () => {
+const diffFeedback = (newInput) => {
     console.log('diffFeedback');
     diffFeedbacksArray.feedbacks.map(feedback => {
-        feedback.module();
+        feedback.module(newInput);
     });
 };
 

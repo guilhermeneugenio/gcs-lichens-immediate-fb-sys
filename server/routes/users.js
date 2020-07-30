@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
   cache.get(req.body.adminEmail)
   .then(async result => {
     // If user not in cache
-    if (typeof result === 'undefined') res.status(404).send();
+    if (typeof result === 'undefined') res.status(403).send();
     else res.status(200).send(await db.getDocument('users'));
     });
 });
@@ -86,7 +86,7 @@ router.post('/changeType', async (req, res) => {
   cache.get(req.body.adminEmail)
     .then(async result => {
       // Check if admin is in the cache
-      if (typeof result === 'undefined') res.status(404).send();
+      if (typeof result === 'undefined') res.status(403).send();
       else {
         // Search and updtate type for user with same email
         await db.updateDocument('users',{ email: req.body.email }, { $set: { type: req.body.type } })
@@ -100,7 +100,7 @@ router.post('/remove', async (req, res) => {
   cache.get(req.body.adminEmail)
     .then(async result => {
       // Check if admin is in the cache
-      if (typeof result === 'undefined') res.status(404).send();
+      if (typeof result === 'undefined') res.status(403).send();
       else {
         // Check if admin pasword correct
         for (admin of config.admin) {

@@ -52,11 +52,6 @@ const submitForm = (req, res) => {
 };
 
 const processAnswer = (req, res) => {
-    // Immediate Feedback
-    feedback.immediateFeedback();
-    // Differenciated Feedback
-    feedback.diffFeedback();
-    // Database storage
     cache.get(req.body.email)
     .then(async result => {
         // If user not in cache
@@ -67,9 +62,15 @@ const processAnswer = (req, res) => {
                 timestamp: new Date(),
                 data: req.body.answer
             };
-            db.insertDocument('answers',newSurvey)
+           await db.insertDocument('answers',newSurvey).then(result => {feedback.diffFeedback(result)})
         }
     });
+
+    // Immediate Feedback
+    feedback.immediateFeedback();
+    
+    // Database storage
+
     res.status(200).send({immediateFeedback: 'Thank You!'});
 };
 
