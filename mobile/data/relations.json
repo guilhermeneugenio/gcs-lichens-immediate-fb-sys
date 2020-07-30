@@ -1,0 +1,116 @@
+{
+    "lichens": [
+        {
+            "lichen": "Flavoparmelia Caperata",
+            "metrics": {
+                "aridity": 3,
+                "eutrophication": 4,
+                "poleotolerance": 2
+            }    
+        },
+        {
+            "lichen": "Ramalina Fastigiata",
+            "metrics": {
+                "aridity": 3,
+                "eutrophication": 3,
+                "poleotolerance": 2
+            }    
+        },
+        {
+            "lichen": "Xanthoria Parietina",
+            "metrics": {
+                "aridity": 4,
+                "eutrophication": 4,
+                "poleotolerance": 3
+            }    
+        },
+        {
+            "lichen": "Chrysothrix Candelaris",
+            "metrics": {
+                "aridity": 3,
+                "eutrophication": 1,
+                "poleotolerance": 2
+            }    
+        },
+        {
+            "lichen": "Diploicia Canescens",
+            "metrics": {
+                "aridity": 3,
+                "eutrophication": 4,
+                "poleotolerance": 2
+            }    
+        },
+        {
+            "lichen": "Evernia Prunastri",
+            "metrics": {
+                "aridity": 3,
+                "eutrophication": 3,
+                "poleotolerance": 2
+            }    
+        },
+        {
+            "lichen": "Lecanora Allophana",
+            "metrics": {
+                "aridity": 4,
+                "eutrophication": 3,
+                "poleotolerance": 2
+            }    
+        },
+        {
+            "lichen": "Parmotrema Hypoleucinum",
+            "metrics": {
+                "aridity": 2,
+                "eutrophication": 2,
+                "poleotolerance": 1
+            }    
+        },
+        {
+            "lichen": "Physcia Adscendens",
+            "metrics": {
+                "aridity": 4,
+                "eutrophication": 5,
+                "poleotolerance": 3
+            }    
+        },
+        {
+            "lichen": "Usnea Rubicunda",
+            "metrics": {
+                "aridity": 2,
+                "eutrophication": 2,
+                "poleotolerance": 0
+            }    
+        },
+        {
+            "lichen": "Phaeophyscia Orbicularis",
+            "metrics": {
+                "aridity": 4,
+                "eutrophication": 5,
+                "poleotolerance": 3
+            }    
+        },
+        {
+            "lichen": "Hyperphyscia Adglutinata",
+            "metrics": {
+                "aridity": 4,
+                "eutrophication": 5,
+                "poleotolerance": 3
+            }    
+        },
+        {
+            "lichen": "Candelaria Concolor",
+            "metrics": {
+                "aridity": 4,
+                "eutrophication": 5,
+                "poleotolerance": 3
+            }    
+        },
+        {
+            "lichen": "Dendrographa Decolorans",
+            "metrics": {
+                "aridity": 2,
+                "eutrophication": 3,
+                "poleotolerance": 2
+            }    
+        }
+    ]
+}
