@@ -6,7 +6,7 @@ import DataList from '../components/DataList';
 import config from '../extension/config';
 import MainButton from '../components/MainButton';
 
-const ResearcherExtension = props => {
+const ResearcherPageExtension = props => {
 
     
     // User list state
@@ -95,5 +95,5 @@ const ResearcherExtension = props => {
     );
 };
 
-export default ResearcherExtension;
+export default ResearcherPageExtension;
     
