@@ -51,7 +51,7 @@ const submitForm = (req, res) => {
     res.status(200).send();
 };
 
-const processAnswer = (req, res) => {
+const processData = (req, res) => {
     cache.get(req.body.email)
     .then(async result => {
         // If user not in cache
@@ -104,6 +104,6 @@ exports.getForm = getForm;
 exports.getData = getData;
 exports.removeData= removeData;
 exports.submitForm = submitForm;
-exports.processAnswer = processAnswer;
+exports.processData = processData;
 exports.processPhoto = processPhoto;
 exports.returnFeedback = returnFeedback;

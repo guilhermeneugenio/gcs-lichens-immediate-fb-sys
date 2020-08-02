@@ -9,8 +9,7 @@ import CustomButton from '../components/CustomButton';
 
 import dictionary from '../data/dictionary.json';
 
-const MenuScreen
- = props => {
+const MenuScreen = props => {
     
     const logout = async () => {
         const res = await fetch(`${config.serverURL}/api/users/logout`,{

@@ -36,7 +36,8 @@ const MapExtension = props => {
 
     const RegionChangeHandler = props => {
         setRegion(props);
-        console.log(region);
+        // prints new region dragged by user
+        //console.log(region);
     }
 
     return (
