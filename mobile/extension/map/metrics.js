@@ -1,5 +1,3 @@
-
-
 export const Aridity_Gradient = {
     colors: ["mistyrose" , "red" ],
     startPoints: [0.01, 1],

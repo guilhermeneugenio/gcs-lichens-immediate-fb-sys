@@ -1,0 +1,44 @@
+{
+    "en": { 
+        "OAUTH_LOGIN": "Login with",
+        "OAUTH_REGISTER": "Register w/",
+        "LOGIN_ERROR": "Something went wrong with the login.",
+        "REGISTER_ERROR": "Something went wrong with the registration."
+    },
+    "pt": {
+        "OAUTH_LOGIN": "Entrar com",
+        "OAUTH_REGISTER": "Registar c/",
+        "LOGIN_ERROR": "Algo correu mal com o login.",
+        "REGISTER_ERROR": "Algo correu mal com o registo."
+    },
+    "ru": {
+        "OAUTH_LOGIN": "Зайдите в учетную запись, используя",
+        "OAUTH_REGISTER": "Зарегистрироваться",
+        "LOGIN_ERROR": "Что-то пошло не так с логином.",
+        "REGISTER_ERROR": "Что-то пошло не так с регистрацией."
+    },
+    "fr": {
+        "OAUTH_LOGIN": "Connectez-vous avec",
+        "OAUTH_REGISTER": "Inscrivez-vous avec",
+        "LOGIN_ERROR": "Une erreur s'est produite lors de la connexion.",
+        "REGISTER_ERROR": "Une erreur s'est produite lors de l'enregistrement."
+    },
+    "it": {
+        "OAUTH_LOGIN": "Entra con",
+        "OAUTH_REGISTER": "Registrati con",
+        "LOGIN_ERROR": "Si è verificato un errore durante l'accesso.",
+        "REGISTER_ERROR": "Qualcosa è andato storto con la registrazione."
+    },
+    "de": {
+        "OAUTH_LOGIN": "Einloggen mit",
+        "OAUTH_REGISTER": "Registrieren mit",
+        "LOGIN_ERROR": "Beim Login ist ein Fehler aufgetreten.",
+        "REGISTER_ERROR": "Bei der Registrierung ist ein Fehler aufgetreten."
+    },
+    "es": {
+        "OAUTH_LOGIN": "Inicia con",
+        "OAUTH_REGISTER": "Registrar con",
+        "LOGIN_ERROR": "Algo salió mal con el inicio de sesión.",
+        "REGISTER_ERROR": "Algo salió mal con el registro."
+    }
+}
