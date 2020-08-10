@@ -119,7 +119,7 @@ const abundanceAnalyzer=() => {
     }
   }
 
-  auxOptions[lichenID] = value 
+  auxOptions[lichenID] = value - newValueUpdater
   setOptions(auxOptions);
 }
 

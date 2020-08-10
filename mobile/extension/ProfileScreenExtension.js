@@ -1,9 +1,17 @@
 import React from 'react';
 import { View} from 'react-native';
 
+
+import globalStyles from '../constants/globalStyles';
+import profileStyles from './style/profileStyles';
+
 const ProfileScreenExtension = props => {
     return (
-        <View></View>
+        <View style={globalStyles.screen}>
+         <View style={globalStyles.formContainer}>
+
+        </View>
+    </View>
     );
 };
 

@@ -1,6 +1,6 @@
 export const Aridity_Gradient = {
     colors: ["mistyrose" , "red" ],
-    startPoints: [0.01, 1],
+    startPoints: [0.01, 1.0],
     colorMapSize: 100
 }
 export const Eutrophication_Gradient = {

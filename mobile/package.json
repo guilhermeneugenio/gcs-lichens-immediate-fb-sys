@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.5",
+    "@react-native-community/toolbar-android": "0.1.0-rc.2",
     "expo": "~36.0.0",
     "expo-cli": "^3.11.9",
     "expo-facebook": "^8.0.0",
@@ -22,10 +23,10 @@
     "react-native-maps": "0.26.1",
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
+    "react-native-vector-icons": "^7.0.0",
     "react-navigation": "^4.2.2",
     "react-navigation-stack": "^2.2.3"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "private": true
 }
