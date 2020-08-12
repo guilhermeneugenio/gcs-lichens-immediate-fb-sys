@@ -59,7 +59,7 @@ const MapExtension = props => {
     
                     setAridity(ari_points)
                     setEutrophication(eut_points)
-                    setPoleotolerance(pol_points)
+                    setPoleotolerance(ari_points)
                 })
             }
         })();
@@ -86,17 +86,21 @@ const MapExtension = props => {
             style={styles.map}
             initialRegion={region}
             onRegionChangeComplete={RegionChangeHandler}
-            showsUserLocation={true}
+            //showsUserLocation={true}
             showsMyLocationButton={true}
-            showsCompass= {true}
+            //showsCompass= {true}
             rotateEnabled={true}>
 
             <Heatmap aridity={aridity} eutrophication={eutrophication} poleotolerance={poleotolerance} metric={metric}></Heatmap>
-
+            </MapView>            
+            <View style={{  width: '100%', height:30, top: 30,  backgroundColor: 'rgba(17,140,17,0.4)'}}></View>
+            <Text style={styles.title}>{metric}</Text>
             <TouchableOpacity onPress={metricsButton} 
                          style={{position: 'absolute',
                         bottom: 115,
                         right: 10,
+                        alignItems: 'center',
+                         justifyContent: 'center',
                         //for center align
                         width: 55,
                         height: 55,
@@ -107,23 +111,9 @@ const MapExtension = props => {
                         shadowOffset: {
                             width: 0,
                             height: 3},
-                        shadowOpacity:'0.25%',
-                        justifyContent: 'center',
-                        alignItems: 'center'}}>
-                <FontAwesome5 style={{position:'relative'}} name={'layer-group'} size={20} color={Colors.primary} />     
+                        shadowOpacity:'0.25%'}}>
+                        <FontAwesome5  name={'layer-group'} size={20} color={Colors.primary} /> 
             </TouchableOpacity>
-            
-            <View style={{      
-         alignItems: 'center', justifyContent:'flex-start'}}>
-             <View style={{  width: '100%', height:30, top: 30, justifyContent:'center', alignItems: "center", backgroundColor: 'rgba(17,140,17,0.5)', 
-         flexDirection: 'row'}}>
-                <Text style={(metric == 'Aridity')? styles.textActive : styles.text}>Aridity</Text>
-                <Text style={(metric == 'Eutrophication')? styles.textActive : styles.text}>Eutrophication</Text>
-                <Text style={(metric == 'Poleotolerance')? styles.textActive : styles.text}>Poleotolerance</Text>
-            </View>
-
-            </View>
-            </MapView>
         </View>
     );
 };
@@ -137,15 +127,11 @@ const styles = StyleSheet.create({
         height: 100,
         borderRadius: 100/2,
     },
-    text: {color:'white',
-    fontSize: 12, 
-    paddingHorizontal: 20,
-    opacity: 0.8
-},
-
-    textActive: {color:'white',
+    title: {color:'white',
      fontSize: 12, 
-     paddingHorizontal: 20,
+     position: 'absolute',
+     alignSelf: 'center',
+     top: 38,
       fontWeight: 'bold', 
       opacity: 1 }
   });
