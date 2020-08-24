@@ -86,7 +86,7 @@ const MapExtension = props => {
             style={styles.map}
             initialRegion={region}
             onRegionChangeComplete={RegionChangeHandler}
-            //showsUserLocation={true}
+            showsUserLocation={true}
             showsMyLocationButton={true}
             //showsCompass= {true}
             rotateEnabled={true}>

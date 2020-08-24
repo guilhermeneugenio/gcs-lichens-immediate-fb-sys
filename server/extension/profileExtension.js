@@ -17,7 +17,7 @@ const editProfile = async (req, res) => {
     // If user not in cache
         if (typeof result === 'undefined') res.status(403).send();
         else{
-            await db.updateDocument('users', { email: req.body.email }, {base64: req.body.base64}) 
+            await db.updateDocument('users', { email: req.body.email }, {base64: req.body.base64, name: req.body.name }) 
             res.status(200).send();
         }     
     });
