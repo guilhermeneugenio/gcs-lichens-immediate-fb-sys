@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 
 import {Form} from 'react-native-json-forms';
-import FeedbackHandler from './FeedbackHandler';
 import config from './config';
 import FormExtension from './FormExtension';
 
@@ -78,12 +77,6 @@ const FormScreenExtension = props => {
                 body: photo
             });
         };
-
-
-
-        // Notifications Handler: receives info from the config file
-
-        //FeedbackHandler(config.serverURL, config.notificationsInterval, config.notificationsTimeout);
 
         const feedback = await res.json();
 

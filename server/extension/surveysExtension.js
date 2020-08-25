@@ -1,10 +1,19 @@
-var ObjectId = require('mongodb').ObjectID;
+/* 
+ * surveysExtension
+ * Description : Functions that extend the surveys endpoints
+ * should implement functions to get the surveys,
+ * process answers, get feedback from the answer, submit new
+ * surveys to the system and get info about the system to
+ * help answer the survey.
+ */
 
+// Imports
+var ObjectId = require('mongodb').ObjectID;
 var db = require('../modules/db');
 var cache = require('../modules/cache');
-var feedback = require('./feedbackExtension');
+var feedback = require('../modules/feedback');
 
-const getForm = (req, res) => {
+const getSurvey = (req, res) => {
     // Check cache
     cache.get(req.body.email)
     .then(async result => {
@@ -74,8 +83,8 @@ const processData = (req, res) => {
     res.status(200).send({immediateFeedback: 'Thank You!'});
 };
 
-const processPhoto = (req, res) => {
-    cache.get(req.body.email)
+const processImage = (req, res) => {
+    /*cache.get(req.body.email)
     .then(async result => {
         // If user not in cache
         if (typeof result === 'undefined') res.status(404).send();
@@ -87,7 +96,7 @@ const processPhoto = (req, res) => {
             db.insertDocument('answers', newPhoto)
         }
     });
-    res.status(200).send();
+    res.status(200).send();*/
 };
 
 
@@ -100,10 +109,10 @@ const returnFeedback = (req, res) => {
         res.status(200).send();
 };
 
-exports.getForm = getForm;
+exports.getSurvey = getSurvey;
 exports.getData = getData;
 exports.removeData= removeData;
 exports.submitForm = submitForm;
 exports.processData = processData;
-exports.processPhoto = processPhoto;
+exports.processImage = processImage;
 exports.returnFeedback = returnFeedback;

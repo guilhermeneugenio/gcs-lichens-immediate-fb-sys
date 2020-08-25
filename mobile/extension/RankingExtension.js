@@ -1,13 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, KeyboardAvoidingView} from 'react-native';
-
-import config from './config';
-import * as ImagePicker from 'expo-image-picker';
-import CustomButton from '../components/CustomButton';
-import * as Permissions from 'expo-permissions';
-import globalStyles from '../constants/globalStyles';
-
-import { MaterialIcons } from '@expo/vector-icons'; 
+import React, {useState} from 'react';
+import { View, Text, ImageBackground} from 'react-native';
 
 const RankingExtension = props => {
 
@@ -22,7 +14,7 @@ return (
     <View style={{alignItems:'center'}}>
         <ImageBackground 
         imageStyle={{ borderRadius: 60/2 }} style={{ width: 60, height: 60, marginBottom:10}}
-        source={{ uri: 'http://192.168.0.101:3000/public/'+ rankingLevel + '.png' }} ></ImageBackground>
+        source={{ uri: 'http://192.168.140.209:3000/public/'+ rankingLevel + '.png' }} ></ImageBackground>
         <Text style={{color: 'white', fontWeight: 'bold'}}>{rankingLevel}</Text> 
         <Text style={{color: Colors.secondary, fontSize: 11}}>Points : {props.ranking} </Text> 
     </View>
