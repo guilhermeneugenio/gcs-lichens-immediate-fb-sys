@@ -11,7 +11,8 @@ import {
     Image,
     Text,
     SafeAreaView,
-    TouchableOpacity
+    TouchableOpacity,
+    KeyboardAvoidingView
 } from 'react-native';
 
 import globalStyles from '../constants/globalStyles';
@@ -94,8 +95,13 @@ const RegisterScreen = props => {
      * RENDER
      ************************************************/
     return (
+
         <SafeAreaView style={globalStyles.androidSafeArea}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS == "ios" ? "padding" : "height"}
+                style={{ flex: 1}}
+                keyboardVerticalOffset={windowHeight*0.6}>
                 <View style={styles.container}>
                     
                     <TouchableOpacity onPress={() => props.navigation.pop()} style={globalStyles.backButton}>
@@ -106,7 +112,7 @@ const RegisterScreen = props => {
                         <Image style={styles.image} source={require('../assets/landing_logo.png')} />
                     </View>
 
-                    <View style={styles.oauthContainer}>
+                    <View style={{...styles.oauthContainer, alignItems:'center'}}>
                         <OAuthButtons method={'register'} navigation={props.navigation} language={props.navigation.state.params.language}/>
                     </View>
 
@@ -157,15 +163,17 @@ const RegisterScreen = props => {
 
                     </View>
                 </View>
-
+                </KeyboardAvoidingView>
             </TouchableWithoutFeedback>
         </SafeAreaView>
+        
     );
 };
 
 const styles= StyleSheet.create({
     container: {
         ...globalStyles.screen,
+        flex:1,
         justifyContent: 'flex-start'
     },
     input: {
@@ -217,8 +225,9 @@ const styles= StyleSheet.create({
         alignItems: 'center'
     },
     registerButtonContainer: {
-        flex: 1, 
-        justifyContent: 'center'
+        position: 'absolute',
+        justifyContent: 'center',
+        marginTop: '60%'
     }
 });
 

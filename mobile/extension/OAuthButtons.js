@@ -15,13 +15,14 @@ import * as Facebook from 'expo-facebook';
 import * as Google from 'expo-google-app-auth';
 
 import config from './config';
+import globalStyles from '../constants/globalStyles';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const OAuthButtons = props => {
 
-  let method = 'Login with';
+  let method = '';
   if (props.method === 'register') method = 'Register w/';
 
   const oauthServerConnection = async (params) => {
@@ -117,22 +118,26 @@ const OAuthButtons = props => {
 
   return (
     <View>
-      <View style={styles.buttonContainer}>
-        <ButtonComponent activeOpacity={0.6} onPress={googleResponse}>
-          <View style={[styles.button, styles.googleButton]}>
-            <Image style={styles.icon} source={require('../assets/google.jpeg')} />
-            <Text style={styles.googleButtonText}>{method} Google</Text>
-          </View>
-        </ButtonComponent>
+      <View style={globalStyles.shadow}>
+        <View style={{...styles.buttonContainer, borderColor: '#3b5998'}}>
+          <ButtonComponent activeOpacity={0.6} onPress={googleResponse}>
+            <View style={[styles.button, styles.googleButton]}>
+              <Image style={styles.icon} source={require('../assets/google.jpeg')} />
+              <Text style={styles.googleButtonText}>{method} Google</Text>
+            </View>
+          </ButtonComponent>
+        </View>
       </View>
 
-      <View style={styles.buttonContainer}>
-        <ButtonComponent activeOpacity={0.6} onPress={facebookResponse}>
-          <View style={[styles.button, styles.facebookButton]}>
-            <Image style={styles.icon} source={require('../assets/facebook.svg')} />
-            <Text style={styles.facebookButtonText}>{method} Facebook</Text>
-          </View>
-        </ButtonComponent>
+      <View style={globalStyles.shadow}>
+        <View style={{...styles.buttonContainer, borderColor: '#3b5998'}}>
+          <ButtonComponent activeOpacity={0.6} onPress={facebookResponse}>
+            <View style={[styles.button, styles.facebookButton]}>
+              <Image style={styles.icon} source={require('../assets/facebook.svg')} />
+              <Text style={styles.facebookButtonText}>{method} Facebook</Text>
+            </View>
+          </ButtonComponent>
+        </View>
       </View>
     </View>
   );

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, KeyboardAvoidingView} from 'react-native';
+import { View, Text, TextInput, Keyboard, TouchableOpacity, ImageBackground, KeyboardAvoidingView, SafeAreaView, Image, Dimensions, TouchableWithoutFeedback} from 'react-native';
 
 import config from './config';
 import * as ImagePicker from 'expo-image-picker';
@@ -8,6 +8,10 @@ import * as Permissions from 'expo-permissions';
 import globalStyles from '../constants/globalStyles';
 import RankingExtension from './RankingExtension'
 import { MaterialIcons } from '@expo/vector-icons'; 
+
+// Window width and height used for styling purposes
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const ProfileScreenExtension = props => {
 
@@ -88,25 +92,35 @@ const ProfileScreenExtension = props => {
 
 let content = (<TouchableOpacity onPress={_pickImage} style={{  borderRadius: 60/2, width: 60, height: 60, backgroundColor: 'white', alignItems:'center', justifyContent:'center'}} ><MaterialIcons name="add-a-photo" size={40} color={Colors.primary} /></TouchableOpacity>)
 if (base64) content = ( 
-<View>
-    <ImageBackground imageStyle={{ borderRadius: 60/2 }} style={{ width: 60, height: 60, margin: 5 }} source={{ uri: `data:image/png;base64,${base64}` }}></ImageBackground>
+<View style={{alignItems:'flex-end', marginBottom: windowHeight*0.02}}>
+    <ImageBackground imageStyle={{ borderRadius: windowWidth*0.04 }} style={{ width: windowWidth*0.60, height: windowHeight*0.18}} source={{ uri: `data:image/png;base64,${base64}` }}></ImageBackground>
     <Text style={{color: Colors.secondary, textDecorationLine: 'underline', fontSize: 10, top:10 }} onPress={_pickImage}> Update Photo</Text>
 </View>
 )
 
 return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    <SafeAreaView style={globalStyles.androidSafeArea}>
         <KeyboardAvoidingView
         behavior={Platform.OS == "ios" ? "padding" : "height"}
-            style={{ flex: 1 }}>
-        <View style={globalStyles.screen}>
-         <View style={globalStyles.formContainer}>
+            style={{ flex: 1, alignItems:'center', justifyContent:'center'}}>
+                        <TouchableOpacity onPress={() => props.navigation.pop()} style={globalStyles.backButton}>
+                        <Image style={{width: '100%', height: '100%', resizeMode: 'contain'}} source={require('../assets/back_btn.png')} />
+                    </TouchableOpacity>
+        <View style={{...globalStyles.shadow, backgroundColor:'white', borderRadius: windowWidth*0.05, width: windowWidth*0.7, height: windowHeight*0.55, alignItems:'center', justifyContent:'space-around', paddingVertical: windowHeight*0.02}}>
+             
+
              
              {content}
              <RankingExtension ranking={ranking}></RankingExtension>
-             <View style={{alignItems:'center', }}>
-             <Text style={{color: Colors.secondary, marginVertical:10}}>Name</Text>
+             <View style={{justifyContent:'flex-start'}}>
+             <Text style={{color: Colors.secondary, marginTop:10}}> Name</Text>
              <TextInput
-                        style={globalStyles.formElement}
+                        style={{        ...globalStyles.formElement, 
+                            ...globalStyles.shadow, 
+                            width: windowWidth*0.60,
+                            marginBottom: windowHeight * 0.03,
+                            fontSize: (windowWidth + windowHeight) * 0.012,}}
                         placeholder={name}
                         placeholderTextColor={Colors.secondary}
                         value={name}
@@ -114,17 +128,18 @@ return (
                     />
             </View>
             <CustomButton
-                title={'Update'}
-                onPress={update}
-                backgroundColor={Colors.secondary}
-                textColor={Colors.primary}    
-            />   
-            
-
-
-        </View>
+                        title={'Update'}
+                        onPress={update}
+                        backgroundColor={Colors.primary}
+                        textColor={'white'}
+                        width={windowWidth*0.60}
+                        height={windowHeight*0.045}
+                        borderRadius={10}
+                        />
     </View>
     </KeyboardAvoidingView>
+    </SafeAreaView>
+    </TouchableWithoutFeedback>
     );
 };
 

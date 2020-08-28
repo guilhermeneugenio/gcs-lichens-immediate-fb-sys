@@ -19,7 +19,8 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     Image,
-    SafeAreaView
+    SafeAreaView,
+    KeyboardAvoidingView
 } from 'react-native';
 
 import globalStyles from '../constants/globalStyles';
@@ -115,71 +116,77 @@ const MainScreen = props => {
     // Initial screen content is login form
     let content = (
         <SafeAreaView style={globalStyles.androidSafeArea}>
-            <View style={styles.container} >
+            <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            style={{ flex: 1}}
+            keyboardVerticalOffset={windowHeight*0.5}>
+                <View style={styles.container} >
 
-                <View style={styles.imageContainer}>
-                    <Image style={styles.image} source={require('../assets/landing_logo.png')} />
-                </View>
-
-                <View style={{...styles.textContainer, ...styles.welcomeTextContainer}}>
-                    {welcomeContent}
-                </View>
-
-                <View style={styles.formContainer}>
-
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder={dictionary[language].EMAIL}
-                            placeholderTextColor={Colors.secondary}
-                            value={email}
-                            onChangeText={emailInputHandler}
-                            />
-                        <TextInput
-                            style={styles.input}
-                            placeholder={dictionary[language].PASSWORD}
-                            placeholderTextColor={Colors.secondary}
-                            value={password}
-                            onChangeText={passwordInputHandler}
-                            secureTextEntry={true}
-                            />
+                    <View style={styles.imageContainer}>
+                        <Image style={styles.image} source={require('../assets/landing_logo.png')} />
                     </View>
 
-                    <CustomButton
-                        title={dictionary[language].LOGIN}
-                        onPress={login}
-                        backgroundColor={Colors.primary}
-                        textColor={'white'}
-                        width={windowWidth*0.60}
-                        height={windowHeight*0.045}
-                        borderRadius={10}
+                    <View style={{...styles.textContainer, ...styles.welcomeTextContainer}}>
+                        {welcomeContent}
+                    </View>
+
+                    <View style={styles.formContainer}>
+
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder={dictionary[language].EMAIL}
+                                placeholderTextColor={Colors.secondary}
+                                value={email}
+                                onChangeText={emailInputHandler}
+                                />
+                            <TextInput
+                                style={styles.input}
+                                placeholder={dictionary[language].PASSWORD}
+                                placeholderTextColor={Colors.secondary}
+                                value={password}
+                                onChangeText={passwordInputHandler}
+                                secureTextEntry={true}
+                                />
+                        </View>
+
+                        <CustomButton
+                            title={dictionary[language].LOGIN}
+                            onPress={login}
+                            backgroundColor={Colors.primary}
+                            textColor={'white'}
+                            width={windowWidth*0.60}
+                            height={windowHeight*0.045}
+                            borderRadius={10}
+                            />
+                    </View> 
+
+                    <View style={styles.loginTextContainer}>
+                        <Text style={styles.text}>{dictionary[language].OR_LOGIN}</Text>
+                    </View>
+                    
+                    <View style={{width:windowWidth * 0.35, marginBottom: windowHeight * 0.05}}>
+                        <OAuthButtons method={'login'} onLogin={changeLoggedState} language={language} />
+                    </View>
+
+                    <View style={styles.textContainer}>
+                        <Text style={styles.text}>{dictionary[language].NOT_REGISTERED} </Text>
+                        <TouchableOpacity onPress={() => props.navigation.navigate({routeName: 'Register', params: {language: language}})}>
+                            <Text style={{...styles.text, ...styles.textUnderline}}>{dictionary[language].CLICK_HERE}</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.languagePicker}>
+                        <LanguagePicker
+                            language={language}
+                            setLanguage={newLanguage => setLanguage(newLanguage)}
                         />
-                </View> 
-
-                <View style={styles.loginTextContainer}>
-                    <Text style={styles.text}>{dictionary[language].OR_LOGIN}</Text>
+                    </View>
                 </View>
-                
-                <View style={{width:windowWidth * 0.35, marginBottom: windowHeight * 0.05,}}>
-                    <OAuthButtons method={'login'} onLogin={changeLoggedState} language={language} />
-                </View>
-
-                <View style={styles.textContainer}>
-                    <Text style={styles.text}>{dictionary[language].NOT_REGISTERED} </Text>
-                    <TouchableOpacity onPress={() => props.navigation.navigate({routeName: 'Register', params: {language: language}})}>
-                        <Text style={{...styles.text, ...styles.textUnderline}}>{dictionary[language].CLICK_HERE}</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={styles.languagePicker}>
-                    <LanguagePicker
-                        language={language}
-                        setLanguage={newLanguage => setLanguage(newLanguage)}
-                    />
-                </View>
-
-            </View>
+            </KeyboardAvoidingView>
         </SafeAreaView>
+        
+
     );
 
     // If user is logged render the menu screen
@@ -190,11 +197,13 @@ const MainScreen = props => {
      * RENDER
      ************************************************/
     return (
+
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={globalStyles.screen} >
                 {content}        
             </View>
         </TouchableWithoutFeedback>
+        
     );
 };
 
