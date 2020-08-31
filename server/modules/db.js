@@ -41,7 +41,7 @@ var insertDocument = async (collectionName, newDocument) => {
     // Inserts document into loaded collection
     const dID = await collection.insertOne(newDocument);
     // Returns document
-    return dID.ops[0]._id;
+    return dID.ops[0];
 };
 
 /**
@@ -70,7 +70,7 @@ var updateDocument = async (collectionName, search, updatedDocument) => {
     // Loads collection
     const collection = await loadCollection(collectionName);
     // Update wanted document 
-    await collection.updateOne(search, {$set: newDocument}, {upsert: true});       
+    await collection.updateOne(search, {$set: updatedDocument}, {upsert: true});       
 };
 
 /**

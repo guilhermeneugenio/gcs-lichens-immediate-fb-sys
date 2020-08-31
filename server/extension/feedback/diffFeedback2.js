@@ -5,7 +5,7 @@ var ObjectId = require('mongodb').ObjectID;
 function lichenIndex(lichen){
     let index = null;
 
-    if (lichen == 'Flavoparmelia caperata') index = 0;
+    if (lichen == 'Flavoparmelia Caperata') index = 0;
     else if (lichen == 'Ramalina Fastigiata') index = 1;
     else if (lichen == 'Xanthoria Parietina') index = 2;
     else if (lichen == 'Chrysothrix Candelaris') index = 3;
@@ -16,14 +16,15 @@ function lichenIndex(lichen){
     else if (lichen == 'Physcia Adscendens') index = 8;
     else if (lichen == 'Usnea Rubicunda') index = 9;
     else if (lichen == 'Phaeophyscia Orbicularis') index = 10;
-    else if (lichen == 'Hyperphyscia adglutinata') index = 11;
+    else if (lichen == 'Hyperphyscia Adglutinata') index = 11;
     else if (lichen == 'Candelaria Concolor') index = 12;
-    else if (lichen == 'Dendrographa decolorans') index = 13;
+    else if (lichen == 'Dendrographa Decolorans') index = 13;
 
     return index;
 }
 
 function metricHandler (table, lichens) {
+
     let aridity = [0,0,0,0,0];
     let poleotolerance = [0,0,0,0,0];
     let eutrophication = [0,0,0,0,0];
@@ -65,21 +66,24 @@ function metricHandler (table, lichens) {
             poleotolerance: poldIndex };
   }
 const diffFeedback2 = async (newInput) => {
+    
 
-    const metricsTable = await db.getDocument('process');
-    const inRange = await db.getDocument('diffFeedback1', {_id: newInput._id});
     let metrics = []
     let indexes = []
-    //await db.deleteDocument('diffFeedback1', {_id: newInput._id});
-    //por cada zona a fazer update
-    inRange[0].rangeInputs.map(async zone => {
 
-        metrics = metricHandler (metricsTable, zone.lichens)
-        indexes = indexHandler(metrics)
-        await db.updateDocument('diffFeedback2', {_id: zone._id} , {latitude: zone.latitude, longitude: zone.longitude, indexes: indexes });
+    const metricsTable = await db.getDocument('process');
 
-    })
+    await db.getDocument('diffFeedback1', {_id: ObjectId(newInput._id)})
+    .then(inRange =>        
+        //por cada zona a fazer update
+        inRange[0].rangeInputs.map(async zone => {
+            metrics = metricHandler (metricsTable, zone.lichens)
+            indexes = indexHandler(metrics)
+            await db.updateDocument('diffFeedback2', {_id: zone._id} , {latitude: zone.latitude, longitude: zone.longitude, indexes: indexes });
 
+        }));
+    
+    await db.deleteDocument('diffFeedback1', {_id: ObjectId(newInput._id)});
 };
 
 exports.diffFeedback2 = diffFeedback2;

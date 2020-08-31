@@ -71,12 +71,12 @@ const processData = (req, res) => {
                 timestamp: new Date(),
                 data: req.body.answer
             };
-           await db.insertDocument('answers',newSurvey).then(result => {feedback.diffFeedback(result)})
+           await db.insertDocument('answers', newSurvey).then(result => {feedback.differenciated(result)})
         }
     });
 
     // Immediate Feedback
-    feedback.immediateFeedback();
+    feedback.immediate();
     
     // Database storage
 

@@ -29,7 +29,7 @@ router.post('/submit', async (req, res) => {
 
 // Submit survey answer
 router.post('/answer', async (req, res) => {
-    surveyExtension.processAnswer(req, res);
+    surveyExtension.processData(req, res);
 });
 
 // Submit image as (part of) survey answer

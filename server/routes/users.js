@@ -8,13 +8,16 @@ var config = require('../extension/config');
 
 // Get Users
 router.post('/', async (req, res) => {
-
   // Check cache
   cache.get(req.body.adminEmail)
   .then(async result => {
     // If user not in cache
     if (typeof result === 'undefined') res.status(403).send();
-    else res.status(200).send(await db.getDocument('users'));
+    else {
+      // Get existing users from db
+      const users = await db.loadCollection('users');
+      res.status(200).send(await users.find().toArray());
+    }
     });
 });
 
@@ -28,8 +31,11 @@ router.post('/register', async (req, res) => {
     email: req.body.email,
     type: req.body.type
   };
+
+  // Get existing users from db
+  const users = await db.loadCollection('users');
   // Search for user with same email
-  var repeated = await  db.getDocument('users', { email: newUser.email });
+  var repeated = await users.find({ email: newUser.email }).toArray();
 
   // If user found send 302
   if (repeated.length > 0) {
@@ -37,7 +43,7 @@ router.post('/register', async (req, res) => {
   }
   // If user not found send 201
   else {
-    await db.insertDocument('users', { email: newUser.email });
+    await users.insertOne(newUser);
     res.status(201).send();
   }
 });
@@ -59,8 +65,11 @@ router.post('/login', async (req, res) => {
       return res.status(200).send({ type: 'admin' });
     }
   }
+
+  // Get existing users from db
+  const users = await db.loadCollection('users');
   // Search for user in db
-  const found = await db.getDocument('users',user);
+  const found = await users.find(user).toArray();
 
   // If user found
   if (found.length === 1) {
@@ -88,8 +97,10 @@ router.post('/changeType', async (req, res) => {
       // Check if admin is in the cache
       if (typeof result === 'undefined') res.status(403).send();
       else {
+        // Get existing users from db
+        const users = await db.loadCollection('users');
         // Search and updtate type for user with same email
-        await db.updateDocument('users',{ email: req.body.email }, { $set: { type: req.body.type } })
+        await users.updateOne({ email: req.body.email }, { $set: { type: req.body.type } });
         res.status(200).send();
       }
     });
@@ -102,11 +113,12 @@ router.post('/remove', async (req, res) => {
       // Check if admin is in the cache
       if (typeof result === 'undefined') res.status(403).send();
       else {
+        const users = await db.loadCollection('users');
         // Check if admin pasword correct
         for (admin of config.admin) {
           if (admin.password === req.body.adminPassword) {
             // Removes user with the specified email with admin auth
-            await db.deleteDocument('users',{ email: req.body.emailDelete });
+            await users.deleteOne({ email: req.body.emailDelete });
             res.status(200).send();
           }
         }
