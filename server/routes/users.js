@@ -1,6 +1,8 @@
 // Imports
 var express = require('express');
 var router = express.Router();
+var multer  = require('multer');
+var upload = multer({ limits: { fieldSize: 25 * 1024 * 1024 } });
 
 var db = require('../modules/db');
 var cache = require('../modules/cache');
@@ -124,6 +126,20 @@ router.post('/remove', async (req, res) => {
         }
         res.status(401).send();
       }
+    });
+});
+
+// Edit User
+router.post('/edit', upload.single(), async (req, res) => {
+    // Check cache
+    cache.get(req.body.email)
+    .then(async result => {
+    // If user not in cache
+        if (typeof result === 'undefined') res.status(403).send();
+        else{
+            await db.updateDocument('users', { email: req.body.email }, {base64: req.body.base64, name: req.body.name }) 
+            res.status(200).send();
+        }     
     });
 });
 
