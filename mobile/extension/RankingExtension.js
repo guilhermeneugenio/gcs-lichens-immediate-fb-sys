@@ -2,6 +2,20 @@ import React, {useState} from 'react';
 import { View, Text, ImageBackground} from 'react-native';
 import config from './config';
 
+export async function updateRanking(points, email){
+    const res = await fetch(`${config.serverURL}/api/profile/editRanking`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ranking:  points,
+            email:  email
+        })
+    });
+    // If user already registered with inserted e-mail
+    if (res.status == 200) console.log("ok")
+}
 
 const RankingExtension = props => {
 
@@ -10,7 +24,9 @@ const RankingExtension = props => {
     if(props.ranking>20) setRankingLevel=('Amateur Explorer')
     if(props.ranking>40) setRankingLevel=('Good Explorer')
     if(props.ranking>60) setRankingLevel=('Pro Explorer')
-    if(props.ranking>80) setRankingLevel=('Explorer Premium')
+    else if(props.ranking>80) setRankingLevel=('Explorer Premium')
+
+
 
 return (
     <View style={{alignItems:'center'}}>
