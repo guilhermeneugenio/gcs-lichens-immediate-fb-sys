@@ -20,7 +20,8 @@ import {
     Keyboard,
     Image,
     SafeAreaView,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    StatusBar
 } from 'react-native';
 
 import globalStyles from '../constants/globalStyles';
@@ -116,6 +117,7 @@ const MainScreen = props => {
     // Initial screen content is login form
     let content = (
         <SafeAreaView style={globalStyles.androidSafeArea}>
+            <StatusBar barStyle="dark-content"/>
             <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
             style={{ flex: 1}}

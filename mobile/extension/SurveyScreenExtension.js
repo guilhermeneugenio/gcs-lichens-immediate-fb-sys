@@ -12,6 +12,7 @@ import {
 import {Form} from 'react-native-json-forms';
 import config from './config';
 import FormExtension from './FormExtension';
+import {updateRanking} from './RankingExtension'
 
 const FormScreenExtension = props => {
 
@@ -42,7 +43,7 @@ const FormScreenExtension = props => {
     
     
     const onSubmit = async (data) => {
-
+        
         let index = null;
         let photo = new FormData();
         data.map((d, i) => {
@@ -87,6 +88,8 @@ const FormScreenExtension = props => {
             props.navigation.pop();
         }
         else Alert.alert('ERROR', 'Form unavailable.');
+
+        updateRanking(3, props.navigation.state.params.email);
     };
 
     if (loaded === null)
@@ -95,7 +98,7 @@ const FormScreenExtension = props => {
         return <View style={styles.container}><Text style={styles.text}>Unable to load survey. Please go back.</Text></View>
     else
         return (
-            <ScrollView style={styles.formContainer}>
+            <ScrollView style={styles.formContainer} scrollIndicatorInsets={{ right: 1 }}>
                 <Form key={dummy} json={form} extension={FormExtension} onSubmit={onSubmit} />
             </ScrollView>
         );
@@ -105,7 +108,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        margin:90
     },
     text: {
         fontSize: Dimensions.get('window').width*0.05

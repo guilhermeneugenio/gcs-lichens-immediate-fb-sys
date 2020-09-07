@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View , StyleSheet, TouchableOpacity, Text} from 'react-native';
+import { View , StyleSheet, TouchableOpacity, Text, SafeAreaView, StatusBar} from 'react-native';
 import MapView,  { PROVIDER_GOOGLE } from 'react-native-maps'
 
+import globalStyles from '../../constants/globalStyles';
 import * as Permissions from 'expo-permissions';
 import { FontAwesome5 } from '@expo/vector-icons';
 import  Heatmap from './HeatMap';
@@ -25,7 +26,7 @@ const MapExtension = props => {
     // State to store error message (not used)
     const [errorMessage, setErrorMessage] = useState('');
 
-
+    //Região de Lisboa
     const [region, setRegion] = useState({
         latitude: 38.726608,
         longitude: -9.1405415,
@@ -36,6 +37,7 @@ const MapExtension = props => {
      // Get geolocation when component is used
      useEffect(() => {
         (async () => {
+            
             const permissions = await Permissions.askAsync(Permissions.LOCATION);
             setLocationPermission(permissions.permissions.location.status);
 
@@ -80,41 +82,43 @@ const MapExtension = props => {
     }
 
     return (
-        <View style={styles.map}>
-            <MapView
-            provider={PROVIDER_GOOGLE}
-            style={styles.map}
-            initialRegion={region}
-            onRegionChangeComplete={RegionChangeHandler}
-            showsUserLocation={true}
-            showsMyLocationButton={true}
-            //showsCompass= {true}
-            rotateEnabled={true}>
+        <SafeAreaView style={globalStyles.androidSafeArea}>
+            <StatusBar barStyle="dark-content"/>
+            <View style={styles.map}>
+                <MapView
+                provider={PROVIDER_GOOGLE}
+                style={styles.map}
+                initialRegion={region}
+                onRegionChangeComplete={RegionChangeHandler}
+                showsUserLocation={true}
+                showsMyLocationButton={true}
+                //showsCompass= {true}
+                rotateEnabled={true}>
 
-            <Heatmap aridity={aridity} eutrophication={eutrophication} poleotolerance={poleotolerance} metric={metric}></Heatmap>
-            </MapView>            
-            <View style={{  width: '100%', height:30, top: 30,  backgroundColor: 'rgba(17,140,17,0.4)'}}></View>
-            <Text style={styles.title}>{metric}</Text>
-            <TouchableOpacity onPress={metricsButton} 
-                         style={{position: 'absolute',
-                        bottom: 115,
-                        right: 10,
-                        alignItems: 'center',
-                         justifyContent: 'center',
-                        //for center align
-                        width: 55,
-                        height: 55,
-                        borderRadius: 100/2,
-                        backgroundColor: 'white',
-                        shadowColor: 'black',
-                        shadowRadius: 2,
-                        shadowOffset: {
-                            width: 0,
-                            height: 3},
-                        shadowOpacity:'0.25%'}}>
-                        <FontAwesome5  name={'layer-group'} size={20} color={Colors.primary} /> 
-            </TouchableOpacity>
-        </View>
+                <Heatmap aridity={aridity} eutrophication={eutrophication} poleotolerance={poleotolerance} metric={metric}></Heatmap>
+                </MapView>
+                <Text style={styles.title}>{metric}</Text>
+                <TouchableOpacity onPress={metricsButton} 
+                            style={{position: 'absolute',
+                            bottom: 90,
+                            right: 10,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            //for center align
+                            width: 55,
+                            height: 55,
+                            borderRadius: 100/2,
+                            backgroundColor: 'white',
+                            shadowColor: 'black',
+                            shadowRadius: 2,
+                            shadowOffset: {
+                                width: 0,
+                                height: 3},
+                            shadowOpacity:'0.25%'}}>
+                            <FontAwesome5  name={'layer-group'} size={20} color={Colors.primary} /> 
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
     );
 };
 
@@ -127,12 +131,14 @@ const styles = StyleSheet.create({
         height: 100,
         borderRadius: 100/2,
     },
-    title: {color:'white',
-     fontSize: 12, 
-     position: 'absolute',
+    title: {color:'black',
+     fontSize: 15, 
+     bottom:50,
+     position:'absolute',
      alignSelf: 'center',
-     top: 38,
       fontWeight: 'bold', 
+      textTransform:'uppercase',
+      letterSpacing: 2,
       opacity: 1 }
   });
 export default MapExtension;

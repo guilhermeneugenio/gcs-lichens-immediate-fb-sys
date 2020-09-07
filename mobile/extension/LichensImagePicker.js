@@ -7,7 +7,7 @@ import {
   Dimensions,
   Modal,
   Slider,
-  TouchableHighlight
+  TouchableHighlight,
 } from "react-native";
 
 import LichensImagePickerStylesheet from './LichensImagePickerStylesheet';
@@ -145,7 +145,7 @@ const abundanceAnalyzer=() => {
   }
 
   return (
-  <View>
+<View>
     <Modal visible={modalVisible} animationType="slide" transparent={true}>
       <View style={LichensImagePickerStylesheet.centeredView}>
         <View style={LichensImagePickerStylesheet.modalView}>
@@ -178,6 +178,7 @@ const abundanceAnalyzer=() => {
         </View>
       </View>
     </Modal>
+   
     <Text style={LichensImagePickerStylesheet.title}>{props.props.name}</Text>
     <View style={LichensImagePickerStylesheet.content} >
       {props.props.choices.map((item, index) => {
@@ -197,7 +198,7 @@ const abundanceAnalyzer=() => {
         );
       })}
     </View>
-  </View>
+    </View>
   );
 };
 

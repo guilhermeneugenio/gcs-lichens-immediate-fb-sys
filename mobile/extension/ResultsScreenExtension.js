@@ -3,7 +3,7 @@ import MapExtension from './map/MapExtension';
 
 const ResultsScreenExtension = props => {
     return (
-      <MapExtension></MapExtension>
+      <MapExtension navigation={props.navigation} ></MapExtension>
     );
 };
 

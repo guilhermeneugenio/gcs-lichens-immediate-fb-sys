@@ -31,7 +31,7 @@ const SurveyScreen = props => {
 SurveyScreen.navigationOptions = (navData) => {
     return (
         {
-            headerTitle: dictionary[navData.navigation.state.params.language].SURVEY
+            headerTitle: dictionary[navData.navigation.state.params.language].SURVEY,
         }
     );
 };

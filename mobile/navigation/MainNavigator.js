@@ -19,12 +19,15 @@ import Colors from '../constants/colors';
 // Object used to define the stack navigation options
 const defaultStackNavOptions = {
     headerStyle: {
-        backgroundColor: Colors.primary
+        backgroundColor: 'white'
     },
     headerTitleAlign: 'center',
-    headerTintColor: 'white',
+    headerTintColor: Colors.primary,
     headerBackTitle: 'Back',
-    cardStyle: { backgroundColor: 'white' }
+    cardStyle: { backgroundColor: 'white' },
+    headerTitleStyle: {
+        fontWeight: 'bold',
+    },
 };
 
 /************************************************

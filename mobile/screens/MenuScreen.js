@@ -15,7 +15,8 @@ import {
     Dimensions,
     Image,
     Text,
-    SafeAreaView
+    SafeAreaView,
+    StatusBar
 } from 'react-native';
 
 import CustomButton from '../components/CustomButton';
@@ -73,6 +74,7 @@ const MenuScreen = props => {
     ************************************************/
     return (
         <SafeAreaView style={globalStyles.androidSafeArea}>
+            <StatusBar barStyle="dark-content"/>
             <View style={styles.container}>
                 <View style={styles.imageContainer}>
                     <Image style={styles.image} source={require('../assets/landing_logo.png')} />
