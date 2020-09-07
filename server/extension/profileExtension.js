@@ -7,37 +7,41 @@ var cache = require('../modules/cache');
  * should implement functions to get and edit the profile.
  */
 
-// Get user profile
+// Get user profile from extension of Profile
 const getProfile = (req, res) => {
-    cache.get(req.body.email)
-    .then(async result => {
-    // If user not in cache
-        if (typeof result === 'undefined') res.status(403).send();
-        else res.status(200).send(await db.getDocument('users', { email: req.body.email }) );       
-    });
+
 };
 
-// Request to edit user's profile form
+// Request to edit user's profile from extension of Profile
 const editProfileRequest = (req, res) => {
     
 };
 
-// Edit user's profile (submit changes)
+// Edit user's profile (submit changes) from extension of Profile
 const editProfile = (req, res) => {
-    // Check cache
-   cache.get(req.body.email)
-   .then(async result => {
-   // If user not in cache
-       if (typeof result === 'undefined') res.status(403).send();
-       else{
-           await db.updateDocument('users', { email: req.body.email }, {base64: req.body.base64, name: req.body.name }) 
-           res.status(200).send();
-       }     
-   });
 
+
+};
+
+// Edit user's ranking 
+const editProfileRanking = (req, res) => {
+    // Check cache
+    cache.get(req.body.email)
+    .then(async result => {
+    // If user not in cache
+        if (typeof result === 'undefined') res.status(403).send();
+        else{
+            let previousRank=0;
+            const user = await db.getDocument('users', { email: req.body.email }) 
+            if (user[0].ranking) previousRank=user[0].ranking;
+            await db.updateDocument('users', { email: req.body.email }, {ranking: (previousRank + req.body.ranking)}) 
+            res.status(200).send();
+        }     
+    });
 };
 
 // Export funtions
 exports.getProfile = getProfile;
 exports.editProfileRequest = editProfileRequest;
 exports.editProfile = editProfile;
+exports.editProfileRanking = editProfileRanking;

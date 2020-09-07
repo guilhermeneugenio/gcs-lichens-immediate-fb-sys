@@ -40,7 +40,7 @@ const ProfileScreenExtension = props => {
             const permissions = await Permissions.askAsync(Permissions.CAMERA_ROLL);
             setCamera_RollPermission(permissions.permissions.cameraRoll.status);
 
-            const res = await fetch(`${config.serverURL}/api/profile`,{
+            const res = await fetch(`${config.serverURL}/api/users/getUser`,{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -95,6 +95,7 @@ const ProfileScreenExtension = props => {
             },
             body: data
         });
+        setEdit(false);
     };
 
     const editContent = () => setEdit(true);
@@ -134,8 +135,7 @@ const ProfileScreenExtension = props => {
     return (
         <KeyboardAvoidingView 
             behavior={Platform.OS == "ios" ? "padding" : "height"} 
-            style={globalStyles.screen} 
-            keyboardVerticalOffset={windowHeight*0.3}>      
+            style={globalStyles.screen}>      
             <StatusBar barStyle="dark-content"/>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={styles.container}>

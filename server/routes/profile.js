@@ -29,5 +29,10 @@ router.post('/edit', upload.single(), async (req, res) => {
     profileExtension.editProfile(req, res);
 });
 
+// Edit user's profile (submit changes)
+router.post('/editRanking', upload.single(), async (req, res) => {
+    profileExtension.editProfileRanking(req, res);
+});
+
 // Export router
 module.exports = router;

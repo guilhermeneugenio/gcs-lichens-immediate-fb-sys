@@ -143,5 +143,18 @@ router.post('/edit', upload.single(), async (req, res) => {
     });
 });
 
+// Get User
+router.post('/getUser', async (req, res) => {
+  // Check cache
+  cache.get(req.body.email)
+  .then(async result => {
+  // If user not in cache
+      if (typeof result === 'undefined') res.status(403).send();
+      else{
+          res.status(200).send(await db.getDocument('users', { email: req.body.email }) );
+      }     
+  });
+});
+
 // Export router
 module.exports = router;
