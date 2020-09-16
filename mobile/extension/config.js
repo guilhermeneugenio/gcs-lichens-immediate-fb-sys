@@ -9,7 +9,7 @@ const config = {
             appId: "534270243959641"
         }
     },
-    serverURL: 'http://192.168.0.101:3000',
+    serverURL: 'http://146.193.41.162/lif/server',
     //Idioms of the app
     languages:['en']
 };

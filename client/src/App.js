@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import './extension/Extension.css';
+import config from './extension/config';
 
 import Header from './components/layout/Header';
 import LandingPage from './pages/LandingPage';
@@ -36,7 +37,7 @@ const App = props => {
     const userEmail = localStorage.getItem('userEmail');
     if (userEmail) {
       // Get user session from the server cache
-      axios.get(`http://localhost:3000/${userEmail}`)
+      axios.get(`${config.serverURL}/${userEmail}`)
       .then(res => {
         // Set state if user in cache
         setLogged(true);

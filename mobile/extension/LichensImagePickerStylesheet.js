@@ -1,18 +1,21 @@
 import { StyleSheet, Dimensions } from "react-native";
+import globalStyles from "../constants/globalStyles";
 
 // Style
 const LichensImagePickerStylesheet = StyleSheet.create({
-    container: {
-      paddingBottom: Dimensions.get('window').height * 0.02
-    },
     title: {
       fontSize: 18,
       marginBottom: Dimensions.get('window').height * 0.02
     },
+    image: {
+      width: Dimensions.get('window').width*0.30,
+      height: Dimensions.get('window').width*0.30,
+      margin: Dimensions.get('window').width*0.005
+    },
     imageSelect: {
       backgroundColor: 'rgba(17,140,17,0.5)',
       position: "absolute",
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
     textSelect: {
       color: "white",
@@ -30,32 +33,32 @@ const LichensImagePickerStylesheet = StyleSheet.create({
       margin: Dimensions.get('window').height * 0.02
     },
     openButton: {
-      backgroundColor: "#F194FF",
-      borderRadius: 20,
+      borderRadius: 10,
       padding: 10,
-      
+    },
+    wrapModalButtons:{ 
+      flexDirection: "row",
+      justifyContent:'space-between', 
+      alignItems:'center', 
+      width: Dimensions.get('window').width * 0.7
     },
     content: {
       flexDirection: "row",
       flexWrap: "wrap",
-      justifyContent: "space-between",
+      justifyContent: "center",
     },
     centeredView: {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      marginTop: 22
     },
     modalView: {
+      ...globalStyles.shadow,
+      paddingVertical:Dimensions.get('window').height * 0.03,
       backgroundColor: "white",
       borderRadius: 20,
-      padding: 18,
+      padding: 10,
       alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2
-      }
     }
   });
   

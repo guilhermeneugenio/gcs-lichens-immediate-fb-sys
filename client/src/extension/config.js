@@ -7,7 +7,7 @@ const config = {
             appId: "534270243959641"
         }
     },
-    serverURL: 'http://localhost:3000'
+    serverURL: 'http://146.193.41.162/lif/server'
 }
 
 export default config;
