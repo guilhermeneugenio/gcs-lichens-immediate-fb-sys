@@ -72,17 +72,17 @@ const diffFeedback2 = async (newInput) => {
     let indexes = []
 
     const metricsTable = await db.getDocument('process');
+    const promise = await db.getDocument('diffFeedback1');
+    Promise.all(promise).then((inRange)=>{
 
-    await db.getDocument('diffFeedback1', {_id: ObjectId(newInput._id)})
-    .then(inRange => { 
-        //por cada zona a fazer update
         inRange[0].rangeInputs.map(async zone => {
             metrics = metricHandler (metricsTable, zone.lichens)
             indexes = indexHandler(metrics)
             await db.updateDocument('diffFeedback2', {_id: zone._id} , {latitude: zone.latitude, longitude: zone.longitude, indexes: indexes });
+        });
 
-        })});
-    
+    })
+     
     await db.deleteDocument('diffFeedback1', {_id: ObjectId(newInput._id)});
 };
 

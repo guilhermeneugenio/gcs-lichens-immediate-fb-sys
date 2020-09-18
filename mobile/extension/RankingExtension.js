@@ -21,10 +21,10 @@ const RankingExtension = props => {
 
     const [rankingLevel, setRankingLevel] = useState('Basic Starter');
 
-    if(props.ranking>20) setRankingLevel=('Amateur Explorer')
-    if(props.ranking>40) setRankingLevel=('Good Explorer')
-    if(props.ranking>60) setRankingLevel=('Pro Explorer')
-    else if(props.ranking>80) setRankingLevel=('Explorer Premium')
+    if(props.ranking>20) setRankingLevel('Amateur Explorer')
+    if(props.ranking>40) setRankingLevel('Good Explorer')
+    if(props.ranking>60) setRankingLevel('Pro Explorer')
+    else if(props.ranking>80) setRankingLevel('Explorer Premium')
 
 
 
