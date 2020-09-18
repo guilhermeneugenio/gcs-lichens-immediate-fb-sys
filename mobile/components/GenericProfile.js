@@ -28,7 +28,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const ProfileScreenExtension = props => {
 
-    const [ranking, setRanking] = useState(0);
+    const [ranking, setRanking] = useState(null);
     const [camera_RollPermission, setCamera_RollPermission] = useState(false);
     const [name, setName] = useState('');
     const [base64, setBase64] = useState('');
@@ -57,7 +57,7 @@ const ProfileScreenExtension = props => {
                 })
             }
         })();
-    }, []);
+    }, [ranking]);
 
     _pickImage = async () => {
         try {

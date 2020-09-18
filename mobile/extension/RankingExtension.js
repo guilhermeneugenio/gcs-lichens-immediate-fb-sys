@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, ImageBackground} from 'react-native';
 import config from './config';
 
@@ -19,23 +19,21 @@ export async function updateRanking(points, email){
 
 const RankingExtension = props => {
 
-    const [rankingLevel, setRankingLevel] = useState('Basic Starter');
+    var rankingLevel= 'Basic Starter' 
 
-    if(props.ranking>20) setRankingLevel('Amateur Explorer')
-    if(props.ranking>40) setRankingLevel('Good Explorer')
-    if(props.ranking>60) setRankingLevel('Pro Explorer')
-    else if(props.ranking>80) setRankingLevel('Explorer Premium')
+    if(props.ranking>20) rankingLevel= 'Amateur Explorer'
+    if(props.ranking>40) rankingLevel= 'Good Explorer'
+    if(props.ranking>60) rankingLevel= 'Pro Explorer'
+    if(props.ranking>80) rankingLevel= 'Explorer Premium'
 
-
-
-return (
-    <View style={{alignItems:'center'}}>
-        <ImageBackground 
-        imageStyle={{ borderRadius: 60/2 }} style={{ width: 60, height: 60, marginBottom:10}}
-        source={{ uri: `${config.serverURL}/public/`+ rankingLevel + '.png' }} ></ImageBackground>
-        <Text style={{color: Colors.primary, fontWeight: 'bold'}}>{rankingLevel}</Text> 
-        <Text style={{color: Colors.secondary, fontSize: 11}}>Points : {props.ranking} </Text> 
-    </View>
+    return (
+        <View style={{alignItems:'center'}}>
+            <ImageBackground 
+            imageStyle={{ borderRadius: 60/2 }} style={{ width: 60, height: 60, marginBottom:10}}
+            source={{ uri: `${config.serverURL}/public/`+ rankingLevel + '.png' }} ></ImageBackground>
+            <Text style={{color: Colors.primary, fontWeight: 'bold'}}>{rankingLevel}</Text> 
+            <Text style={{color: Colors.secondary, fontSize: 11}}>Points : {props.ranking} </Text> 
+        </View>
     );
 };
 
