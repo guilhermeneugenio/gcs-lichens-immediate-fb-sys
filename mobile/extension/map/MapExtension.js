@@ -6,6 +6,8 @@ import globalStyles from '../../constants/globalStyles';
 import * as Permissions from 'expo-permissions';
 import { FontAwesome5 } from '@expo/vector-icons';
 import  Heatmap from './HeatMap';
+import dictionaryExtension from '../dictionaryExtension.json';
+import dictionary from '../../data/dictionary.json';
 import Colors from '../../constants/colors';
 import config from '../config';
 
@@ -41,12 +43,15 @@ const MapExtension = props => {
             const permissions = await Permissions.askAsync(Permissions.LOCATION);
             setLocationPermission(permissions.permissions.location.status);
 
+            
+
             const res = await fetch(`${config.serverURL}/api/results/getData`,{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    email: props.navigation.state.params.email
                 })
             })
             if (res.status == 200){
@@ -63,6 +68,11 @@ const MapExtension = props => {
                     setEutrophication(eut_points)
                     setPoleotolerance(ari_points)
                 })
+            }
+            else if (res.status === 403) {
+                Alert.alert(dictionary[props.language].ERROR, dictionaryExtension[props.navigation.state.params.language].ALREADY_USER);
+                props.navigation.state.params.logout();
+                props.navigation.navigate({routeName: 'Main'});
             }
         })();
       

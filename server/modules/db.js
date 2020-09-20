@@ -60,7 +60,7 @@ var getDocument = async (collectionName, search) => {
 
 /**
  * DESCRIPTION: Updates a document matching the search
- * parameters from a certain collection
+ * parameters from a certain collection, inserting it if not found
  * ARGS:
  * - collectionName : collection where to look for the doc
  * - search : search param(s) used to find the doc

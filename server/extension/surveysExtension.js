@@ -18,10 +18,16 @@ const getSurvey = (req, res) => {
     cache.get(req.body.email)
     .then(async result => {
         // If user not in cache
-        if (typeof result === 'undefined') res.status(404).send();     
+        if (typeof result === 'undefined') res.status(403).send();     
         else {
             const json = await db.getDocument('surveys')
-            res.status(200).send(json[0]);
+            if(json[0]){
+                res.status(200).send(json[0]);
+            } 
+            else{
+                res.status(404).send();
+            }
+           
         } 
     });
 };
@@ -32,7 +38,7 @@ const getData = (req, res) => {
     cache.get(req.body.researcherEmail)
     .then(async result => {
     // If user not in cache
-        if (typeof result === 'undefined') res.status(404).send();
+        if (typeof result === 'undefined') res.status(403).send();
         else res.status(200).send(await db.getDocument('answers') );       
     });
 };
@@ -42,7 +48,7 @@ const removeData = (req, res) => {
     cache.get(req.body.researcherEmail)
     .then(async result => {
         // Check if admin is in the cache
-        if (typeof result === 'undefined') res.status(404).send();
+        if (typeof result === 'undefined') res.status(403).send();
         else {
             await db.deleteDocument('answers', { _id: ObjectId(req.body.id)})
             res.status(200).send();         
@@ -54,7 +60,7 @@ const submitForm = (req, res) => {
     cache.get(req.body.email)
     .then(async result => {
         // If user not in cache
-        if (typeof result === 'undefined') res.status(404).send();
+        if (typeof result === 'undefined') res.status(403).send();
         else db.updateDocument('surveys',{}, JSON.parse(req.body.json))      
     });
     res.status(200).send();
@@ -64,7 +70,7 @@ const processData = (req, res) => {
     cache.get(req.body.email)
     .then(async result => {
         // If user not in cache
-        if (typeof result === 'undefined') res.status(404).send();
+        if (typeof result === 'undefined') res.status(403).send();
         else {
             const newSurvey = {
                 user: req.body.email,
@@ -78,8 +84,6 @@ const processData = (req, res) => {
     // Immediate Feedback
     feedback.immediate();
     
-    // Database storage
-
     res.status(200).send({immediateFeedback: 'Thank You!'});
 };
 

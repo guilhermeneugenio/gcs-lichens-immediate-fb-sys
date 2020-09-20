@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { View, Text, ImageBackground} from 'react-native';
 import config from './config';
 
 export async function updateRanking(points, email){
-    const res = await fetch(`${config.serverURL}/api/profile/editRanking`, {
+    await fetch(`${config.serverURL}/api/profile/editRanking`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -13,8 +13,6 @@ export async function updateRanking(points, email){
             email:  email
         })
     });
-    // If user already registered with inserted e-mail
-    if (res.status == 200) console.log("ok")
 }
 
 const RankingExtension = props => {

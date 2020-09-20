@@ -151,7 +151,7 @@ router.post('/getUser', async (req, res) => {
   // If user not in cache
       if (typeof result === 'undefined') res.status(403).send();
       else{
-          res.status(200).send(await db.getDocument('users', { email: req.body.email }) );
+          res.status(200).send(await db.getDocument('users', { email: req.body.email }));
       }     
   });
 });

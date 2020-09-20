@@ -4,48 +4,63 @@
         "OAUTH_LOGIN": "Login with",
         "OAUTH_REGISTER": "Register w/",
         "LOGIN_ERROR": "Something went wrong with the login.",
-        "REGISTER_ERROR": "Something went wrong with the registration."
+        "REGISTER_ERROR": "Something went wrong with the registration.",
+        "ALREADY_USER": "User Login Timeout.",
+        "FORM_UNAVAILABLE": "Form is unavailable."
     },
     "pt": {
-        "WELCOME": "An extension of a Generic Crowdsourcing System. Capable of returning immediate feedback to the user, allowing to map lichens in order to fight the scarceness of air pollution and climate change data. ",
+        "WELCOME": "Uma extensão de um Sistema Genérico de Crowdsourcing. Capaz de retornar feedback imediato ao utilizador, permitindo mapear líquenes de forma a combater a falta de informação acerca da qualidade do ar e alterações climáticas.",
         "OAUTH_LOGIN": "Entrar com",
         "OAUTH_REGISTER": "Registar c/",
         "LOGIN_ERROR": "Algo correu mal com o login.",
-        "REGISTER_ERROR": "Algo correu mal com o registo."
+        "REGISTER_ERROR": "Algo correu mal com o registo.",
+        "ALREADY_USER": "Tempo limite de login.",
+        "FORM_UNAVAILABLE": "Formulário indisponível."
     },
     "ru": {
-        "WELCOME": "An extension of a Generic Crowdsourcing System. Capable of returning immediate feedback to the user, allowing to map lichens in order to fight the scarceness of air pollution and climate change data. ",
+        "WELCOME": "Расширение общей системы краудсорсинга. Возможность немедленной обратной связи с пользователем, что позволяет наносить на карту лишайники для борьбы с дефицитом данных о загрязнении воздуха и изменении климата.",
         "OAUTH_LOGIN": "Зайдите в учетную запись, используя",
         "OAUTH_REGISTER": "Зарегистрироваться",
         "LOGIN_ERROR": "Что-то пошло не так с логином.",
-        "REGISTER_ERROR": "Что-то пошло не так с регистрацией."
+        "REGISTER_ERROR": "Что-то пошло не так с регистрацией.",
+        "ALREADY_USER": "Таймаут входа.",
+        "FORM_UNAVAILABLE": "Форма недоступна."
+
     },
     "fr": {
-        "WELCOME": "An extension of a Generic Crowdsourcing System. Capable of returning immediate feedback to the user, allowing to map lichens in order to fight the scarceness of air pollution and climate change data. ",
+        "WELCOME": "Une extension d'un système générique de crowdsourcing. Capable de renvoyer un feedback immédiat à l'utilisateur, permettant de cartographier les lichens afin de lutter contre la rareté des données sur la pollution de l'air et le changement climatique.",
         "OAUTH_LOGIN": "Connectez-vous avec",
         "OAUTH_REGISTER": "Inscrivez-vous avec",
         "LOGIN_ERROR": "Une erreur s'est produite lors de la connexion.",
-        "REGISTER_ERROR": "Une erreur s'est produite lors de l'enregistrement."
+        "REGISTER_ERROR": "Une erreur s'est produite lors de l'enregistrement.",
+        "ALREADY_USER": "Délai de connexion.",
+        "FORM_UNAVAILABLE": "Le formulaire n'est pas disponible."
     },
     "it": {
-        "WELCOME": "An extension of a Generic Crowdsourcing System. Capable of returning immediate feedback to the user, allowing to map lichens in order to fight the scarceness of air pollution and climate change data. ",
+        "WELCOME": "Un'estensione di un sistema di crowdsourcing generico. Capace di restituire un feedback immediato all'utente, permettendo di mappare i licheni per combattere la scarsità di dati sull'inquinamento atmosferico e sui cambiamenti climatici.",
         "OAUTH_LOGIN": "Entra con",
         "OAUTH_REGISTER": "Registrati con",
         "LOGIN_ERROR": "Si è verificato un errore durante l'accesso.",
-        "REGISTER_ERROR": "Qualcosa è andato storto con la registrazione."
+        "REGISTER_ERROR": "Qualcosa è andato storto con la registrazione.",
+        "ALREADY_USER": "Timeout di accesso.",
+        "FORM_UNAVAILABLE": "Il modulo non è disponibile."
     },
     "de": {
-        "WELCOME": "An extension of a Generic Crowdsourcing System. Capable of returning immediate feedback to the user, allowing to map lichens in order to fight the scarceness of air pollution and climate change data. ",
+        "WELCOME": "Eine Erweiterung eines generischen Crowdsourcing-Systems. Kann sofortiges Feedback an den Benutzer zurückgeben und Flechten kartieren, um die Knappheit der Luftverschmutzung und die Daten zum Klimawandel zu bekämpfen.",
         "OAUTH_LOGIN": "Einloggen mit",
         "OAUTH_REGISTER": "Registrieren mit",
         "LOGIN_ERROR": "Beim Login ist ein Fehler aufgetreten.",
-        "REGISTER_ERROR": "Bei der Registrierung ist ein Fehler aufgetreten."
+        "REGISTER_ERROR": "Bei der Registrierung ist ein Fehler aufgetreten.",
+        "ALREADY_USER": "Zeitüberschreitung beim Anmelden.",
+        "FORM_UNAVAILABLE": "Formular ist nicht verfügbar."
     },
     "es": {
-        "WELCOME": "An extension of a Generic Crowdsourcing System. Capable of returning immediate feedback to the user, allowing to map lichens in order to fight the scarceness of air pollution and climate change data. ",
+        "WELCOME": "Una extensión de un sistema de crowdsourcing genérico. Capaz de devolver retroalimentación inmediata al usuario, permitiendo mapear líquenes con el fin de combatir la escasez de datos de contaminación atmosférica y cambio climático.",
         "OAUTH_LOGIN": "Inicia con",
         "OAUTH_REGISTER": "Registrar con",
         "LOGIN_ERROR": "Algo salió mal con el inicio de sesión.",
-        "REGISTER_ERROR": "Algo salió mal con el registro."
+        "REGISTER_ERROR": "Algo salió mal con el registro.",
+        "ALREADY_USER": "Se terminó el tiempo para la autenticación.",
+        "FORM_UNAVAILABLE": "El formulario no está disponible."
     }
 }

@@ -10,7 +10,7 @@ const config = {
         }
     },
     //serverURL: 'http://146.193.41.162/lif/server',
-    serverURL: 'http://192.168.1.88:3000',
+    serverURL: 'http://192.168.1.69:3000',
     //Idioms of the app
     languages:['en']
 };

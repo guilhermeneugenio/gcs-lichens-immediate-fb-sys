@@ -1,6 +1,17 @@
+/* 
+ * OAuthButtons (Component)
+ * Description : Buttons in the login and register screen that handle
+ * the oauth authentication 
+ * Props :
+ * - navigation : navigation object used to navigate between the app's screens
+ * - language : language code selected by the user
+ * - method : identifies if buttons are used for 'login' or 'register'
+ * - onLogin : logs user by setting email e password states in the app
+ */
+
+// Imports
 import React from 'react';
 import {
-  Button,
   View,
   TouchableOpacity,
   TouchableNativeFeedback,
@@ -15,40 +26,29 @@ import * as Facebook from 'expo-facebook';
 import * as Google from 'expo-google-app-auth';
 
 import config from './config';
+import dictionaryExtension from './dictionaryExtension.json';
+import dictionary from '../data/dictionary.json';
+
 import globalStyles from '../constants/globalStyles';
 
+// Window width and height used for styling purposes
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
+/************************************************
+ * 
+ * COMPONENT
+ * 
+ ************************************************/
 const OAuthButtons = props => {
 
-  let method = '';
-  if (props.method === 'register') method = 'Register w/';
-
-  const oauthServerConnection = async (params) => {
-    const res = await fetch(`${config.serverURL}/api/oauth/${props.method}`,{
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(params)
-    });
-
-    if (props.method === 'register') {
-      if (res.status === 201) props.navigation.pop();
-      else if (res.status === 302) Alert.alert('ERROR', 'Account already registered with this e-mail.');
-      else Alert.alert('ERROR', 'Something went wrong with the register.');
-    } 
-    // Handle login errors
-    else if (props.method === 'login') {
-        if (res.status === 200) props.onLogin(true, params.email, '');
-        else if (res.status === 404) Alert.alert('ERROR', 'Account not registered yet.');
-        else Alert.alert('ERROR', 'Something went wrong with the login.');
-    }
-};
-
+  /************************************************
+   * FUNCTIONS
+   ************************************************/
+  // Called when selected oauth with Facebook
   const facebookResponse = async () => {
     try {
+      // Connects with facebook
       await Facebook.initializeAsync(config.credentials.facebook.appId);
       const {
         type,
@@ -59,6 +59,7 @@ const OAuthButtons = props => {
       } = await Facebook.logInWithReadPermissionsAsync({
         permissions: ['public_profile', 'email'],
       });
+      // If connection successful
       if (type === 'success') {
         // Get the user's name using Facebook's Graph API
         const response = await fetch(`https://graph.facebook.com/me?fields=email,name&access_token=${token}`);
@@ -72,23 +73,27 @@ const OAuthButtons = props => {
           'email': data.email,
           'type': 'normal'
         };
+        // Uses Facebook credentials to authenticate with server
         oauthServerConnection(params);
       } else {
-        // type === 'cancel'
-        console.log("cancelled");
+        // If user closes pop up window
       }
     } catch ({ message }) {
-      alert(`Facebook Login Error: ${message}`);
+      Alert.alert(dictionary[props.language].ERROR, `${message}` ); 
     }
   };
 
+  // Called when selected oauth with Google
   const googleResponse = async () => {
     try {
+      // Logs in Google
       const result = await Google.logInAsync({
         androidClientId: config.credentials.google.androidClientId,
         iosClientId: config.credentials.google.iosClientId,
         scopes: ["profile", "email"]
-      })
+      });
+      
+      // If login successfull
       if (result.type === "success") {
         const params = {
           'platform': 'google',
@@ -99,31 +104,69 @@ const OAuthButtons = props => {
           'email': result.user.email,
           'type': 'normal'
         };
+        // Uses Google credentials to authenticate with server
         oauthServerConnection(params);
       } else {
         // If user closes pop up window
-        console.log("cancelled");
       }
-    } catch (e) {
+    } catch (message) {
       // Session errors
-      console.log("error", e);
+      Alert.alert(dictionary[props.language].ERROR, `${message}` ); 
     }
   };
 
-  let ButtonComponent = TouchableOpacity;
+  // Handles authentication with server after getting credentials from Google and Facebook
+  const oauthServerConnection = async (params) => {
+    // Sends credentials and keys to the server
+    const res = await fetch(`${config.serverURL}/api/oauth/${props.method}`,{
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    });
 
-    if (Platform.OS === 'android' && Platform.Version >= 21) {
-        ButtonComponent = TouchableNativeFeedback;
+    // Handle register response
+    if (props.method === 'register') {
+      // If successful registration
+      if (res.status === 201) props.navigation.pop();
+      else if (res.status === 302) Alert.alert(dictionary[props.language].ERROR, dictionary[props.language].ALREADY_USER);
+      else Alert.alert(dictionary[props.language].ERROR, dictionaryExtension[props.language].REGISTER_ERROR);
+    } 
+    // Handle login response
+    else if (props.method === 'login') {
+      // If successful login
+        if (res.status === 200) props.onLogin(true, params.email, '');
+        else if (res.status === 404) Alert.alert(dictionary[props.language].ERROR, dictionary[props.language].NOT_USER);
+        else Alert.alert(dictionary[props.language].ERROR, dictionaryExtension[props.language].LOGIN_ERROR);
     }
+  };
 
+  /************************************************
+   * PRE-RENDER
+   ************************************************/
+  // Changes button text according language and method
+  let method = dictionaryExtension[props.language].OAUTH_LOGIN;
+  if (props.method === 'register') method = dictionaryExtension[props.language].OAUTH_REGISTER;
+
+  // By default the button is a TouchableOpacity
+  let ButtonComponent = TouchableOpacity;
+  // If android and version > = 21 button is TouchableNativeFeedback
+  if (Platform.OS === 'android' && Platform.Version >= 21) {
+      ButtonComponent = TouchableNativeFeedback;
+  }
+
+  /************************************************
+   * RENDER
+   ************************************************/
   return (
     <View>
       <View style={globalStyles.shadow}>
-        <View style={{...styles.buttonContainer, borderColor: '#3b5998'}}>
+        <View style={{...styles.buttonContainer, borderColor: '#E5E5E5'}}>
           <ButtonComponent activeOpacity={0.6} onPress={googleResponse}>
             <View style={[styles.button, styles.googleButton]}>
               <Image style={styles.icon} source={require('../assets/google.jpeg')} />
-              <Text style={styles.googleButtonText}>{method} Google</Text>
+              <Text style={styles.googleButtonText}>{props.method === 'register' ? method : ''} Google</Text>
             </View>
           </ButtonComponent>
         </View>
@@ -134,21 +177,23 @@ const OAuthButtons = props => {
           <ButtonComponent activeOpacity={0.6} onPress={facebookResponse}>
             <View style={[styles.button, styles.facebookButton]}>
               <Image style={styles.icon} source={require('../assets/facebook.svg')} />
-              <Text style={styles.facebookButtonText}>{method} Facebook</Text>
+              <Text style={styles.facebookButtonText}>{props.method === 'register' ? method : ''} Facebook</Text>
             </View>
           </ButtonComponent>
         </View>
       </View>
+
     </View>
   );
 };
 
+// Styles
 const styles = StyleSheet.create({
   button: {
     flexDirection:'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    width: windowWidth * 0.55,
+    width: '100%',
     height: windowHeight * 0.06,
     paddingRight: windowHeight * 0.02,
     paddingLeft: windowHeight * 0.01
@@ -158,8 +203,7 @@ const styles = StyleSheet.create({
   },
   googleButtonText: {
     fontSize: windowWidth * 0.04,
-    color: 'black',
-    width: windowWidth * 0.4
+    color: 'black'
   },
   icon: {
     height: windowHeight * 0.04,
@@ -168,18 +212,20 @@ const styles = StyleSheet.create({
   },
   facebookButton: {
     backgroundColor: '#3b5998',
-    paddingLeft: 0
+    paddingLeft: 0,
   },
   facebookButtonText: {
     fontSize: windowWidth * 0.04,
-    color: 'white',
-    width: windowWidth * 0.4
+    color: 'white'
   },
   buttonContainer: {
-    borderRadius: 20,
+    borderWidth: 1,
+    borderRadius: 15,
     overflow: 'hidden',
-    marginVertical: '2%'
+    marginVertical: '2%',
+    elevation: 3
   }
 });
 
+// Export component
 export default OAuthButtons;
