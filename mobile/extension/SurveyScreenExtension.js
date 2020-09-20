@@ -12,7 +12,9 @@ import {
 import {Form} from 'react-native-json-forms';
 import config from './config';
 import FormExtension from './FormExtension';
-import {updateRanking} from './RankingExtension'
+import {updateRanking} from './RankingExtension';
+import dictionaryExtension from './dictionaryExtension.json';
+import dictionary from '../data/dictionary.json';
 
 const FormScreenExtension = props => {
 
@@ -36,8 +38,15 @@ const FormScreenExtension = props => {
                 setForm(await res.json());
                 setLoaded(true);
             }
-            else
-                Alert.alert('ERROR', 'Form unavailable.');
+            else if (res.status === 403) {
+                Alert.alert(dictionary[props.navigation.state.params.language].ERROR, dictionaryExtension[props.navigation.state.params.language].ALREADY_USER);
+                props.navigation.state.params.logout();
+                props.navigation.navigate({routeName: 'Main'});
+            }
+            else if(res.status == 404){
+                Alert.alert(dictionary[props.navigation.state.params.language].ERROR, dictionaryExtension[props.navigation.state.params.language].FORM_UNAVAILABLE);
+            }
+                
         })();
     }, []);
     
@@ -67,8 +76,8 @@ const FormScreenExtension = props => {
             })
         });
 
-        
-        if(index !== null){
+        //If the user sends a photo in the survey
+        /*if(index !== null){
             const resPhoto = await fetch(`${config.serverURL}/api/surveys/answerPhoto`,{
                 method: 'POST',
                 headers: {
@@ -77,7 +86,7 @@ const FormScreenExtension = props => {
                 },
                 body: photo
             });
-        };
+        };*/
 
         const feedback = await res.json();
 
@@ -87,7 +96,11 @@ const FormScreenExtension = props => {
             Alert.alert('SUCCESS', feedback.immediateFeedback);
             props.navigation.pop();
         }
-        else Alert.alert('ERROR', 'Form unavailable.');
+        if (res.status === 403 || res.status === 403) {
+            Alert.alert(dictionary[props.navigation.state.params.language].ERROR, dictionaryExtension[props.navigation.state.params.language].ALREADY_USER);
+            props.navigation.state.params.logout();
+            props.navigation.navigate({routeName: 'Main'});
+        }
 
         updateRanking(3, props.navigation.state.params.email);
     };
