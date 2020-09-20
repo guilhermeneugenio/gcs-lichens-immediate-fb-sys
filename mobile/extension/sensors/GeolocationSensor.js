@@ -1,12 +1,15 @@
 // Imports
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, Text, ActivityIndicator, Dimensions} from 'react-native';
+import { Feather } from '@expo/vector-icons'; 
 
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
 // Gets user geolocation and sends it w/o any interaction
 const GeolocationSensor = props => {
+
+    const height = Dimensions.get('window').height;
 
     // State to store location
     const [location, setLocation] = useState(null);
@@ -50,9 +53,19 @@ const GeolocationSensor = props => {
 
     }, [location, geocode]);
 
+    let validator = ( <View> 
+        <ActivityIndicator size="small" />
+         </View> )
+    if(location) validator = (<View> 
+        <Feather name="check" size={20} color="green" />
+         </View>)
+    
     // Render dummy view
     return (
-        <View />
+        <View style={{flexDirection:'row', alignItems:'center', marginBottom: height*0.02}}> 
+            <Text> GPS Location  </Text>
+            {validator}
+        </View>
     );
 
 };
