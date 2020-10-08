@@ -19,7 +19,7 @@ const ResearcherPageExtension = props => {
         // Admin email to send to server
         const params = {researcherEmail: props.reseacherEmail};
         // Get user list from server
-        axios.post(`${config.serverURL}/api/surveys/rawData`, params)
+        axios.post(`${config.serverURL}/api/surveys/getData`, params)
         .then(res => {
             // If successful set user list
             setDataList(res.data);
@@ -46,13 +46,6 @@ const ResearcherPageExtension = props => {
             // In case of success force render
             setDummyState(!dummyState);
         })
-        .catch(error => {
-            console.log(error);
-            // if incorrect admin password
-            //if (error.response.status === 404)
-                //alert('ERROR : Researcher not logged in.');
-            // If admin logged out reset session state
-        });
     };
 
     // Get user list from server
@@ -61,7 +54,7 @@ const ResearcherPageExtension = props => {
         // Admin email to send to server
         const params = {researcherEmail: props.reseacherEmail};
         // Get user list from server
-        axios.post(`${config.serverURL}/api/surveys/rawData`, params)
+        axios.post(`${config.serverURL}/api/surveys/getData`, params)
         .then(res => {
             // If successful set user list
             setDataList(res.data);
@@ -83,7 +76,7 @@ const ResearcherPageExtension = props => {
     if (dataList.length === 0)
         content = (
             <React.Fragment>
-                <h3>No survey data found in the database!</h3>
+                <h3>No data found in the database!</h3>
                 <MainButton title='Update' onClick={renderDataList} />
             </React.Fragment>
         );
