@@ -19,18 +19,20 @@ function getDistanceFromLatLonInMobject(lat1, lon1, lat2, lon2) {
 //este servia para sacar tudo de lá e aglomerar tudo o que fosse perto numa so cena
 const diffFeedback1 = async (newInput) => {
 
-  
+  console.log("feedback1")
   let distance = 0;
-  let DiffFeedback1 = [{_id: newInput._id, latitude: newInput.data[1].value.latitude, longitude: newInput.data[1].value.longitude, lichens: [] }];
+  let DiffFeedback1 = [{_id: newInput._id, latitude: newInput.data[0].value.latitude, longitude: newInput.data[0].value.longitude, lichens: [] }];
   let inRange = [];
   const promise = await db.getDocument('answers');
  
   Promise.all(promise).then((answers)=>{
+    
     answers.map( object => {
-      distance = getDistanceFromLatLonInMobject(newInput.data[1].value.latitude, newInput.data[1].value.longitude, object.data[1].value.latitude, object.data[1].value.longitude)
+      distance = getDistanceFromLatLonInMobject(newInput.data[0].value.latitude, newInput.data[0].value.longitude, object.data[0].value.latitude, object.data[0].value.longitude)
+      
       if(distance <= 50){
-        object.data[0].value.map(lichen =>{ DiffFeedback1[0].lichens.push( lichen )});
-        inRange.push({_id: object._id, latitude: object.data[1].value.latitude, longitude: object.data[1].value.longitude})
+        object.data[1].value.map(lichen =>{ DiffFeedback1[0].lichens.push( lichen )});
+        inRange.push({_id: object._id, latitude: object.data[0].value.latitude, longitude: object.data[0].value.longitude})
       } 
       
     })
@@ -39,14 +41,13 @@ const diffFeedback1 = async (newInput) => {
       if(rangeInput._id.toString() != newInput._id.toString()){
         DiffFeedback1.push({_id: rangeInput._id, latitude: rangeInput.latitude, longitude: rangeInput.longitude, lichens: [] })
         answers.map( object => {
-          distance = getDistanceFromLatLonInMobject(rangeInput.latitude, rangeInput.longitude, object.data[1].value.latitude, object.data[1].value.longitude)
-          if(distance <= 50) object.data[0].value.map(lichen =>{ DiffFeedback1[index+1].lichens.push( lichen )}); 
+          distance = getDistanceFromLatLonInMobject(rangeInput.latitude, rangeInput.longitude, object.data[0].value.latitude, object.data[0].value.longitude)
+          if(distance <= 50) object.data[1].value.map(lichen =>{ DiffFeedback1[index+1].lichens.push( lichen )}); 
         })
       }
     })
   })
-  
-  await db.insertDocument('diffFeedback1', {_id: newInput._id , rangeInputs: DiffFeedback1});
-};
 
+  console.log(await db.insertDocument('diffFeedback1', {_id: newInput._id , rangeInputs: DiffFeedback1}));
+}
 exports.diffFeedback1 = diffFeedback1;

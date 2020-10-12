@@ -43,8 +43,13 @@ router.post('/feedback', async (req, res) => {
 });
 
 // Get info to help answer survey
-router.post('/getInfo', async (req, res) => {
-    surveyExtension.getInfo(req, res);
+router.post('/getData', async (req, res) => {
+    surveyExtension.getData(req, res);
+});
+
+// Removes data from the answers
+router.post('/removeData', async (req, res) => {
+    surveyExtension.removeData(req, res);
 });
 
 // Export router

@@ -65,25 +65,35 @@ function metricHandler (table, lichens) {
             eutrophication: eutdIndex,
             poleotolerance: poldIndex };
   }
+
+const stuff = async () =>{
+    const smt = await db.getDocument('diffFeedback1');
+    
+    if (smt.length === 0) {
+        return stuff();
+    }
+    else {
+        return smt;
+    }
+};
 const diffFeedback2 = async (newInput) => {
     
-
     let metrics = []
-    let indexes = []
+    let indexes = []    
+    
+    const inRange = await stuff();
 
     const metricsTable = await db.getDocument('process');
-    const promise = await db.getDocument('diffFeedback1');
-    Promise.all(promise).then((inRange)=>{
+   
+    inRange[0].rangeInputs.map(async zone => {
+        metrics = metricHandler (metricsTable, zone.lichens)
+        indexes = indexHandler(metrics)
+        await db.updateDocument('diffFeedback2', {_id: zone._id} , {latitude: zone.latitude, longitude: zone.longitude, indexes: indexes });
+    });
 
-        inRange[0].rangeInputs.map(async zone => {
-            metrics = metricHandler (metricsTable, zone.lichens)
-            indexes = indexHandler(metrics)
-            await db.updateDocument('diffFeedback2', {_id: zone._id} , {latitude: zone.latitude, longitude: zone.longitude, indexes: indexes });
-        });
-
-    })
-     
-    await db.deleteDocument('diffFeedback1', {_id: ObjectId(newInput._id)});
+    
+    //await db.deleteDocument('diffFeedback1', {_id: ObjectId(newInput._id)}); 
+    
 };
 
 exports.diffFeedback2 = diffFeedback2;

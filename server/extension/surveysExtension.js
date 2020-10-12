@@ -72,12 +72,13 @@ const processData = (req, res) => {
         // If user not in cache
         if (typeof result === 'undefined') res.status(403).send();
         else {
+            var flag = false;
             const newSurvey = {
                 user: req.body.email,
                 timestamp: new Date(),
                 data: req.body.answer
             };
-           await db.insertDocument('answers', newSurvey).then(result => {feedback.differenciated(result)})
+           await db.insertDocument('answers', newSurvey).then(result => {feedback.differenciated(result, flag)})
         }
     });
 
