@@ -42,11 +42,11 @@ function metricHandler (table, lichens) {
   }
 
   function metricsNormalization(array){
-    array[0]*=-5;
-    array[1]*=-2;
-    array[2]*= 1;
-    array[3]*= 2;
-    array[4]*= 5;
+    array[0]*= 0;
+    array[1]*= 3;
+    array[2]*= 6;
+    array[3]*= 7;
+    array[4]*= 10;
   }
   
   function indexHandler (metrics) {
