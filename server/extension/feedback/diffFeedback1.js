@@ -19,7 +19,6 @@ function getDistanceFromLatLonInMobject(lat1, lon1, lat2, lon2) {
 //este servia para sacar tudo de lá e aglomerar tudo o que fosse perto numa so cena
 const diffFeedback1 = async (newInput) => {
 
-  console.log("feedback1")
   let distance = 0;
   let DiffFeedback1 = [{_id: newInput._id, latitude: newInput.data[0].value.latitude, longitude: newInput.data[0].value.longitude, lichens: [] }];
   let inRange = [];
@@ -48,6 +47,6 @@ const diffFeedback1 = async (newInput) => {
     })
   })
 
-  console.log(await db.insertDocument('diffFeedback1', {_id: newInput._id , rangeInputs: DiffFeedback1}));
+  await db.insertDocument('diffFeedback1', {_id: newInput._id , rangeInputs: DiffFeedback1});
 }
 exports.diffFeedback1 = diffFeedback1;

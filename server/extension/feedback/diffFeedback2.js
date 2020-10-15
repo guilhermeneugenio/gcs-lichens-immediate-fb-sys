@@ -66,14 +66,13 @@ function metricHandler (table, lichens) {
             poleotolerance: poldIndex };
   }
 
-const stuff = async () =>{
-    const smt = await db.getDocument('diffFeedback1');
-    
-    if (smt.length === 0) {
-        return stuff();
+const fetchDiff1 = async (id) =>{
+    const diff1 = await db.getDocument('diffFeedback1', {_id: ObjectId(id)});
+    if (diff1.length === 0) {
+        return fetchDiff1(id);
     }
     else {
-        return smt;
+        return diff1;
     }
 };
 const diffFeedback2 = async (newInput) => {
@@ -81,7 +80,7 @@ const diffFeedback2 = async (newInput) => {
     let metrics = []
     let indexes = []    
     
-    const inRange = await stuff();
+    const inRange = await fetchDiff1(newInput._id);
 
     const metricsTable = await db.getDocument('process');
    
@@ -92,7 +91,7 @@ const diffFeedback2 = async (newInput) => {
     });
 
     
-    //await db.deleteDocument('diffFeedback1', {_id: ObjectId(newInput._id)}); 
+    await db.deleteDocument('diffFeedback1', {_id: ObjectId(newInput._id)}); 
     
 };
 
