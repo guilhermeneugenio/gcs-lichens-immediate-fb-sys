@@ -32,7 +32,6 @@ const ProfileScreenExtension = props => {
     const [camera_RollPermission, setCamera_RollPermission] = useState(false);
     const [name, setName] = useState('');
     const [base64, setBase64] = useState('');
-    const [edit, setEdit] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -95,20 +94,12 @@ const ProfileScreenExtension = props => {
             },
             body: data
         });
-        setEdit(false);
+        if(res.status == 200) props.navigation.pop();
     };
 
-    const editContent = () => setEdit(true);
+  
 
-    let content = (
-        <View style={{flexDirection:'row', marginBottom:windowHeight*0.04 }}>
-            <Text style={{color: 'black', marginTop:10, width:windowWidth*0.5, fontSize: windowWidth*0.04}}> {name}</Text>
-            <TouchableOpacity onPress={editContent} style={styles.smalltouchable}>
-                <MaterialIcons name="border-color" size={24} color="black" />
-            </TouchableOpacity>
-        </View> )
-    
-   if (edit) content = (
+    let  content = (
         <TextInput
         style={styles.textinput}
         placeholder={name}
@@ -136,7 +127,7 @@ const ProfileScreenExtension = props => {
         <KeyboardAvoidingView 
             behavior={Platform.OS == "ios" ? "padding" : "height"} 
             style={globalStyles.screen}>      
-            <StatusBar barStyle="dark-content"/>
+            <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "default"}/>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                 <View style={styles.container}>
                     {photo}
