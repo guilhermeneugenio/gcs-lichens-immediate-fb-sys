@@ -9,7 +9,6 @@ import {
   Slider,
   TouchableHighlight,
 } from "react-native";
-
 import LichensImagePickerStylesheet from './LichensImagePickerStylesheet';
 
 // Image Picker by  user built with react native TouchableOpacity and Image component
@@ -32,6 +31,7 @@ const LichensImagePicker = props => {
     props.onChange(props.pageIndex, props.index, []);
     // Update options state
     setOptions(auxOptions);
+    
   }, []);
 
   const abundanceInfo=() => {
@@ -112,11 +112,12 @@ const LichensImagePicker = props => {
 
   // Called everytime an image is pressed 
   const onChange = value => {
+    
     setLichenID(value);
     setModalVisible(!modalVisible);    
   };
 
-  const sliderHandler= enteredValue => setValue(enteredValue)
+  const sliderHandler= enteredValue => {setValue(Math.ceil(enteredValue/5)*5)}
 
   let content = (index) => {
     if(options[index]!= 0) return(
@@ -127,19 +128,21 @@ const LichensImagePicker = props => {
       return( <View></View> );
     }    
   }
-
+  
   return (
     <View style={{marginBottom: Dimensions.get('window').height*0.08}}>
-      <Modal visible={modalVisible} animationType="slide" transparent={true}>
+      <Modal visible={modalVisible} animationType="fade" transparent={true}>
         <View style={LichensImagePickerStylesheet.centeredView}>
           <View style={LichensImagePickerStylesheet.modalView}>
-            <Text>{props.props.choices[lichenID].value}</Text>
+            <Text style={LichensImagePickerStylesheet.modaltext}>{props.props.choices[lichenID].value}</Text>
+            <Image style={LichensImagePickerStylesheet.imagebig} source={{ uri: props.props.choices[lichenID].imageLink }}/>
             <Slider
               style={LichensImagePickerStylesheet.slider}
               minimumValue={0}
               maximumValue={100}
-              step={5}
-              thumbTintColor={"white"}
+              step={0.5}
+              thumbTintColor={"grey"}
+              animateTransitions={true}
               minimumTrackTintColor={"darkolivegreen"}
               onValueChange={sliderHandler}/>
             <View style={LichensImagePickerStylesheet.wrapModalButtons}>
