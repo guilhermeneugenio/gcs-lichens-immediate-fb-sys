@@ -1,0 +1,49 @@
+{
+    "pages": [
+        {
+        "name": "page1",
+        "elements": [
+            {
+                "type": "ext:sensor",
+                "subtype": "geolocation",
+                "name": "Geolocation Sensor"			
+            },
+            {
+                "type": "imagepicker",
+                "name": "imagepicker title",
+                "required": true,
+                "choices": [
+                    {
+                        "value": "rugoso",
+                        "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg"
+                    },
+                    {
+                        "value": "liso",
+                        "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg"
+                    },
+                    {
+                        "value": "cenas",
+                        "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg"
+                    }
+                   
+                ]
+            },
+            {
+                "type": "imagepicker",
+                "name": "imagepicker title",
+                "required": true,
+                "choices": [
+                    {
+                        "value": "10cm",
+                        "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg"
+                    },
+                    {
+                        "value": "20cm",
+                        "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg"
+                    }
+                ]
+            }
+        ]
+        }
+    ]
+}

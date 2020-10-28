@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "eFlechten",
-    "slug": "UGS",
+    "slug": "LIF",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -9,9 +9,9 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.0.3",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/ioslogo.png",
     "facebookScheme": "fb534270243959641",
     "splash": {
       "image": "./assets/splash.png",
@@ -24,8 +24,14 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.GCS.eFletchen",
+      "versionCode": 1
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.GCS.eFletchen",
+      "buildNumber": "1.0.0"
     }
   }
 }
