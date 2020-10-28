@@ -6,16 +6,20 @@
         "LOGIN_ERROR": "Something went wrong with the login.",
         "REGISTER_ERROR": "Something went wrong with the registration.",
         "ALREADY_USER": "User Login Timeout.",
-        "FORM_UNAVAILABLE": "Form is unavailable."
+        "FORM_UNAVAILABLE": "Form is unavailable.",
+        "MAP": "A new map is available!",
+        "CLICK": "Click bellow to check it!"
     },
     "pt": {
-        "WELCOME": "Uma extensão de um Sistema Genérico de Crowdsourcing. Capaz de retornar feedback imediato ao utilizador, permitindo mapear líquenes de forma a combater a falta de informação acerca da qualidade do ar e alterações climáticas.",
+        "WELCOME": "Uma extensão de um Sistema Genérico de Crowdsourcing, capaz de retornar feedback imediato ao utilizador, permitindo mapear líquenes de forma a combater a falta de informação da qualidade do ar e alterações climáticas.",
         "OAUTH_LOGIN": "Entrar com",
         "OAUTH_REGISTER": "Registar c/",
         "LOGIN_ERROR": "Algo correu mal com o login.",
         "REGISTER_ERROR": "Algo correu mal com o registo.",
         "ALREADY_USER": "Tempo limite de login.",
-        "FORM_UNAVAILABLE": "Formulário indisponível."
+        "FORM_UNAVAILABLE": "Formulário indisponível.",        
+        "MAP": "Novo mapa disponivel!",
+        "CLICK": "Clica em baixo!"
     },
     "ru": {
         "WELCOME": "Расширение общей системы краудсорсинга. Возможность немедленной обратной связи с пользователем, что позволяет наносить на карту лишайники для борьбы с дефицитом данных о загрязнении воздуха и изменении климата.",
