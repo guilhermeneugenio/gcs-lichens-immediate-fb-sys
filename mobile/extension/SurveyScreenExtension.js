@@ -6,7 +6,10 @@ import {
     Text,
     Alert, 
     StyleSheet,
-    Dimensions
+    Dimensions,
+    StatusBar,
+    Modal,
+    Image,
 } from 'react-native';
 
 import {Form} from 'react-native-json-forms';
@@ -15,12 +18,16 @@ import FormExtension from './FormExtension';
 import {updateRanking} from './RankingExtension';
 import dictionaryExtension from './dictionaryExtension.json';
 import dictionary from '../data/dictionary.json';
+import LichensImagePickerStylesheet from './LichensImagePickerStylesheet';
+import CustomButton from '../components/CustomButton';
+import Colors from '../constants/colors'
 
 const FormScreenExtension = props => {
 
     const [loaded, setLoaded] = useState(null);
     const [form, setForm] = useState(null);
     const [dummy, setDummy] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -93,8 +100,7 @@ const FormScreenExtension = props => {
         setDummy(!dummy);
 
         if (res.status == 200) {
-            Alert.alert('SUCCESS', feedback.immediateFeedback);
-            props.navigation.pop();
+            setModalVisible(!modalVisible)
         }
         if (res.status === 403 || res.status === 403) {
             Alert.alert(dictionary[props.navigation.state.params.language].ERROR, dictionaryExtension[props.navigation.state.params.language].ALREADY_USER);
@@ -102,8 +108,20 @@ const FormScreenExtension = props => {
             props.navigation.navigate({routeName: 'Main'});
         }
 
-        updateRanking(3, props.navigation.state.params.email);
+        updateRanking( config.ranking, props.navigation.state.params.email );
     };
+
+    const modalHandler = () => {
+        setModalVisible(!modalVisible)
+        props.navigation.navigate({
+            routeName: "Results",
+            params: {
+              email: props.navigation.state.params.email,
+              language: props.navigation.state.params.language,
+            },
+          })
+         
+    }
 
     if (loaded === null)
         return <View style={styles.container}><Text style={styles.text}>Loading survey...</Text></View>
@@ -111,9 +129,32 @@ const FormScreenExtension = props => {
         return <View style={styles.container}><Text style={styles.text}>Unable to load survey. Please go back.</Text></View>
     else
         return (
-            <ScrollView style={styles.formContainer} scrollIndicatorInsets={{ right: 1 }}>
-                <Form key={dummy} json={form} extension={FormExtension} onSubmit={onSubmit} />
-            </ScrollView>
+            <View>
+                <ScrollView style={styles.formContainer} scrollIndicatorInsets={{ right: 1 }}>
+                    <Modal visible={modalVisible} animationType="fade" transparent={true}>
+                        <View style={LichensImagePickerStylesheet.centeredView}>
+                            <View style={LichensImagePickerStylesheet.modalView}>
+                                <Text>{dictionary[props.navigation.state.params.language].SUCCESS}</Text>
+                                <Image style={{width: 100, height:100}} source= {require("../assets/notification.gif")}></Image>         
+                                <Text> {dictionaryExtension[props.navigation.state.params.language].MAP} </Text>
+                                <Text  style={{marginBottom:20}} >{dictionaryExtension[props.navigation.state.params.language].CLICK}</Text>
+                                <CustomButton
+                                title={'Results'}
+                                onPress={modalHandler}
+                                backgroundColor={Colors.primary}
+                                textColor={"white"}
+                                width={ Dimensions.get('window').width*0.6}
+                                height={ Dimensions.get('window').height*0.045}
+                                borderRadius={10}
+                                />
+                            </View>
+                        </View>
+                    </Modal>
+                    <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "default"}/>
+                    <Form key={dummy} json={form} extension={FormExtension} onSubmit={onSubmit} />
+                </ScrollView>
+            </View>
+            
         );
 };
 

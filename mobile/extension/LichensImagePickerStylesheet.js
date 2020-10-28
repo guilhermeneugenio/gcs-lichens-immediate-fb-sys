@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import globalStyles from "../constants/globalStyles";
+import Colors from "../constants/colors";
 
 // Style
 const LichensImagePickerStylesheet = StyleSheet.create({
@@ -11,6 +12,12 @@ const LichensImagePickerStylesheet = StyleSheet.create({
       width: Dimensions.get('window').width*0.30,
       height: Dimensions.get('window').width*0.30,
       margin: Dimensions.get('window').width*0.005
+    },
+    imagebig: {
+      width: Dimensions.get('window').width*0.80,
+      height: Dimensions.get('window').width*0.50,
+      margin: Dimensions.get('window').width*0.005,    
+      borderRadius: 20
     },
     imageSelect: {
       backgroundColor: 'rgba(17,140,17,0.5)',
@@ -28,9 +35,15 @@ const LichensImagePickerStylesheet = StyleSheet.create({
       fontWeight: "bold",
       textAlign: "center"
     },
-    slider:{
+    modaltext: {
+      fontWeight: "bold",
+      textAlign: "center",
+      
+      marginBottom: Dimensions.get('window').height * 0.02,
+    },
+  slider: {
       width: Dimensions.get('window').width * 0.7,
-      margin: Dimensions.get('window').height * 0.02
+      margin: Dimensions.get('window').height * 0.02,
     },
     openButton: {
       borderRadius: 10,
@@ -48,13 +61,15 @@ const LichensImagePickerStylesheet = StyleSheet.create({
       justifyContent: "center",
     },
     centeredView: {
-      flex: 1,
+      flex: Dimensions.get('window').height * 2,
+      backgroundColor: 'rgba(0,0,0,0.4)',
       justifyContent: "center",
       alignItems: "center",
     },
     modalView: {
       ...globalStyles.shadow,
-      paddingVertical:Dimensions.get('window').height * 0.03,
+      shadowColor:'#5c5c5c',
+      paddingVertical:Dimensions.get('window').height * 0.025,
       backgroundColor: "white",
       borderRadius: 20,
       padding: 10,
