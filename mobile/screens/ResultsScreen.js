@@ -8,6 +8,7 @@
 
 // Imports
 import React from 'react';
+import { BackHandler } from 'react-native';
 import dictionary from '../data/dictionary.json';
 import ResultsScreenExtension from '../extension/ResultsScreenExtension';
 
@@ -17,6 +18,9 @@ import ResultsScreenExtension from '../extension/ResultsScreenExtension';
  * 
  ************************************************/
 const ResultsScreen = props => {
+
+
+
     /************************************************
      * RENDER
     ************************************************/
@@ -35,6 +39,16 @@ ResultsScreen.navigationOptions = (navData) => {
         }
     );
 };
+
+/*BackHandler.addEventListener('hardwareBackPress', function() {
+    props.navigation.navigate({
+        routeName: "MainScreen",
+        params: {
+          email: props.navigation.state.params.email,
+          language: props.navigation.state.params.language,
+        },
+      })
+  });*/
 
 // Export screen
 export default ResultsScreen;

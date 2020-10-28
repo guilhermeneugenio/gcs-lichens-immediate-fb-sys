@@ -11,8 +11,7 @@ import {
     Image,
     Text,
     SafeAreaView,
-    TouchableOpacity,
-    KeyboardAvoidingView
+    ScrollView,
 } from 'react-native';
 
 import globalStyles from '../constants/globalStyles';
@@ -24,7 +23,6 @@ import CustomButton from '../components/CustomButton';
 import dictionary from '../data/dictionary.json';
 
 import config from '../extension/config';
-import { ScrollView } from 'react-native-gesture-handler';
 
 // Window width and height used for styling purposes
 const windowWidth = Dimensions.get('window').width;
@@ -96,85 +94,77 @@ const RegisterScreen = props => {
      * RENDER
      ************************************************/
     return (
-        <ScrollView>
-            <SafeAreaView style={globalStyles.androidSafeArea}>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                <KeyboardAvoidingView
-                    behavior={Platform.OS == "ios" ? "padding" : "height"}
-                    style={{ flex: 1}}
-                    keyboardVerticalOffset={windowHeight*0.2}>
-                    <View style={styles.container}>
-                        <View style={styles.imageContainer}>
-                            <Image style={styles.image} source={require('../assets/landing_logo.png')} />
+        <SafeAreaView style={globalStyles.androidSafeArea}>
+            <ScrollView>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                <View style={styles.container}>
+
+                    <View style={styles.imageContainer}>
+                        <Image style={styles.image} source={require('../assets/landing_logo.png')} />
+                    </View>
+
+                    <View style={styles.oauthContainer}>
+                        <OAuthButtons method={'register'} navigation={props.navigation} language={props.navigation.state.params.language}/>
+                    </View>
+
+                    <View style={styles.lineContainer}>
+                        <Image style={styles.image} source={require('../assets/register_line.png')} />
+                        <Text style={{...styles.text, ...styles.orText}}>{dictionary[props.navigation.state.params.language].OR}</Text>
+                    </View>
+
+                    <View style={styles.textContainer}>
+                        <Text style={styles.text}>{dictionary[props.navigation.state.params.language].SIGN_UP}</Text>
+                    </View>
+
+                    <View style={styles.formContainer}>
+                        <View>
+                            <TextInput
+                                style={styles.input}
+                                placeholder={dictionary[props.navigation.state.params.language].NAME}
+                                placeholderTextColor={Colors.secondary}
+                                value={name}
+                                onChangeText={nameInputHandler}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder={dictionary[props.navigation.state.params.language].EMAIL}
+                                placeholderTextColor={Colors.secondary}
+                                value={email}
+                                onChangeText={emailInputHandler}
+                            />
+                            <TextInput
+                                style={styles.input}
+                                placeholder={dictionary[props.navigation.state.params.language].PASSWORD}
+                                placeholderTextColor={Colors.secondary}
+                                value={password}
+                                onChangeText={passwordInputHandler}
+                                secureTextEntry={true}
+                            />
                         </View>
 
-                        <View style={{...styles.oauthContainer, alignItems:'center'}}>
-                            <OAuthButtons method={'register'} navigation={props.navigation} language={props.navigation.state.params.language}/>
+                        <View style={styles.registerButtonContainer}>
+                            <CustomButton
+                                title={dictionary[props.navigation.state.params.language].REGISTER}
+                                onPress={register}
+                                backgroundColor={Colors.primary}
+                                textColor={'white'}
+                                borderRadius={10}    
+                            />
                         </View>
 
-                        <View style={styles.lineContainer}>
-                            <Image style={styles.image} source={require('../assets/register_line.png')} />
-                            <Text style={{...styles.text, ...styles.orText}}>{dictionary[props.navigation.state.params.language].OR}</Text>
-                        </View>
+                    </View>
+                </View>
 
-                        <View style={styles.textContainer}>
-                            <Text style={styles.text}>{dictionary[props.navigation.state.params.language].SIGN_UP}</Text>
-                        </View>
-
-                        <View style={styles.formContainer}>
-                            <View>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder={dictionary[props.navigation.state.params.language].NAME}
-                                    placeholderTextColor={Colors.secondary}
-                                    value={name}
-                                    onChangeText={nameInputHandler}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder={dictionary[props.navigation.state.params.language].EMAIL}
-                                    placeholderTextColor={Colors.secondary}
-                                    value={email}
-                                    onChangeText={emailInputHandler}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder={dictionary[props.navigation.state.params.language].PASSWORD}
-                                    placeholderTextColor={Colors.secondary}
-                                    value={password}
-                                    onChangeText={passwordInputHandler}
-                                    secureTextEntry={true}
-                                />
-                            </View>
-                                <View style={styles.registerButtonContainer}>
-                                    <CustomButton
-                                        title={dictionary[props.navigation.state.params.language].REGISTER}
-                                        onPress={register}
-                                        backgroundColor={Colors.primary}
-                                        textColor={'white'}
-                                        borderRadius={10}    
-                                    />
-                                </View>
-                            </View>
-                        </View>
-                    </KeyboardAvoidingView>
-                </TouchableWithoutFeedback>
-            </SafeAreaView>
-        </ScrollView>
-        
+            </TouchableWithoutFeedback>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 
 const styles= StyleSheet.create({
     container: {
         ...globalStyles.screen,
-        flex:1,
         justifyContent: 'flex-start'
-    },
-    image: {
-        width: '100%',
-        height: '100%',
-        resizeMode: 'contain'
     },
     input: {
         ...globalStyles.formElement, 
@@ -186,6 +176,11 @@ const styles= StyleSheet.create({
         width: (windowHeight + windowWidth) * 0.20,
         height: (windowHeight + windowWidth) * 0.10,
         marginVertical: windowHeight * 0.03
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'contain'
     },
     lineContainer: {
         width: windowWidth * 0.85,
@@ -220,9 +215,8 @@ const styles= StyleSheet.create({
         alignItems: 'center'
     },
     registerButtonContainer: {
-        position: 'absolute',
-        justifyContent: 'center',
-        marginTop: '60%'
+        flex: 1, 
+        justifyContent: 'center'
     }
 });
 

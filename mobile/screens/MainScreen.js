@@ -21,7 +21,8 @@ import {
     Image,
     SafeAreaView,
     KeyboardAvoidingView,
-    StatusBar
+    StatusBar,
+    ScrollView
 } from 'react-native';
 
 import globalStyles from '../constants/globalStyles';
@@ -116,79 +117,100 @@ const MainScreen = props => {
 
     // Initial screen content is login form
     let content = (
-        <SafeAreaView style={globalStyles.androidSafeArea}>
-            <StatusBar barStyle="dark-content"/>
-            <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
-            style={{ flex: 1}}
-            keyboardVerticalOffset={windowHeight*0.5}>
-                <View style={styles.container} >
+      <SafeAreaView style={globalStyles.androidSafeArea}>
+        <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "default"}/>
+        <ScrollView>
+          <View style={styles.container}>
+            <View style={styles.imageContainer}>
+              <Image
+                style={styles.image}
+                source={require("../assets/ioslogo.png")}
+              />
+            </View>
 
-                    <View style={styles.imageContainer}>
-                        <Image style={styles.image} source={require('../assets/landing_logo.png')} />
-                    </View>
+            <View
+              style={{
+                ...styles.textContainer,
+                ...styles.welcomeTextContainer,
+              }}
+            >
+              {welcomeContent}
+            </View>
 
-                    <View style={{...styles.textContainer, ...styles.welcomeTextContainer}}>
-                        {welcomeContent}
-                    </View>
+            <View style={styles.formContainer}>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder={dictionary[language].EMAIL}
+                  placeholderTextColor={Colors.secondary}
+                  value={email}
+                  onChangeText={emailInputHandler}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder={dictionary[language].PASSWORD}
+                  placeholderTextColor={Colors.secondary}
+                  value={password}
+                  onChangeText={passwordInputHandler}
+                  secureTextEntry={true}
+                />
+              </View>
 
-                    <View style={styles.formContainer}>
+              <CustomButton
+                title={dictionary[language].LOGIN}
+                onPress={login}
+                backgroundColor={Colors.primary}
+                textColor={"white"}
+                width={windowWidth * 0.6}
+                height={windowHeight * 0.045}
+                borderRadius={10}
+              />
+            </View>
 
-                        <View style={styles.inputContainer}>
-                            <TextInput
-                                style={styles.input}
-                                placeholder={dictionary[language].EMAIL}
-                                placeholderTextColor={Colors.secondary}
-                                value={email}
-                                onChangeText={emailInputHandler}
-                                />
-                            <TextInput
-                                style={styles.input}
-                                placeholder={dictionary[language].PASSWORD}
-                                placeholderTextColor={Colors.secondary}
-                                value={password}
-                                onChangeText={passwordInputHandler}
-                                secureTextEntry={true}
-                                />
-                        </View>
+            <View style={styles.loginTextContainer}>
+              <Text style={styles.text}>{dictionary[language].OR_LOGIN}</Text>
+            </View>
 
-                        <CustomButton
-                            title={dictionary[language].LOGIN}
-                            onPress={login}
-                            backgroundColor={Colors.primary}
-                            textColor={'white'}
-                            width={windowWidth*0.60}
-                            height={windowHeight*0.045}
-                            borderRadius={10}
-                            />
-                    </View> 
+            <View
+              style={{
+                width: windowWidth * 0.35,
+                marginBottom: windowHeight * 0.05,
+              }}
+            >
+              <OAuthButtons
+                method={"login"}
+                onLogin={changeLoggedState}
+                language={language}
+              />
+            </View>
 
-                    <View style={styles.loginTextContainer}>
-                        <Text style={styles.text}>{dictionary[language].OR_LOGIN}</Text>
-                    </View>
-                    
-                    <View style={{width:windowWidth * 0.35, marginBottom: windowHeight * 0.05}}>
-                        <OAuthButtons method={'login'} onLogin={changeLoggedState} language={language} />
-                    </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>
+                {dictionary[language].NOT_REGISTERED}{" "}
+              </Text>
+              <TouchableOpacity
+                onPress={() =>
+                  props.navigation.navigate({
+                    routeName: "Register",
+                    params: { language: language },
+                  })
+                }
+              >
+                <Text style={{ ...styles.text, ...styles.textUnderline }}>
+                  {dictionary[language].CLICK_HERE}
+                </Text>
+              </TouchableOpacity>
+            </View>
 
-                    <View style={styles.textContainer}>
-                        <Text style={styles.text}>{dictionary[language].NOT_REGISTERED} </Text>
-                        <TouchableOpacity onPress={() => props.navigation.navigate({routeName: 'Register', params: {language: language}})}>
-                            <Text style={{...styles.text, ...styles.textUnderline}}>{dictionary[language].CLICK_HERE}</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.languagePicker}>
-                        <LanguagePicker
-                            language={language}
-                            setLanguage={newLanguage => setLanguage(newLanguage)}
-                        />
-                    </View>
-                </View>
-            </KeyboardAvoidingView>
-        </SafeAreaView>
-        
-
+            <View style={styles.languagePicker}>
+              <LanguagePicker
+                language={language}
+                setLanguage={(newLanguage) => setLanguage(newLanguage)}
+              />
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     );
 
     // If user is logged render the menu screen
@@ -227,9 +249,10 @@ const styles = StyleSheet.create({
     },
     welcomeTextContainer: {
         marginBottom: windowHeight * 0.03,
-        width: '85%'
+        width: windowWidth * 0.9
     },
     formContainer: {
+        width: windowHeight * 0.72,
         marginBottom: windowHeight * 0.02,
         alignItems: 'center'
     },
@@ -260,8 +283,8 @@ const styles = StyleSheet.create({
     },
     languagePicker: {
         position: 'absolute', 
-        right: 0, 
-        top: windowHeight * 0.01
+        right: windowHeight * 0.02, 
+        top: windowHeight * 0.02
     },
 });
 
