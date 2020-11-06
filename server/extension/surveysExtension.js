@@ -21,8 +21,8 @@ const getSurvey = (req, res) => {
         if (typeof result === 'undefined') res.status(403).send();     
         else {
             const json = await db.getDocument('surveys')
-            if(json[0]){
-                res.status(200).send(json[0]);
+            if(json){
+                res.status(200).send(json);
             } 
             else{
                 res.status(404).send();

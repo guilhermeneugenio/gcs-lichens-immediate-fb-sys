@@ -97,7 +97,7 @@ const MenuScreen = (props) => {
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
-            source={require("../assets/ioslogo.png")}
+            source={require("../assets/landing_logo_efletchen.png")}
           />
         </View>
 

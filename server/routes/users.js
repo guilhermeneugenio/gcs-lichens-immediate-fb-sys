@@ -7,6 +7,23 @@ var upload = multer({ limits: { fieldSize: 25 * 1024 * 1024 } });
 var db = require('../modules/db');
 var cache = require('../modules/cache');
 var config = require('../extension/config');
+var crypto = require('crypto');
+
+const encryptAES = (password) => {
+  var mykey = crypto.createCipheriv('aes-256-cbc', generate(password, 32), generate(password, 16));
+  var mystr = mykey.update(password, 'utf8', 'hex')
+  mystr += mykey.final('hex');
+  return mystr;
+};
+
+const generate = (password, bytes) => {
+  if (password.length > bytes)
+    return password.slice(0,bytes);
+  else if(password.length < bytes) 
+    return password.padEnd(bytes, '0')
+  else
+    return password;
+};
 
 // Get Users
 router.post('/', async (req, res) => {
@@ -29,7 +46,7 @@ router.post('/register', async (req, res) => {
   // Create new user object
   const newUser = {
     name: req.body.name,
-    password: req.body.password,
+    password: encryptAES(req.body.password),
     email: req.body.email,
     type: req.body.type
   };
@@ -56,7 +73,7 @@ router.post('/login', async (req, res) => {
   // Login user object
   const user = {
     email: req.body.email,
-    password: req.body.password
+    password: encryptAES(req.body.password)
   };
 
   // Get login admin credentials

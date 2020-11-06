@@ -18,6 +18,7 @@ import FormExtension from './FormExtension';
 import {updateRanking} from './RankingExtension';
 import dictionaryExtension from './dictionaryExtension.json';
 import dictionary from '../data/dictionary.json';
+import survey from '../data/survey1.json';
 import LichensImagePickerStylesheet from './LichensImagePickerStylesheet';
 import CustomButton from '../components/CustomButton';
 import Colors from '../constants/colors'
@@ -26,11 +27,13 @@ const FormScreenExtension = props => {
 
     const [loaded, setLoaded] = useState(null);
     const [form, setForm] = useState(null);
+    const [screen, setScreen] = useState('trunk');
+    const [surveydata, setSurveyData] = useState(null);
     const [dummy, setDummy] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
-        (async () => {
+       /* (async () => {
             const res = await fetch(`${config.serverURL}/api/surveys/`,{
                 method: 'POST',
                 headers: {
@@ -54,24 +57,16 @@ const FormScreenExtension = props => {
                 Alert.alert(dictionary[props.navigation.state.params.language].ERROR, dictionaryExtension[props.navigation.state.params.language].FORM_UNAVAILABLE);
             }
                 
-        })();
+        })();*/
+        setForm(survey);
+        setLoaded(true);
     }, []);
     
     
     const onSubmit = async (data) => {
-        
-        let index = null;
-        let photo = new FormData();
-        data.map((d, i) => {
-            if (d.type === 'camera') {
-               
-                photo.append("image_data", d.value);
-                photo.append("email", props.navigation.state.params.email);
-                index = i;
-                d.value = '';
-            }
-        });
-
+        var finalData = surveydata;
+        finalData.push(data[0])
+        console.log(finalData)
         const res = await fetch(`${config.serverURL}/api/surveys/answer`,{
             method: 'POST',
             headers: {
@@ -79,21 +74,9 @@ const FormScreenExtension = props => {
             },
             body: JSON.stringify({
                 email:  props.navigation.state.params.email,
-                answer: data
+                answer: finalData
             })
         });
-
-        //If the user sends a photo in the survey
-        /*if(index !== null){
-            const resPhoto = await fetch(`${config.serverURL}/api/surveys/answerPhoto`,{
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'multipart/form-data',
-                },
-                body: photo
-            });
-        };*/
 
         const feedback = await res.json();
 
@@ -111,8 +94,14 @@ const FormScreenExtension = props => {
         updateRanking( config.ranking, props.navigation.state.params.email );
     };
 
+    const onFirstSubmit = async (data) => {
+        setSurveyData(data)
+        setScreen('lichens');
+    };
+
     const modalHandler = () => {
         setModalVisible(!modalVisible)
+        props.navigation.pop();
         props.navigation.navigate({
             routeName: "Results",
             params: {
@@ -127,7 +116,17 @@ const FormScreenExtension = props => {
         return <View style={styles.container}><Text style={styles.text}>Loading survey...</Text></View>
     else if (loaded === false)
         return <View style={styles.container}><Text style={styles.text}>Unable to load survey. Please go back.</Text></View>
-    else
+    else if(screen === 'trunk')
+        return (
+            <View>
+                <ScrollView style={styles.formContainer} scrollIndicatorInsets={{ right: 1 }}>
+                    <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "default"}/>
+                    <Form key={screen} json={form} extension={FormExtension} onSubmit={onFirstSubmit} />
+                </ScrollView>
+            </View>
+            
+        );
+    else if(screen === 'lichens')
         return (
             <View>
                 <ScrollView style={styles.formContainer} scrollIndicatorInsets={{ right: 1 }}>
@@ -151,7 +150,7 @@ const FormScreenExtension = props => {
                         </View>
                     </Modal>
                     <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "default"}/>
-                    <Form key={dummy} json={form} extension={FormExtension} onSubmit={onSubmit} />
+                    <Form key={screen} json={form} extension={FormExtension} onSubmit={onSubmit} />
                 </ScrollView>
             </View>
             

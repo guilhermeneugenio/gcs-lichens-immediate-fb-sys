@@ -6,42 +6,38 @@
             {
                 "type": "ext:sensor",
                 "subtype": "geolocation",
-                "name": "Geolocation Sensor"			
+                "name": "Geolocation Sensor",
+                "required": true	
             },
             {
                 "type": "imagepicker",
-                "name": "imagepicker title",
+                "name": "Tipo de Tronco",
                 "required": true,
+                "numberPerLine": 3,
+                "imageSize": "big",
+                "singleChoice": true,
                 "choices": [
                     {
                         "value": "rugoso",
-                        "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg"
+                        "imageLink": "http://192.168.0.102:3001/public/rugoso.jpg"
+                    },
+                    {
+                        "value": "intermedio",
+                        "imageLink": "http://192.168.0.102:3001/public/intermedio.jpg"
                     },
                     {
                         "value": "liso",
-                        "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg"
-                    },
-                    {
-                        "value": "cenas",
-                        "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg"
+                        "imageLink": "http://192.168.0.102:3001/public/liso.jpg"
                     }
                    
                 ]
             },
             {
-                "type": "imagepicker",
-                "name": "imagepicker title",
-                "required": true,
-                "choices": [
-                    {
-                        "value": "10cm",
-                        "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg"
-                    },
-                    {
-                        "value": "20cm",
-                        "imageLink": "https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg"
-                    }
-                ]
+                "type": "TrunkSlider",
+                "name": "Diâmetro do Tronco",
+                "min" : 0,
+                "max" : 200,
+                "link": "http://192.168.0.102:3001/public/trunk.jpg"
             }
         ]
         }

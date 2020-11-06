@@ -9,6 +9,7 @@
 // Imports
 var express = require('express');
 var router = express.Router();
+var feedback = require('../modules/feedback');
 
 // Import survey extension functions
 const surveyExtension = require('../extension/surveysExtension');
@@ -39,7 +40,8 @@ router.post('/answerImage', upload.single(), async (req, res) => {
 
 // Get feedback of an answer
 router.post('/feedback', async (req, res) => {
-    surveyExtension.returnFeedback(req, res);
+    feedback.differenciated(req, re);
+    feedback.immediate(req, res);
 });
 
 // Get info to help answer survey

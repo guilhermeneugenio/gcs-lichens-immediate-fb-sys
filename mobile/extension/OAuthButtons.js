@@ -89,7 +89,7 @@ const OAuthButtons = props => {
       // Logs in Google
       const result = await Google.logInAsync({
         androidClientId: config.credentials.google.androidClientId,
-        iosClientId: config.credentials.google.iosClientId,
+        iosClientId: config.credentials.google.iosClientId,   
         scopes: ["profile", "email"]
       });
       
@@ -97,7 +97,7 @@ const OAuthButtons = props => {
       if (result.type === "success") {
         const params = {
           'platform': 'google',
-          'id': config.credentials.google.androidClientId,
+          'id': (Platform.OS === 'ios' ?  config.credentials.google.iosClientId : config.credentials.google.androidClientId) ,
           'token': result.idToken,
           'user': result.user.id,
           'name': result.user.name,
@@ -111,7 +111,7 @@ const OAuthButtons = props => {
       }
     } catch (message) {
       // Session errors
-      Alert.alert(dictionary[props.language].ERROR, `${message}` ); 
+      //Alert.alert(dictionary[props.language].ERROR, `${message}` ); 
     }
   };
 

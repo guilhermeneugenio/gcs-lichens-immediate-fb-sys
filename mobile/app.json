@@ -25,12 +25,12 @@
       "**/*"
     ],
     "android": {
-      "package": "com.GCS.eFletchen",
+      "package": "com.GCS.eFlechten",
       "versionCode": 1
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.GCS.eFletchen",
+      "bundleIdentifier": "com.GCS.eFlechten",
       "buildNumber": "1.0.0"
     }
   }

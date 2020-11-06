@@ -100,7 +100,7 @@ const RegisterScreen = props => {
                 <View style={styles.container}>
 
                     <View style={styles.imageContainer}>
-                        <Image style={styles.image} source={require('../assets/landing_logo.png')} />
+                        <Image style={styles.image} source={require('../assets/landing_logo_efletchen_s.png')} />
                     </View>
 
                     <View style={styles.oauthContainer}>
@@ -179,7 +179,7 @@ const styles= StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: '100%',
+        height: '110%',
         resizeMode: 'contain'
     },
     lineContainer: {

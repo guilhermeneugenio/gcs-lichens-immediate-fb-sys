@@ -1,5 +1,6 @@
 import SensorElement from './SensorElement';
 import LichensImagePicker from './LichensImagePicker';
+import TrunkSlider from './TrunkSlider';
 const ext = [
     {
         type: 'ext:sensor',
@@ -8,6 +9,10 @@ const ext = [
     {
         type: 'LichensImagePicker',
         component: LichensImagePicker
+    },
+    {
+        type: 'TrunkSlider',
+        component: TrunkSlider
     }
 ];
 

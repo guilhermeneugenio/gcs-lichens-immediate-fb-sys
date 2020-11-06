@@ -1,4 +1,5 @@
 var db = require('../../modules/db');
+var config = require('../config')
 
 function deg2rad(deg) {
   return deg * (Math.PI/180)
@@ -25,12 +26,10 @@ const diffFeedback1 = async (newInput) => {
   const promise = await db.getDocument('answers');
  
   Promise.all(promise).then((answers)=>{
-    
     answers.map( object => {
       distance = getDistanceFromLatLonInMobject(newInput.data[0].value.latitude, newInput.data[0].value.longitude, object.data[0].value.latitude, object.data[0].value.longitude)
-      
-      if(distance <= 50){
-        object.data[1].value.map(lichen =>{ DiffFeedback1[0].lichens.push( lichen )});
+      if(distance <= config.distance){
+        object.data[3].value.map(lichen =>{  DiffFeedback1[0].lichens.push( lichen )});
         inRange.push({_id: object._id, latitude: object.data[0].value.latitude, longitude: object.data[0].value.longitude})
       } 
       
@@ -41,7 +40,7 @@ const diffFeedback1 = async (newInput) => {
         DiffFeedback1.push({_id: rangeInput._id, latitude: rangeInput.latitude, longitude: rangeInput.longitude, lichens: [] })
         answers.map( object => {
           distance = getDistanceFromLatLonInMobject(rangeInput.latitude, rangeInput.longitude, object.data[0].value.latitude, object.data[0].value.longitude)
-          if(distance <= 50) object.data[1].value.map(lichen =>{ DiffFeedback1[index+1].lichens.push( lichen )}); 
+          if(distance <= config.distance) object.data[3].value.map(lichen =>{ DiffFeedback1[index+1].lichens.push( lichen )}); 
         })
       }
     })

@@ -6,15 +6,15 @@ const config = {
     credentials: {
         google: {
             webClientId: "608098992888-pk0vantp01d0avqh423djgodbpm1k86m.apps.googleusercontent.com",
-            androidClientId: "608098992888-f7pie3rd6osvls6jt04naaqeivd2m68j.apps.googleusercontent.com",
-            iosClientId : "608098992888-v6gts7tcib7i4p6rv041kbklk2qk78lf.apps.googleusercontent.com"
-        },
+            androidClientId: "529356542774-auedn00vtp1sjilf2qk5jfjpek22kb0i.apps.googleusercontent.com",
+            iosClientId : "529356542774-qfahu5dns82aiv8irqo6qqfp0t044u21.apps.googleusercontent.com"
+        }, 
         facebook: {
-            appId: "534270243959641"
+            appId: "3678052918959065"
         }
     },
     //serverURL: 'http://146.193.41.162/lif/server',
-    serverURL: 'http://192.168.1.69:3001',
+    serverURL: 'http://192.168.1.2:3001',
     //Idioms of the app
     languages:['pt','en'],
     ranking: 3

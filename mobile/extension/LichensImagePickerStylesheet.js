@@ -38,7 +38,6 @@ const LichensImagePickerStylesheet = StyleSheet.create({
     modaltext: {
       fontWeight: "bold",
       textAlign: "center",
-      
       marginBottom: Dimensions.get('window').height * 0.02,
     },
   slider: {

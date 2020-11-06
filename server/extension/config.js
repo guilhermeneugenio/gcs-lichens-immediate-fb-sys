@@ -7,10 +7,12 @@ const admin = [
 ];
 
 // Database credentials
-//const db = {
-//    url: 'mongodb://127.0.0.1:27017/crowdsourcing',
-//    name: 'crowdsourcing'
-//};
+/*const db = {
+    url: 'mongodb://127.0.0.1:27017/crowdsourcing',
+   name: 'crowdsourcing'
+};*/
+
+const distance = 30;
 
 //Database credentials
 const db = {
@@ -25,4 +27,5 @@ const userTimeout = 3600;
 // Exports
 exports.admin = admin;
 exports.db = db;
+exports.distance = distance;
 exports.userTimeout = userTimeout;
