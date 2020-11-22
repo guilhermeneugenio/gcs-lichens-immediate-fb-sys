@@ -18,7 +18,6 @@ import FormExtension from './FormExtension';
 import {updateRanking} from './RankingExtension';
 import dictionaryExtension from './dictionaryExtension.json';
 import dictionary from '../data/dictionary.json';
-import survey from '../data/survey1.json';
 import LichensImagePickerStylesheet from './LichensImagePickerStylesheet';
 import CustomButton from '../components/CustomButton';
 import Colors from '../constants/colors'
@@ -33,7 +32,7 @@ const FormScreenExtension = props => {
     const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
-       /* (async () => {
+        (async () => {
             const res = await fetch(`${config.serverURL}/api/surveys/`,{
                 method: 'POST',
                 headers: {
@@ -44,7 +43,7 @@ const FormScreenExtension = props => {
                 })
             });
     
-            if (res.status == 200){
+            if (res.status == 200) {
                 setForm(await res.json());
                 setLoaded(true);
             }
@@ -57,9 +56,7 @@ const FormScreenExtension = props => {
                 Alert.alert(dictionary[props.navigation.state.params.language].ERROR, dictionaryExtension[props.navigation.state.params.language].FORM_UNAVAILABLE);
             }
                 
-        })();*/
-        setForm(survey);
-        setLoaded(true);
+        })();
     }, []);
     
     
@@ -121,7 +118,7 @@ const FormScreenExtension = props => {
             <View>
                 <ScrollView style={styles.formContainer} scrollIndicatorInsets={{ right: 1 }}>
                     <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "default"}/>
-                    <Form key={screen} json={form} extension={FormExtension} onSubmit={onFirstSubmit} />
+                    <Form key={screen} json={form[0]} extension={FormExtension} onSubmit={onFirstSubmit} />
                 </ScrollView>
             </View>
             
@@ -150,7 +147,7 @@ const FormScreenExtension = props => {
                         </View>
                     </Modal>
                     <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "default"}/>
-                    <Form key={screen} json={form} extension={FormExtension} onSubmit={onSubmit} />
+                    <Form key={screen} json={form[1]} extension={FormExtension} onSubmit={onSubmit} />
                 </ScrollView>
             </View>
             

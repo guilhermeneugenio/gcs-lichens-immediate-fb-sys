@@ -82,11 +82,13 @@ const MenuScreen = (props) => {
       <SafeAreaView style={globalStyles.androidSafeArea}>
       <StatusBar barStyle={Platform.OS == "ios" ? "dark-content" : "default"}/>
       <TouchableOpacity onPress={() => setInfoShow(true)}>
-        <Ionicons
-          name="ios-information-circle-outline"
-          size={24}
-          color={Colors.primary}
-        />
+        <View style={{alignItems:'flex-end'}}>
+          <Ionicons
+            name="ios-information-circle-outline"
+            size={windowHeight * 0.035}
+            color={Colors.primary}
+            />
+        </View>
         <Presentation
           language={props.language}
           infoShow={infoShow}

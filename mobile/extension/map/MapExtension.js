@@ -122,8 +122,8 @@ const MapExtension = props => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 //for center align
-                                width: 55,
-                                height: 55,
+                                width: "15%",
+                                height: "8%",
                                 borderRadius: 100/2,
                                 backgroundColor: 'white',
                                 shadowColor: 'black',

@@ -18,24 +18,20 @@ const TrunkSlider = props => {
   // Initially sets all options to false and sends an empty array as answer data
   useEffect(() => {
      
-    props.onChange(props.pageIndex, props.index, props.props.min);
-
+    props.onChange(props.pageIndex, props.index, '');
     
   }, []);
 
 
-  
- 
   const sliderHandler = enteredValue => {
-      setValue(Math.ceil(enteredValue/10)*10)
-      props.onChange(props.pageIndex, props.index, enteredValue);
-    }
-
-  
+    setValue(Math.ceil(enteredValue / 10) * 10)
+    props.onChange(props.pageIndex, props.index, Math.ceil(enteredValue / 10) * 10);
+    if (enteredValue === 0) props.onChange(props.pageIndex, props.index, '');
+  }
   
   return (
       <View style={styles.container}>
-        <Text style={styles.title}>{props.props.name}</Text>
+          <Text style={styles.title}>{props.props.name}</Text>
         <Image style={LichensImagePickerStylesheet.imagebig} source={{ uri: props.props.link}}/>
         <View style={{flexDirection:'row', alignItems:'center'}}>
             <Slider

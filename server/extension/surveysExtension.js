@@ -61,7 +61,11 @@ const submitForm = (req, res) => {
     .then(async result => {
         // If user not in cache
         if (typeof result === 'undefined') res.status(403).send();
-        else db.updateDocument('surveys',{}, JSON.parse(req.body.json))      
+        else {
+            const surveys = await db.getDocument('surveys', {});
+            if (surveys.length !== 0) db.deleteAllDocuments('surveys', {});
+            db.insertDocument('surveys', JSON.parse(req.body.json));     
+        }    
     });
     res.status(200).send();
 };

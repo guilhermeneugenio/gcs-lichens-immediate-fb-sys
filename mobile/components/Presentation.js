@@ -27,6 +27,10 @@ const Presentation = props => {
             <Text>{dictionary[props.language].NO_PRESENTATION}</Text>
         </View>
     );
+    const closeHandler = () => {
+        setInterval(0)
+        props.close()  
+    }
     if (typeof config.presentation !== 'undefined')
         content = (
             <View style={{flex:1}}>
@@ -62,7 +66,7 @@ const Presentation = props => {
                         <View style={styles.dotsContainer}>
                             {config.presentation.map((value, index) => {
                                 return (
-                                    <View key={index}>
+                                    <View style={{margin:windowWidth * 0.003 } } key={index}>
                                         <FontAwesome key={index} name={index == interval ? "circle" : "circle-o"} size={windowWidth * 0.03} color="grey" />
                                     </View>
                                 );
@@ -77,8 +81,8 @@ const Presentation = props => {
             <View style={styles.modalBackground}>
                 <View style={styles.modalContainer}>
                     <View style={styles.modalHeader}>
-                        <TouchableOpacity onPress={props.close}>
-                            <Ionicons name="ios-close" size={32} color={Colors.primary} />
+                        <TouchableOpacity onPress={closeHandler}>
+                            <Ionicons name="ios-close" size={windowWidth * 0.11} color={Colors.primary} />
                         </TouchableOpacity>
                     </View>
                     {content}
@@ -112,7 +116,6 @@ const styles = StyleSheet.create({
     },
     dotsContainer: {
         marginBottom: windowHeight*0.05,
-        width: windowWidth * 0.1,
         flexDirection: 'row',
         justifyContent: 'space-between',
     }

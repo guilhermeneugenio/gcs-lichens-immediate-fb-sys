@@ -1,16 +1,19 @@
 import React from "react";
 import { View, Text, Dimensions, StyleSheet, Image } from "react-native";
 
-const presentation3 = (props) => {
+const presentation5 = (props) => {
   return (
     <View style={styles.presentationContainer}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={require("../../assets/screen3.png")} />
+        <Image style={styles.image} source={require("../../assets/screen5.png")} />
       </View>
-      <Text style={{textAlign: 'center'}}>Fill the survey, first for tree characteristics, then for lichen cover.</Text>
+      <Text style={{textAlign: 'center'}}>The results will present a map with 3 important metrics: aridity, poleotolerance and eutrophication.</Text>
     </View>
+
   );
 };
+
+
 const styles = StyleSheet.create({
   presentationContainer: {
     width: Dimensions.get("window").width * 0.9,
@@ -27,4 +30,5 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   }
 })
-export default presentation3;
+
+export default presentation5;

@@ -11,33 +11,34 @@
             },
             {
                 "type": "imagepicker",
-                "name": "Tipo de Tronco",
+                "name": "Tree Bark Rugosity",
                 "required": true,
                 "numberPerLine": 3,
                 "imageSize": "big",
                 "singleChoice": true,
                 "choices": [
                     {
-                        "value": "rugoso",
-                        "imageLink": "http://192.168.0.102:3001/public/rugoso.jpg"
+                        "value": "Rugose",
+                        "imageLink": "http://146.193.41.162/lif/server/public/rugoso.jpg"
                     },
                     {
-                        "value": "intermedio",
-                        "imageLink": "http://192.168.0.102:3001/public/intermedio.jpg"
+                        "value": "Intermediate",
+                        "imageLink": "http://146.193.41.162/lif/server/public/intermedio.jpg"
                     },
                     {
-                        "value": "liso",
-                        "imageLink": "http://192.168.0.102:3001/public/liso.jpg"
+                        "value": "Smooth",
+                        "imageLink": "http://146.193.41.162/lif/server/public/liso.jpg"
                     }
                    
                 ]
             },
             {
                 "type": "TrunkSlider",
-                "name": "Diâmetro do Tronco",
+                "name": "Tree Trunk Diameter",
+                "required": true,
                 "min" : 0,
                 "max" : 200,
-                "link": "http://192.168.0.102:3001/public/trunk.jpg"
+                "link": "http://146.193.41.162/lif/server/public/trunk.jpg"
             }
         ]
         }
