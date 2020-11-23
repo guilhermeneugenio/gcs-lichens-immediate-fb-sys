@@ -7,8 +7,9 @@ const config = {
             appId: "534270243959641"
         }
     },
-    //serverURL: 'http://146.193.41.162/lif/server'
-    serverURL: 'http://192.168.1.253:3001'
+    serverURL: 'http://146.193.41.162/lif/server'
+    //serverURL: 'http://192.168.1.253:3001',
+    homepage: '/lif/client'
 }
 
 export default config;

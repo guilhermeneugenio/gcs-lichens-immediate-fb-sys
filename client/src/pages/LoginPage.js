@@ -1,3 +1,12 @@
+/* 
+ * LoginPage (Component)
+ * Description : Login to be presented to the user
+ * Props :
+ * - onLogin: function that changes the login flag 'isLogged' to true if the user is logged in
+ * - isLogged: boolean flag indicating if the user is logged in
+ */
+
+// Imports
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
@@ -5,17 +14,27 @@ import { Redirect } from 'react-router-dom';
 import OAuthButtons from'../extension/OAuthButtons';
 import config from'../extension/config';
 
+/************************************************
+ * 
+ * COMPONENT - Screen
+ * 
+ ************************************************/
 const LoginPage = props => {
 
+    /************************************************
+     * STATES
+     ************************************************/
     // States that store user input credentials
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    /************************************************
+     * FUNCTIONS
+    ************************************************/
     // Update credential states
     const changeEmail = (enteredEmail) => {
         setEmail(enteredEmail.target.value);
     };
-
     const changePassword = (enteredPassword) => {
         setPassword(enteredPassword.target.value);
     };
@@ -29,8 +48,6 @@ const LoginPage = props => {
             'email': email,
             'password': password
         };
-
-        console.log(params)
 
         // Checks if user exists and logs in system
         axios.post(`${config.serverURL}/api/users/login`, params)
@@ -54,6 +71,9 @@ const LoginPage = props => {
 
     };
 
+    /************************************************
+     * PRE-RENDER
+     ************************************************/
     // Default content w/ login form
     let content = (
         <React.Fragment>
@@ -84,9 +104,15 @@ const LoginPage = props => {
         </React.Fragment>
     );
 
-    // If user logged go to main page
-    if (props.isLogged) content = <Redirect to='/' />;
+    /************************************************
+     * REDIRECT - LANDINGPAGE
+     ************************************************/
+    // If user logged go to landing page
+    if (props.isLogged) content = <Redirect to={`${config.homepage}`} />;
 
+    /************************************************
+     * RENDER
+     ************************************************/
     return (
         <React.Fragment>
             <div className='formContainer'>

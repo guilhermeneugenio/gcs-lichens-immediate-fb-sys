@@ -1,22 +1,47 @@
+/* 
+ * LandingPage (Component)
+ * Description : Redirects the user according to its type on login
+ * Props :
+ * - isLogged: boolean flag indicating if the user is logged in 
+ * - userType: indicates the type of user that is logged in, reasearcher or administrator
+ */
+
+// Imports
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { Map, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 
+import config from '../extension/config';
+
+/************************************************
+ * 
+ * COMPONENT - Screen
+ * 
+ ************************************************/
 const LandingPage = props => {
 
-    const position = [51.505, -0.09]
-
-
+    /************************************************
+     * PRE-RENDER
+     ************************************************/
     // Default content
-    let content = (<div></div>);
+    let content = <React.Fragment></React.Fragment>;
+
+    /************************************************
+     * REDIRECT - ADMINPAGE
+     ************************************************/
     // If admin is logged
-    if (props.isLogged && props.userType === 'admin')
-        content = <Redirect to='/admin' />;
+    if (props.isLogged && props.userType === 'admin') content = <Redirect to={`${config.homepage}/admin`} />;
+
+    /************************************************
+     * REDIRECT - RESEARCHERPAGE
+     ************************************************/
     // If researcher is logged
-    if (props.isLogged && props.userType === 'researcher')
-    content = <Redirect to='/researcher' />;
-    
+    if (props.isLogged && props.userType === 'researcher') content = <Redirect to={`${config.homepage}/researcher`} />;
+
+    /************************************************
+     * RENDER
+     ************************************************/
     return (
         <React.Fragment>
             {content}
