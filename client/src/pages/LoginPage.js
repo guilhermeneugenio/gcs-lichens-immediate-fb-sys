@@ -30,6 +30,8 @@ const LoginPage = props => {
             'password': password
         };
 
+        console.log(params)
+
         // Checks if user exists and logs in system
         axios.post(`${config.serverURL}/api/users/login`, params)
         .then(res => {

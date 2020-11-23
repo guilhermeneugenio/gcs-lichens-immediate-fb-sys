@@ -9,10 +9,28 @@ import MainButton from '../components/MainButton';
 const ResearcherPageExtension = props => {
 
     
+    const [value, setValue] = useState('');
     // User list state
     const [dataList, setDataList] = useState([]);
     // Dummy state to force render
     const [dummyState, setDummyState] = useState(true);
+
+    // Get user list from server
+    //after first render, each refresh and admin operation
+    useEffect(() => {
+        // Admin email to send to server
+        const params = {researcherEmail: props.reseacherEmail};
+        // Get user list from server
+        axios.post(`${config.serverURL}/api/surveys/getData`, params)
+        .then(res => {
+            // If successful set user list
+            setDataList(res.data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }, [dummyState, props.reseacherEmail]);
+
 
     // Render user list when button clicked
     const renderDataList = () => {
@@ -48,21 +66,42 @@ const ResearcherPageExtension = props => {
         })
     };
 
-    // Get user list from server
-    //after first render, each refresh and admin operation
-    useEffect(() => {
-        // Admin email to send to server
-        const params = {researcherEmail: props.reseacherEmail};
-        // Get user list from server
-        axios.post(`${config.serverURL}/api/surveys/getData`, params)
+    const onChangeText = (enteredValue) => {
+        setValue(enteredValue.target.value);
+    };
+
+    const onChangeFile = event =>{
+        
+        var reader = new FileReader();
+
+        reader.onload = function(){
+            var data = reader.result;
+            setValue(data);
+        };
+        
+        if (typeof event.target.files[0] !== 'undefined')
+            reader.readAsText(event.target.files[0]);
+        else
+            setValue('');
+    };
+
+
+    const jsonHandler = (param, email)  => {   
+        const params = {
+            'json': param,
+            'email': email
+        };
+
+        axios.post(`${config.serverURL}/api/surveys/submit`, params)
         .then(res => {
             // If successful set user list
-            setDataList(res.data);
+            console.log(res.status);
         })
         .catch(error => {
             console.log(error);
         });
-    }, [dummyState, props.reseacherEmail]);
+        setValue('');
+    };
 
     // Default content with user list and refresh button
     let content = (
@@ -83,6 +122,9 @@ const ResearcherPageExtension = props => {
 
     return (
         <React.Fragment >
+            <textarea placeholder="Write your JSON Form here!"  rows='10' className='textarea' value={value} onChange={onChangeText} />
+            <input className="fileInput" type="file" name="form" accept=".json" onChange={onChangeFile} />
+            <MainButton title='Send JSON' onClick={jsonHandler.bind(this, value, props.userEmail)}></MainButton>
             {content}
         </React.Fragment>
     );

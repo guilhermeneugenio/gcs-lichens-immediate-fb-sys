@@ -13,7 +13,6 @@ import LoginPage from './pages/LoginPage';
 import LogoutPage from './pages/LogoutPage';
 import AdminPage from './pages/AdminPage';
 import ResearcherPage from './pages/ResearcherPage';
-import UploadJSON from './pages/UploadJSON';
 
 const App = props => {
 
@@ -66,7 +65,6 @@ const App = props => {
         <Route path='/logout' render={props => <LogoutPage {...props} onLogout={changeLoggedState} isLogged={logged} userEmail={userEmail} />} />
         <Route path='/admin' render={props => <AdminPage {...props} onLogout={changeLoggedState} isLogged={logged} userType={userType} adminEmail={userEmail} />} />
         <Route path='/researcher' render={props => <ResearcherPage {...props} onLogout={changeLoggedState} isLogged={logged} userEmail={userEmail} />} />
-        <Route path='/uploadjson' render={props => <UploadJSON {...props} onLogin={changeLoggedState} isLogged={logged} userEmail={userEmail} />} />
       </div>
     </Router>
   );
