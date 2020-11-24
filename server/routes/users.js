@@ -75,11 +75,11 @@ router.post('/login', async (req, res) => {
     email: req.body.email,
     password: encryptAES(req.body.password)
   };
-
+  
   // Get login admin credentials
   for (admin of config.admin) {
     if (admin.email === user.email && admin.password === user.password) {
-      // Add admin to cache
+	 // Add admin to cache
       cache.set(String(user.email), config.userTimeout);
       return res.status(200).send({ type: 'admin' });
     }

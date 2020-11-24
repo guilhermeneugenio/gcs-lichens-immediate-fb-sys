@@ -2,7 +2,7 @@
 const admin = [
     {
         email: 'admin',
-        password: 'admin'
+        password: '616d2a76ce744eb777e15569cdc93528'
     }
 ];
 
