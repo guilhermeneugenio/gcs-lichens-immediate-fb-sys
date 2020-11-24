@@ -15,6 +15,9 @@ const ResearcherPageExtension = props => {
     // Dummy state to force render
     const [dummyState, setDummyState] = useState(true);
 
+    const [JSONshow, setJSONshow] = useState(false);
+    
+
     // Get user list from server
     //after first render, each refresh and admin operation
     useEffect(() => {
@@ -119,12 +122,18 @@ const ResearcherPageExtension = props => {
                 <MainButton title='Update' onClick={renderDataList} />
             </React.Fragment>
         );
+    let JSONUploader = (<React.Fragment ><MainButton title='Upload JSON' onClick={() => { setJSONshow(true) }}></MainButton></React.Fragment>)
 
-    return (
-        <React.Fragment >
-            <textarea placeholder="Write your JSON Form here!"  rows='10' className='textarea' value={value} onChange={onChangeText} />
+    if (JSONshow)
+    JSONUploader = (<React.Fragment >
+            <textarea placeholder="Write your JSON Form here!" rows='10' className='textarea' value={value} onChange={onChangeText} />
             <input className="fileInput" type="file" name="form" accept=".json" onChange={onChangeFile} />
             <MainButton title='Send JSON' onClick={jsonHandler.bind(this, value, props.userEmail)}></MainButton>
+        </React.Fragment>)
+    
+    return (
+        <React.Fragment >
+           {JSONUploader}
             {content}
         </React.Fragment>
     );

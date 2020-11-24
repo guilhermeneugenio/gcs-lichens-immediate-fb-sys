@@ -2,13 +2,19 @@ import React from 'react';
 import { IoIosRemoveCircle } from "react-icons/io";
 
 const DataItem = props => {
-    console.log(props)
+    console.log(props.data)
     return (
         <div style={styles.itemContainer}>
             <div style={styles.dataContainer}>
                 <p>User: {props.user}</p>
                 <p>Timestamp: {props.time}</p>
-                {props.data[0].value.map((value) => {
+                <p>Localização: {props.data[0].value.street}</p>
+                <p>Cidade: {props.data[0].value.city}</p>
+                <p>Data:</p>
+                <p>Tree Bark Rugosity: {props.data[1].value[0]}</p>
+                <p>Tree Trunk Diameter:{props.data[2].value}</p>
+                <p>Lichens:</p>
+                {props.data[3].value.map((value) => {
                     return (
                         <p>{value[0]} - {value[1]}%</p>
                     );
