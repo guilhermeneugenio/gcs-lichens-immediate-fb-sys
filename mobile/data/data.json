@@ -1,18 +1,107 @@
-{
+[
+    {
     "pages": [
         {
-            "name": "page1",
-            "elements": [
-                {
-                    "type": "camera",
-                    "name": "Camera Title"
-                }
-                {
-                    "type": "ext:sensor",
-                    "subtype": "geolocation",
-                    "name": "Geolocation Sensor"
-                }
-            ]
+        "name": "page1",
+        "elements": [
+            {
+                "type": "ext:sensor",
+                "subtype": "geolocation",
+                "name": "Geolocation Sensor",
+                "required": true	
+            },
+            {
+                "type": "imagepicker",
+                "name": "Tree Bark Rugosity",
+                "required": true,
+                "numberPerLine": 3,
+                "imageSize": "big",
+                "singleChoice": true,
+                "choices": [
+                    {
+                        "value": "Rugose",
+                        "imageLink": "http://146.193.41.162/lif/server/public/rugoso.jpg"
+                    },
+                    {
+                        "value": "Intermediate",
+                        "imageLink": "http://146.193.41.162/lif/server/public/intermedio.jpg"
+                    },
+                    {
+                        "value": "Smooth",
+                        "imageLink": "http://146.193.41.162/lif/server/public/liso.jpg"
+                    }
+                    
+                ]
+            },
+            {
+                "type": "TrunkSlider",
+                "name": "Tree Trunk Diameter",
+                "required": true,
+                "min" : 0,
+                "max" : 200,
+                "link": "http://146.193.41.162/lif/server/public/trunk.jpg"
+            }
+        ]
         }
     ]
-}
+    },
+    {
+    "pages": [
+        {
+        "name": "page2",
+        "elements": [
+            {
+                "type": "LichensImagePicker",
+                "name": "Lichens",
+                "required": true,
+                "choices": [
+                    {
+                        "value": "Flavoparmelia Caperata",
+                        "imageLink": "http://146.193.41.162/lif/server/public/Flavoparmelia_caperata_out_2009_arrabida_secil.JPG"
+                    },
+                    {
+                        "value": "Ramalina Fastigiata",
+                        "imageLink": "http://146.193.41.162/lif/server/public/Ramalina_fastigiata_out_2009_arrabida_secil.JPG"
+                    },
+                    {
+                        "value": "Xanthoria Parietina",
+                        "imageLink": "http://146.193.41.162/lif/server/public/Xanthoria_parietina_out_2009_arrabida_secil.JPG"
+                    },
+                    {
+                        "value": "Chrysothrix Candelaris",
+                        "imageLink": "http://146.193.41.162/lif/server/public/Chrysothrix_candelaris_jan2013_ParquePaz.JPG"
+                    },
+                    {
+                        "value": "Diploicia Canescens",
+                        "imageLink": "http://146.193.41.162/lif/server/public/Diploicia_canescens_ParquePaz_jun2020.jpg"
+                    },
+                    {
+                        "value": "Evernia Prunastri",
+                        "imageLink": "http://146.193.41.162/lif/server/public/Evernia_prunastri_nov2004_Alcochete.JPG"
+                    },
+                    {
+                        "value": "Lecanora Allophana",
+                        "imageLink": "http://146.193.41.162/lif/server/public/Lecanora_allophana_ParquePaz_jun2020.jpg"
+                    },
+                    {
+                        "value": "Parmotrema Hypoleucinum",
+                        "imageLink": "http://146.193.41.162/lif/server/public/Parmotrema_hypoleucinum_nov2004_Alcochete.JPG"
+                    },
+                    {
+                        "value": "Physcia Adscendens",
+                        "imageLink": "http://146.193.41.162/lif/server/public/Physcia_adscendens_jun_2009_malhada_meias.JPG"
+                    },
+                    {
+                        "value": "Usnea Rubicunda",
+                        "imageLink": "http://146.193.41.162/lif/server/public/Usnea_rubicunda_nov2004_Alcochete.JPG"
+                    }
+                ]   
+            }
+        ]
+        }
+    ]
+    }
+]
+
+
+

@@ -53,12 +53,12 @@ const RegisterScreen = props => {
 
     // Handles input from the e-mail field
     const emailInputHandler = (enteredEmail) => {
-        setEmail(enteredEmail);
+        setEmail(enteredEmail.trim());
     };
 
     // Handles input from the password field
     const passwordInputHandler = (enteredPassword) => {
-        setPassword(enteredPassword);
+        setPassword(enteredPassword.trim());
     };
     
     // Registers user with the server

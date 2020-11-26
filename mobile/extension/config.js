@@ -12,7 +12,7 @@ const config = {
             iosClientId : "529356542774-qfahu5dns82aiv8irqo6qqfp0t044u21.apps.googleusercontent.com"
         }, 
         facebook: {
-            appId: "3678052918959065"
+            appId: "666224524035848"
         }
     },
     serverURL: 'http://146.193.41.162/lif/server',
