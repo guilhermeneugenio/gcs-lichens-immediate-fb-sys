@@ -120,15 +120,15 @@ const ResearcherPageExtension = props => {
                   dataList.map((input) => {
                     let survey = {
                       type: "Feature",
+                      id: input._id,
                       geometry: {
                         type: "Point",
                         coordinates: [
-                          input.data[0].value.latitude,
                           input.data[0].value.longitude,
+                          input.data[0].value.latitude,
                         ],
                       },
                       properties: {
-                        _id: input._id,
                         user: input.user,
                         timestamp: input.timestamp,
                         tree_bark_rugosity: input.data[1].value[0],
