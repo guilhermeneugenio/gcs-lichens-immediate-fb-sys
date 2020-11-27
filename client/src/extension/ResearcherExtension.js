@@ -108,37 +108,48 @@ const ResearcherPageExtension = props => {
 
     // Default content with user list and refresh button
     let content = (
-        <React.Fragment>
-            <Download
-                label="GeoJSON Download"
-                filename="eFlechten.json"
-                exportFile={() => JSON.stringify(dataList.map(input => {
+      <React.Fragment>
+        <Download
+          label="GeoJSON Download"
+          filename="eFlechten.json"
+          exportFile={() =>
+            JSON.stringify(
+              {
+                type: "FeatureCollection",
+                features: 
+                  dataList.map((input) => {
                     let survey = {
-                        "type": "Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [input.data[0].value.latitude, input.data[0].value.longitude]
-                        },
-                        "properties": {
-                            "_id": input._id,
-                            "user": input.user,
-                            "timestamp": input.timestamp,
-                            "tree_bark_rugosity": input.data[1].value[0],
-                            "tree_bark_diameter": input.data[2].value                       
-                        }
-                    }
+                      type: "Feature",
+                      geometry: {
+                        type: "Point",
+                        coordinates: [
+                          input.data[0].value.latitude,
+                          input.data[0].value.longitude,
+                        ],
+                      },
+                      properties: {
+                        _id: input._id,
+                        user: input.user,
+                        timestamp: input.timestamp,
+                        tree_bark_rugosity: input.data[1].value[0],
+                        tree_bark_diameter: input.data[2].value,
+                      },
+                    };
                     input.data[3].value.map((value) => {
-                        survey.properties[value[0]] = value[1];
-                        return 1
+                      survey.properties[value[0]] = value[1];
+                      return 1;
                     });
-                    return(
-                        {survey}
-                    )
-                }), null, 2)}
-            />
-            <DataList dataList={dataList} removeData={removeData}/>
-            <MainButton title='Update' onClick={renderDataList} />
-        </React.Fragment>
+                    return survey;
+                  }),
+              },
+              null,
+              2
+            )
+          }
+        />
+        <DataList dataList={dataList} removeData={removeData} />
+        <MainButton title="Update" onClick={renderDataList} />
+      </React.Fragment>
     );
 
     // Fallout text for empty user list
