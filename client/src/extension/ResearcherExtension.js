@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
+import Download from '../components/Download'
 import axios from 'axios';
-
 import DataList from '../components/DataList';
 import config from '../extension/config';
 import MainButton from '../components/MainButton';
@@ -109,6 +109,33 @@ const ResearcherPageExtension = props => {
     // Default content with user list and refresh button
     let content = (
         <React.Fragment>
+            <Download
+                label="GeoJSON Download"
+                filename="eFlechten.json"
+                exportFile={() => JSON.stringify(dataList.map(input => {
+                    let survey = {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [input.data[0].value.latitude, input.data[0].value.longitude]
+                        },
+                        "properties": {
+                            "_id": input._id,
+                            "user": input.user,
+                            "timestamp": input.timestamp,
+                            "tree_bark_rugosity": input.data[1].value[0],
+                            "tree_bark_diameter": input.data[2].value                       
+                        }
+                    }
+                    input.data[3].value.map((value) => {
+                        survey.properties[value[0]] = value[1];
+                        return 1
+                    });
+                    return(
+                        {survey}
+                    )
+                }), null, 2)}
+            />
             <DataList dataList={dataList} removeData={removeData}/>
             <MainButton title='Update' onClick={renderDataList} />
         </React.Fragment>
@@ -122,7 +149,7 @@ const ResearcherPageExtension = props => {
                 <MainButton title='Update' onClick={renderDataList} />
             </React.Fragment>
         );
-    let JSONUploader = (<React.Fragment ><MainButton title='Upload JSON' onClick={() => { setJSONshow(true) }}></MainButton></React.Fragment>)
+    let JSONUploader = (<React.Fragment ><MainButton title='Upload JSON Survey' onClick={() => { setJSONshow(true) }}></MainButton></React.Fragment>)
 
     if (JSONshow)
     JSONUploader = (<React.Fragment >

@@ -41,7 +41,7 @@
       ************************************************/
      return (
          <header style={styles.header}>
-             <h1>Crowdsourcing</h1>
+             <h1>eFlechten</h1>
              <Link to={`${config.homepage}`} style={styles.link}>Home</Link> | {content}
          </header>
      );

@@ -12,6 +12,7 @@
     "leaflet": "^1.7.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-download-link": "^2.3.0",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.1.1",
     "react-icons": "^3.9.0",

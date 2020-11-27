@@ -2,7 +2,6 @@ import React from 'react';
 import { IoIosRemoveCircle } from "react-icons/io";
 
 const DataItem = props => {
-    console.log(props.data)
     return (
         <div style={styles.itemContainer}>
             <div style={styles.dataContainer}>
