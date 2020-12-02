@@ -25,7 +25,7 @@ const config = {
     },
   },
   //serverURL: "http://146.193.41.162/lif/server",
-  serverURL: "http://192.168.1.69:3001",
+  serverURL: "http://192.168.1.107:3001",
   //Idioms of the app
   languages: ["pt", "en"],
   //Ranking increase number per Survey

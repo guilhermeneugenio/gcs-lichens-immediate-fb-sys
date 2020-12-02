@@ -85,10 +85,11 @@ const FormScreenExtension = props => {
             answer: answerResponse,
           }),
         });
-        //console.log(await resFB.json())
+        console.log(await resFB.json())
         setDummy(!dummy);
+        
 
-        if (res.status == 200) {
+        if (resFB.status == 200) {
             setModalVisible(!modalVisible)
         }
         if (res.status === 403 || res.status === 403) {

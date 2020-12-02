@@ -1,5 +1,4 @@
 var db = require('../../modules/db');
-var ObjectId = require('mongodb').ObjectID;
 
 //calculos e array
 function lichenIndex(lichen){
@@ -67,7 +66,7 @@ function metricHandler (table, lichens) {
   }
 
 const fetchDiff1 = async (id) =>{
-    const diff1 = await db.getDocument('diffFeedback1', {_id: ObjectId(id)});
+    const diff1 = await db.getDocument('diffFeedback1', {_id: id});
     if (diff1.length === 0) {
         return fetchDiff1(id);
     }
@@ -76,15 +75,14 @@ const fetchDiff1 = async (id) =>{
     }
 };
 const diffFeedback2 = async (req, res) => {
-    let newInput = req.body.answer;
-    
+   let newInput = req.body.answer;
     let metrics = []
     let indexes = []    
-    
+    const diff = await db.getDocument('diffFeedback1', {_id: newInput._id});
     const inRange = await fetchDiff1(newInput._id);
 
     const metricsTable = await db.getDocument('process');
-   
+    
     inRange[0].rangeInputs.map(async zone => {
         metrics = metricHandler (metricsTable, zone.lichens)
         indexes = indexHandler(metrics)
@@ -92,7 +90,7 @@ const diffFeedback2 = async (req, res) => {
     });
 
     
-    await db.deleteDocument('diffFeedback1', {_id: ObjectId(newInput._id)}); 
+    await db.deleteDocument('diffFeedback1', {_id: newInput._id}); 
     
 };
 
