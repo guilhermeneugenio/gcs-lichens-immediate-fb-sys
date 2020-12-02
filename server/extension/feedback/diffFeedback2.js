@@ -75,7 +75,8 @@ const fetchDiff1 = async (id) =>{
         return diff1;
     }
 };
-const diffFeedback2 = async (newInput) => {
+const diffFeedback2 = async (req, res) => {
+    let newInput = req.body.answer;
     
     let metrics = []
     let indexes = []    

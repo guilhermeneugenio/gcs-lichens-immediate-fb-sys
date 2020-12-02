@@ -13,23 +13,33 @@ var db = require('../modules/db');
 var cache = require('../modules/cache');
 var feedback = require('../modules/feedback');
 
-const getSurvey = (req, res) => {
-    // Check cache
-    cache.get(req.body.email)
-    .then(async result => {
-        // If user not in cache
-        if (typeof result === 'undefined') res.status(403).send();     
-        else {
-            const json = await db.getDocument('surveys')
-            if(json){
-                res.status(200).send(json);
-            } 
-            else{
-                res.status(404).send();
-            }
-           
-        } 
-    });
+// Get a survey
+// Called by the '/api/surveys/' endpoint
+const dynamicSurvey = async (req, res) => {
+    const result = await cache.get(req.body.email);
+    // If user not in cache
+    if (typeof result === 'undefined') res.status(404).send();
+    else {
+         return null;
+    }
+};
+
+// Get a survey
+// Called by the '/api/surveys/' endpoint
+const staticSurvey = async (req, res, dynamicRes) => {
+  // Check cache
+  cache.get(req.body.email).then(async (result) => {
+    // If user not in cache
+    if (typeof result === "undefined") res.status(403).send();
+    else {
+      const json = await db.getDocument("surveys");
+      if (json) {
+        res.status(200).send(json);
+      } else {
+        res.status(404).send();
+      }
+    }
+  });
 };
 
 
@@ -70,26 +80,21 @@ const submitForm = (req, res) => {
     res.status(200).send();
 };
 
-const processData = (req, res) => {
-    cache.get(req.body.email)
-    .then(async result => {
-        // If user not in cache
-        if (typeof result === 'undefined') res.status(403).send();
-        else {
-            var flag = false;
-            const newSurvey = {
-                user: req.body.email,
-                timestamp: new Date(),
-                data: req.body.answer
-            };
-           await db.insertDocument('answers', newSurvey).then(result => {feedback.differenciated(result, flag)})
-        }
-    });
-
-    // Immediate Feedback
-    feedback.immediate();
-    
-    res.status(200).send({immediateFeedback: 'Thank You!'});
+const processAnswer = (req, res) => {
+  cache.get(req.body.email).then(async (result) => {
+    // If user not in cache
+    if (typeof result === "undefined") res.status(403).send();
+    else {
+      const newSurvey = {
+        user: req.body.email,
+        timestamp: new Date(),
+        data: req.body.answer,
+        };
+        var result = null;
+        result = await db.insertDocument("answers", newSurvey)
+        res.status(200).send(result);
+    }
+  });
 };
 
 const processImage = (req, res) => {
@@ -118,10 +123,11 @@ const returnFeedback = (req, res) => {
         res.status(200).send();
 };
 
-exports.getSurvey = getSurvey;
+exports.dynamicSurvey = dynamicSurvey;
+exports.staticSurvey = staticSurvey;
 exports.getData = getData;
 exports.removeData= removeData;
 exports.submitForm = submitForm;
-exports.processData = processData;
+exports.processAnswer = processAnswer;
 exports.processImage = processImage;
 exports.returnFeedback = returnFeedback;

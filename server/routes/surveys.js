@@ -20,7 +20,8 @@ var upload = multer({ limits: { fieldSize: 25 * 1024 * 1024 } })
 
 // Get a survey
 router.post('/', async (req, res) => {
-    surveyExtension.getSurvey(req, res);
+    var dynamicRes = await surveyExtension.dynamicSurvey(req, res);
+    surveyExtension.staticSurvey(req, res, dynamicRes);
 });
 
 // Submit a new survey to the server
@@ -30,7 +31,7 @@ router.post('/submit', async (req, res) => {
 
 // Submit survey answer
 router.post('/answer', async (req, res) => {
-    surveyExtension.processData(req, res);
+    surveyExtension.processAnswer(req, res);
 });
 
 // Submit image as (part of) survey answer
@@ -40,7 +41,7 @@ router.post('/answerImage', upload.single(), async (req, res) => {
 
 // Get feedback of an answer
 router.post('/feedback', async (req, res) => {
-    feedback.differenciated(req, re);
+    feedback.differenciated(req, res);
     feedback.immediate(req, res);
 });
 

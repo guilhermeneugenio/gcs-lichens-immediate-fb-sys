@@ -12,7 +12,9 @@
     "version": "1.0.6",
     "orientation": "portrait",
     "icon": "./assets/ioslogo.png",
-    "facebookScheme": "fb534270243959641",
+    "facebookScheme": "fb666224524035848",
+    "facebookAppId":"666224524035848",
+    "facebookDisplayName":"eFlechten",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

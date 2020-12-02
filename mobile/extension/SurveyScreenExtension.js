@@ -63,7 +63,6 @@ const FormScreenExtension = props => {
     const onSubmit = async (data) => {
         var finalData = surveydata;
         finalData.push(data[0])
-        console.log(finalData)
         const res = await fetch(`${config.serverURL}/api/surveys/answer`,{
             method: 'POST',
             headers: {
@@ -75,8 +74,18 @@ const FormScreenExtension = props => {
             })
         });
 
-        const feedback = await res.json();
-
+        const answerResponse = await res.json();
+        const resFB = await fetch(`${config.serverURL}/api/surveys/feedback`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: props.navigation.state.params.email,
+            answer: answerResponse,
+          }),
+        });
+        //console.log(await resFB.json())
         setDummy(!dummy);
 
         if (res.status == 200) {

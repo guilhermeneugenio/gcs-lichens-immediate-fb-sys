@@ -22,8 +22,6 @@ const LichensImagePicker = props => {
   const [lichenID, setLichenID] = useState(0);
   const [value, setValue] = useState(0);
 
-  a =4 
-  console.log(a)
   // Initially sets all options to false and sends an empty array as answer data
   useEffect(() => {
     for (var i = 0; i < props.props.choices.length; i++)
