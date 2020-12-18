@@ -17,25 +17,29 @@ function getDistanceFromLatLonInMobject(lat1, lon1, lat2, lon2) {
   var d = R * c * 1000; // Distance in km
   return d;
 }
-//este servia para sacar tudo de lá e aglomerar tudo o que fosse perto numa so cena
+
 const diffFeedback1 = async (req, res) => {
   let newInput = req.body.answer;
-  console.log()
   
   let distance = 0;
   let DiffFeedback1 = [{_id: newInput._id, latitude: newInput.data[0].value.latitude, longitude: newInput.data[0].value.longitude, lichens: [] }];
   let inRange = [];
   const answers = await db.getDocument('answers');
 
-    answers.map( object => {
+    //Answers Mapping
+  answers.map(object => {
+      //Discover distance between the survey recently added and all the other  answers
       distance = getDistanceFromLatLonInMobject(newInput.data[0].value.latitude, newInput.data[0].value.longitude, object.data[0].value.latitude, object.data[0].value.longitude)
-      if(distance <= config.distance){
+    //If the distance is lesser than the defined  
+    if (distance <= config.distance) {
+        //
         object.data[3].value.map(lichen =>{  DiffFeedback1[0].lichens.push( lichen )});
         inRange.push({_id: object._id, latitude: object.data[0].value.latitude, longitude: object.data[0].value.longitude})
       } 
       
     })
   
+  // Perform to the others too
     inRange.map( (rangeInput, index) => {
       if(rangeInput._id.toString() != newInput._id.toString()){
         DiffFeedback1.push({_id: rangeInput._id, latitude: rangeInput.latitude, longitude: rangeInput.longitude, lichens: [] })

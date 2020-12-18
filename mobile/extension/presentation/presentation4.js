@@ -7,7 +7,7 @@ const presentation4 = (props) => {
         <View style={styles.imageContainer}>
             <Image style={styles.image} source={require("../../assets/screen4.png")} />
         </View>
-        <Text style={{textAlign: 'center'}}>For the species you can identify estimate the percentages cover of each lichen species.</Text>
+        <Text style={{textAlign: 'center'}}>For the species you can identify estimate the cover percentages of each lichen species.</Text>
     </View>
   );
 };

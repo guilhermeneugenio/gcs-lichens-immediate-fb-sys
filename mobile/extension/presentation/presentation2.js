@@ -7,7 +7,7 @@ const presentation2 = (props) => {
     <View style={styles.imageContainer}>
       <Image style={styles.image} source={require("../../assets/screen2.png")} />
     </View>
-    <Text style={{textAlign: 'center'}}>You analysis area is an area in the trunk facing north, with an area of an A4 paper size, at about 1.5m from the ground.</Text>
+    <Text style={{textAlign: 'center'}}>Your analysis area is an area in the trunk facing north, with an area of an A4 paper size, at about 1.5m from the ground.</Text>
   </View>
   );
 };
