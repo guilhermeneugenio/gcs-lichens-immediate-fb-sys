@@ -85,7 +85,8 @@ const FormScreenExtension = props => {
             answer: answerResponse,
           }),
         });
-        console.log(await resFB.json())
+
+        console.log(await resFB.json());
         setDummy(!dummy);
         
 

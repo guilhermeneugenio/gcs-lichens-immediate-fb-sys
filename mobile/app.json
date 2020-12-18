@@ -3,7 +3,6 @@
     "name": "eFlechten",
     "slug": "LIF",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",
@@ -13,8 +12,8 @@
     "orientation": "portrait",
     "icon": "./assets/ioslogo.png",
     "facebookScheme": "fb666224524035848",
-    "facebookAppId":"666224524035848",
-    "facebookDisplayName":"eFlechten",
+    "facebookAppId": "666224524035848",
+    "facebookDisplayName": "eFlechten",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
